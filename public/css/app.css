@@ -1,0 +1,245 @@
+/* merriweather-300 - latin-ext_latin */
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 300;
+  src: url(/fonts/merriweather-v19-latin-ext_latin-300.eot?b36eb2141d789acb4adc3604fd57c9fe);
+  /* IE9 Compat Modes */
+  src: local("Merriweather Light"), local("Merriweather-Light"), url(/fonts/merriweather-v19-latin-ext_latin-300.eot?b36eb2141d789acb4adc3604fd57c9fe) format("embedded-opentype"), url(/fonts/merriweather-v19-latin-ext_latin-300.woff2?86b729c023225f6c8db0483eb82f90ed) format("woff2"), url(/fonts/merriweather-v19-latin-ext_latin-300.woff?4fb777e396c4199653d9af308d95e59a) format("woff"), url(/fonts/merriweather-v19-latin-ext_latin-300.ttf?1fda8508a47184de6213e50b40c05a8b) format("truetype"), url(/fonts/merriweather-v19-latin-ext_latin-300.svg?2fd4ab7d19f79e1cf674b61cf6a1e14d) format("svg");
+  /* Legacy iOS */
+}
+
+/* merriweather-300italic - latin-ext_latin */
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: italic;
+  font-weight: 300;
+  src: url(/fonts/merriweather-v19-latin-ext_latin-300italic.eot?6162e4433fa7c7c6910092e6f9a206a9);
+  /* IE9 Compat Modes */
+  src: local("Merriweather Light Italic"), local("Merriweather-LightItalic"), url(/fonts/merriweather-v19-latin-ext_latin-300italic.eot?6162e4433fa7c7c6910092e6f9a206a9) format("embedded-opentype"), url(/fonts/merriweather-v19-latin-ext_latin-300italic.woff2?df32c418eef30b797b942d846f861547) format("woff2"), url(/fonts/merriweather-v19-latin-ext_latin-300italic.woff?81caa67bbb787abfc354f17782e96447) format("woff"), url(/fonts/merriweather-v19-latin-ext_latin-300italic.ttf?f2396f1948fb1584f46e806461e4e2ca) format("truetype"), url(/fonts/merriweather-v19-latin-ext_latin-300italic.svg?c477a4943faf65e2df16d8e46b437f5c) format("svg");
+  /* Legacy iOS */
+}
+
+/* merriweather-regular - latin-ext_latin */
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/merriweather-v19-latin-ext_latin-regular.eot?097bf665698923f923d02c090f68b305);
+  /* IE9 Compat Modes */
+  src: local("Merriweather Regular"), local("Merriweather-Regular"), url(/fonts/merriweather-v19-latin-ext_latin-regular.eot?097bf665698923f923d02c090f68b305) format("embedded-opentype"), url(/fonts/merriweather-v19-latin-ext_latin-regular.woff2?58fea50718950b4879e8c054ec09fd93) format("woff2"), url(/fonts/merriweather-v19-latin-ext_latin-regular.woff?2b82823cee7109221b3414dd5fa8c058) format("woff"), url(/fonts/merriweather-v19-latin-ext_latin-regular.ttf?18f8e7a465d2e25b2ffddd4910a87416) format("truetype"), url(/fonts/merriweather-v19-latin-ext_latin-regular.svg?94669602ffe5f3591b48aa8fb14ac180) format("svg");
+  /* Legacy iOS */
+}
+
+/* merriweather-italic - latin-ext_latin */
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: italic;
+  font-weight: 400;
+  src: url(/fonts/merriweather-v19-latin-ext_latin-italic.eot?c888a8a66a4b6e68e211da8e834be3c9);
+  /* IE9 Compat Modes */
+  src: local("Merriweather Italic"), local("Merriweather-Italic"), url(/fonts/merriweather-v19-latin-ext_latin-italic.eot?c888a8a66a4b6e68e211da8e834be3c9) format("embedded-opentype"), url(/fonts/merriweather-v19-latin-ext_latin-italic.woff2?f84237dbc0dc6c79cb87086f06db132c) format("woff2"), url(/fonts/merriweather-v19-latin-ext_latin-italic.woff?5fc40306a72c28a38285dd1eaab565f8) format("woff"), url(/fonts/merriweather-v19-latin-ext_latin-italic.ttf?ad2ecd32cfc90087e8e1295fb8ca89a8) format("truetype"), url(/fonts/merriweather-v19-latin-ext_latin-italic.svg?00bd6529dced674aa38c5c3d643084e9) format("svg");
+  /* Legacy iOS */
+}
+
+/* merriweather-700 - latin-ext_latin */
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 700;
+  src: url(/fonts/merriweather-v19-latin-ext_latin-700.eot?f44adaf9f42893c92e3e9630f697ca0b);
+  /* IE9 Compat Modes */
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url(/fonts/merriweather-v19-latin-ext_latin-700.eot?f44adaf9f42893c92e3e9630f697ca0b) format("embedded-opentype"), url(/fonts/merriweather-v19-latin-ext_latin-700.woff2?8d62929afcca3e8a8b90e6e280ecb7e0) format("woff2"), url(/fonts/merriweather-v19-latin-ext_latin-700.woff?0d66b1d78752c4996699bc51b00a8585) format("woff"), url(/fonts/merriweather-v19-latin-ext_latin-700.ttf?b6cc2fa6fe640a1b925216d09f34a0be) format("truetype"), url(/fonts/merriweather-v19-latin-ext_latin-700.svg?56a90d4915cf0d39ababd6fab16295ce) format("svg");
+  /* Legacy iOS */
+}
+
+/* merriweather-700italic - latin-ext_latin */
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: italic;
+  font-weight: 700;
+  src: url(/fonts/merriweather-v19-latin-ext_latin-700italic.eot?2501b79b06a766cb475e5521a5ea3e1b);
+  /* IE9 Compat Modes */
+  src: local("Merriweather Bold Italic"), local("Merriweather-BoldItalic"), url(/fonts/merriweather-v19-latin-ext_latin-700italic.eot?2501b79b06a766cb475e5521a5ea3e1b) format("embedded-opentype"), url(/fonts/merriweather-v19-latin-ext_latin-700italic.woff2?89179a1c446815565bc6e67ce3e9e049) format("woff2"), url(/fonts/merriweather-v19-latin-ext_latin-700italic.woff?cd6d89267dafecef8d7a952c69d334d3) format("woff"), url(/fonts/merriweather-v19-latin-ext_latin-700italic.ttf?6e0535bc7903ddc6a216a51e25cb0ba4) format("truetype"), url(/fonts/merriweather-v19-latin-ext_latin-700italic.svg?d732c91d3fb395ad0f24c9fbab0e4702) format("svg");
+  /* Legacy iOS */
+}
+
+/* merriweather-900 - latin-ext_latin */
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 900;
+  src: url(/fonts/merriweather-v19-latin-ext_latin-900.eot?249a238cb510871028cef9aa2e272eb4);
+  /* IE9 Compat Modes */
+  src: local("Merriweather Black"), local("Merriweather-Black"), url(/fonts/merriweather-v19-latin-ext_latin-900.eot?249a238cb510871028cef9aa2e272eb4) format("embedded-opentype"), url(/fonts/merriweather-v19-latin-ext_latin-900.woff2?ab6fa6295d96493f3da099615f7ca06b) format("woff2"), url(/fonts/merriweather-v19-latin-ext_latin-900.woff?4e803431fdf07c01ccee8b9fc324b34e) format("woff"), url(/fonts/merriweather-v19-latin-ext_latin-900.ttf?e3bccaf045f4b0abe0b31e2a1bf79622) format("truetype"), url(/fonts/merriweather-v19-latin-ext_latin-900.svg?f4ffb743cedd3314e2d027ec2b6fcc45) format("svg");
+  /* Legacy iOS */
+}
+
+/* merriweather-900italic - latin-ext_latin */
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: italic;
+  font-weight: 900;
+  src: url(/fonts/merriweather-v19-latin-ext_latin-900italic.eot?d852d881aa55bcecc3e39a7e79344471);
+  /* IE9 Compat Modes */
+  src: local("Merriweather Black Italic"), local("Merriweather-BlackItalic"), url(/fonts/merriweather-v19-latin-ext_latin-900italic.eot?d852d881aa55bcecc3e39a7e79344471) format("embedded-opentype"), url(/fonts/merriweather-v19-latin-ext_latin-900italic.woff2?da083e1e19d77f13e6efa948a98b5571) format("woff2"), url(/fonts/merriweather-v19-latin-ext_latin-900italic.woff?e2350c991ed47d205318a20c9f5cca7d) format("woff"), url(/fonts/merriweather-v19-latin-ext_latin-900italic.ttf?c89b6827910ef2aed25e4b8ef5717e45) format("truetype"), url(/fonts/merriweather-v19-latin-ext_latin-900italic.svg?6b14a10748e95e90d9151dd5bd8fe4fb) format("svg");
+  /* Legacy iOS */
+}
+
+.bg-accent {
+  background-color: #00c3ff;
+}
+
+.bg-gray {
+  background-color: #646d77;
+}
+
+.bg-dark {
+  background-color: #1b1b1b;
+}
+
+.btn-accent {
+  color: #fff;
+  background-color: #00c3ff;
+}
+
+.text-accent {
+  color: #00c3ff;
+}
+
+.btn {
+  text-transform: none;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.btn.btn-md {
+  font-size: 0.9rem;
+}
+
+.btn.btn-md i {
+  font-size: 1rem;
+  margin-left: 5px;
+  position: relative;
+  top: 3px;
+}
+
+.btn.btn-sm {
+  font-size: 0.9rem;
+}
+
+.btn.btn-sm i {
+  font-size: 1rem;
+  margin-left: 5px;
+  position: relative;
+  top: 0px;
+}
+
+body {
+  background-color: #fff;
+  font-family: "Merriweather", sans-serif;
+}
+
+.title {
+  font-weight: 700;
+  margin: 40px 0;
+  color: #00c3ff;
+  text-transform: uppercase;
+}
+
+.category-title {
+  font-weight: 600;
+  margin: 20px 0;
+  color: #00c3ff;
+  text-transform: uppercase;
+}
+
+a.todo {
+  color: #ff0000 !important;
+}
+
+form .question {
+  border: 1px solid #dee0e3;
+  border-radius: 20px;
+  margin: 30px 0;
+  padding: 20px;
+}
+
+form .form-group {
+  margin-top: 20px;
+}
+
+form .label {
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+form select {
+  font-family: "Merriweather", sans-serif;
+}
+
+#stepper .step {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #00c3ff;
+  border-top: 1px solid #00c3ff;
+  border-bottom: 1px solid #00c3ff;
+}
+
+#stepper .step.active {
+  color: #fff;
+  background: #00c3ff;
+  font-weight: 600;
+}
+
+#stepper .step:first-child {
+  border-left: 1px solid #00c3ff;
+}
+
+#stepper .step:last-child {
+  border-right: 1px solid #00c3ff;
+}
+
+footer {
+  background-color: #2f2f2f;
+}
+
+#errors p {
+  margin: 5px 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+p.big-count {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #00c3ff;
+}
+
+.card .card-header {
+  font-weight: 600;
+}
+
+.card .question_prev {
+  border: 1px solid #dee0e3;
+  border-radius: 20px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.card .question_prev p {
+  margin: 5px 0;
+}
+

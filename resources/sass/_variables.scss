@@ -1,0 +1,64 @@
+// Colors
+
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+
+$accent: #00c3ff;
+$gray: #646d77;
+$dark: #1b1b1b;
+
+.bg-accent {
+	background-color: $accent;
+}
+
+.bg-gray {
+	background-color: $gray;
+}
+
+.bg-dark {
+	background-color: $dark;
+}
+
+.btn-accent {
+	color: #fff;
+	background-color: $accent;
+}
+
+.text-accent {
+	color: $accent;
+}
+
+.btn {
+	text-transform: none;
+	font-weight: 600;
+	font-size: 1rem;
+
+	&.btn-md {
+		font-size: .9rem;
+
+		i {
+			font-size: 1rem;
+			margin-left: 5px;
+			position: relative;
+			top: 3px;
+		}
+	}
+
+	&.btn-sm {
+		font-size: .9rem;
+		
+		i {
+			font-size: 1rem;
+			margin-left: 5px;
+			position: relative;
+			top: 0px;
+		}
+	}
+}

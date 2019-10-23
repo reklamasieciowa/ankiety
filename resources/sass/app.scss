@@ -1,0 +1,119 @@
+// Variables
+@import 'fonts';
+@import 'variables';
+
+body {
+	background-color: #fff;
+	font-family: 'Merriweather', sans-serif;
+}
+
+.title {
+	font-weight:700;
+	margin: 40px 0;
+	color: $accent;
+	text-transform: uppercase;
+}
+
+.category-title {
+	font-weight:600;
+	margin: 20px 0;
+	color: $accent;
+	text-transform: uppercase;
+}
+
+a {
+	&.todo {
+		color: #ff0000!important;
+	}
+}
+
+form {
+	.question {
+		border: 1px solid lighten($gray, 45%);
+		border-radius: 20px;
+		margin: 30px 0;
+		padding: 20px;
+	}
+
+	.form-group {
+		margin-top: 20px;
+	}
+
+	.label {
+		font-weight: 500;
+		margin-bottom: 10px;
+		font-size: 1.1rem;
+	}
+
+	select {
+		font-family: 'Merriweather', sans-serif;
+	}
+
+}
+
+#stepper {
+	.step {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		color: $accent;
+		border-top: 1px solid $accent;
+		border-bottom: 1px solid $accent;
+
+		&.active {
+			color: #fff;
+			background: $accent;
+			font-weight: 600;
+		}
+
+		&:first-child {
+			border-left: 1px solid $accent;
+		}
+
+		&:last-child {
+			border-right: 1px solid $accent;
+		}
+	}
+}
+
+footer {
+	background-color: lighten($dark, 8%);
+}
+
+#errors {
+
+	p {
+		margin: 5px 0;
+	}
+}
+
+img {
+	max-width: 100%;
+}
+
+//Admin
+
+p {
+	&.big-count {
+		text-align: center;
+		font-size: 3rem;
+		font-weight: 600;
+		color: $accent;
+	}
+}
+
+.card {
+	.card-header {
+		font-weight: 600;
+	}
+
+	.question_prev {
+		border: 1px solid lighten($gray, 45%);
+		border-radius: 20px;
+		margin: 10px 0;
+		padding: 10px;
+
+		p {
+			margin: 5px 0;
+		}
+	}
+}
