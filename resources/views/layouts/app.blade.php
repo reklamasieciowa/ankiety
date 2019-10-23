@@ -59,7 +59,7 @@
                   <a class="dropdown-item" href="{{ route('admin.questions.index') }}">Zobacz <i class="far fa-eye"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.category.index') }}">Kategorie pytań <i class="far fa-eye"></i></a>
                   <a class="dropdown-item todo" href="#">Opcje pytań <i class="far fa-eye"></i></a>
-                  <a class="dropdown-item todo" href="#">Skala odpowiedzi <i class="far fa-eye"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.scale.index') }}">Skale odpowiedzi <i class="far fa-eye"></i></a>
                 </div>
               </li>
 
@@ -68,7 +68,7 @@
                   aria-haspopup="true" aria-expanded="false">Dane osób</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarPeople">
                   <a class="dropdown-item" href="{{ route('admin.company.index') }}">Firmy <i class="far fa-eye"></i></a>
-                  <a class="dropdown-item todo" href="#">Stanowiska <i class="far fa-eye"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.post.index') }}">Stanowiska <i class="far fa-eye"></i></a>
                   <a class="dropdown-item todo" href="#">Oddziały <i class="fas fa-plus-circle"></i></a>
                 </div>
               </li>

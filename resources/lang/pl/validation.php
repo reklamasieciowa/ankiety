@@ -46,5 +46,21 @@
 		    'questions' => [
 		        '*' => 'Proszę wybrać pytania.',
 		    ],
+		    'value' => [
+		        'value' => 'Wartość musi być liczbą.',
+		        'unique' => 'Ta wartość istnieje już w tej skali. Podaj inną wartość.',
+		        'required' => 'Wartość jest wymagana.',
+		    ],
+		    'scale_id' => [
+		        'required_if' => 'Skala jest wymagana, jeżeli pytanie ma typ :value',
+		    ],
+		    
 	],
+
+	'values' => [
+        'question_type_id' => [
+			'1' => 'Jednokrotny wybór ze skali.',
+        ],
+    ],
+
 ];

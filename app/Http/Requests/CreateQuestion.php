@@ -26,6 +26,7 @@ class CreateQuestion extends FormRequest
         return [
             'category_id' => 'integer|required',
             'question_type_id' => 'integer|required',
+            'scale_id' => 'integer|required_if:question_type_id,1',
             'pl' => 'string|required',
             'en' => 'string|required',
             'order' => 'integer|nullable',

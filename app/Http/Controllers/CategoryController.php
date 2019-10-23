@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CreateCategory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -20,24 +21,24 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategory $request)
     {
-        //
+        $validated = $request->validated();
+
+        $category = Category::create([
+            'pl'  => ['name' => $validated['name_pl']],
+            'en'  => ['name' => $validated['name_en']],
+        ]);
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Kategoria '.$category->name.' zapisana.');
+
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -59,7 +60,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $category = $category->load('translations');
+
+        return view('admin.category.edit')->with(compact('category'));
     }
 
     /**
@@ -69,9 +72,19 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CreateCategory $request, Category $category)
     {
-        //
+        $validated = $request->validated();
+
+        $category->update([
+            'pl'  => ['name' => $validated['name_pl']],
+            'en'  => ['name' => $validated['name_en']],
+        ]);
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Kategoria '.$category->name.' zapisana.');
+
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -80,8 +93,18 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category, Request $request)
     {
-        //
+        if(!count($category->questions)) {
+            $category->delete();
+
+            $request->session()->flash('class', 'alert-info');
+            $request->session()->flash('info', 'Kategoria '.$category->name.' usunięta.');
+        } else {
+            $request->session()->flash('class', 'alert-danger');
+            $request->session()->flash('info', 'Kategoria '.$category->name.' zawiera pytania, więcnie została usunięta.');
+        }
+
+        return redirect()->route('admin.category.index');
     }
 }

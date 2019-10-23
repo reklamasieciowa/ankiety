@@ -48,6 +48,11 @@ class Question extends Model implements TranslatableContract
         return $this->question_type->options;
     }
 
+    public function canHaveScale()
+    {
+        return $this->question_type == 1;
+    }
+
     public function hasScale()
     {
         return $this->scale_id;

@@ -17,6 +17,7 @@ class CreateScaleValuesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('scale_id')->unsigned();
             $table->integer('value');
+            $table->unique(['scale_id', 'value']);
             $table->timestamps();
 
             $table->foreign('scale_id')->references('id')->on('scales')->onDelete('cascade'); 

@@ -31,12 +31,22 @@
                 <textarea class="form-control rounded-0" id="en" name="en" rows="2">{{old('en') ?? ''}}</textarea>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" id="types">
                 <label>Typ pytania:</label>
                 @foreach($question_types as $type)
                 <div class="custom-control custom-radio">
                   <input type="radio" class="custom-control-input" id="t{{ $type->id }}" name="question_type_id" value="{{ $type->id }}" {{old('question_type_id') == $type->id ? 'checked' : ''}}>
                   <label class="custom-control-label" for="t{{ $type->id }}">{{ $type->display_name }}</label>
+                </div>
+                @endforeach
+              </div>
+
+              <div class="form-group" id="scales" style="display:none">
+                <label>Skala odpowiedzi:</label>
+                @foreach($scales as $scale)
+                <div class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" id="s{{ $scale->id }}" name="scale_id" value="{{ $scale->id }}" {{old('scale->id') == $scale->id ? 'checked' : ''}}>
+                  <label class="custom-control-label" for="s{{ $scale->id }}">{{ $scale->name }}</label>
                 </div>
                 @endforeach
               </div>
@@ -91,4 +101,22 @@
 
   </div>
 </div>
+@endsection
+
+@section('footer-scripts')
+  <script>
+    jQuery(document).ready(function () {
+      jQuery('#types').click(function () {
+        if(jQuery("#t1").is(':checked')) {
+          jQuery('#scales input:radio').prop('required', true)
+          jQuery('#scales').show();
+        } else{
+          jQuery('#scales input:radio').prop('required', false)
+          jQuery('#scales').hide();
+        }
+       });
+    });
+   
+  </script>
+    
 @endsection

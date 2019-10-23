@@ -59,7 +59,6 @@ Route::group([
 	Route::post('/ankieta/{survey}/pytania/', 'SurveyAdminController@attachQuestions')->name('admin.survey.attachQuestions');
 	Route::delete('/ankieta/{survey}/usuń/', 'SurveyAdminController@destroy')->name('admin.survey.destroy');
 
-
 	Route::get('/firma/', 'CompanyController@index')->name('admin.company.index');
 	Route::get('/firma/dodaj', 'CompanyController@create')->name('admin.company.create');
 	Route::put('/firma/dodaj', 'CompanyController@store')->name('admin.company.store');
@@ -67,21 +66,39 @@ Route::group([
 	Route::patch('/firma/edytuj/{company}', 'CompanyController@update')->name('admin.company.update');
 	Route::delete('/firma/usun/{company}', 'CompanyController@destroy')->name('admin.company.destroy');
 
+
 	Route::get('/kategoria/', 'CategoryController@index')->name('admin.category.index');
-
 	Route::put('/kategoria/', 'CategoryController@store')->name('admin.category.store');
+	Route::get('/kategoria/edytuj/{category}', 'CategoryController@edit')->name('admin.category.edit');
+	Route::patch('/kategoria/edytuj/{category}', 'CategoryController@update')->name('admin.category.update');
+	Route::delete('/kategoria/usun/{category}', 'CategoryController@destroy')->name('admin.category.destroy');
 
-	Route::get('/pytania/', 'QuestionController@index')->name('admin.questions.index');
-	Route::get('/pytania/dodaj', 'QuestionController@create')->name('admin.questions.create');
-	Route::put('/pytania/dodaj/', 'QuestionController@store')->name('admin.questions.store');
-	Route::get('/pytania/edytuj/{question}', 'QuestionController@edit')->name('admin.questions.edit');
-	Route::patch('/pytania/aktualizuj/{question}', 'QuestionController@update')->name('admin.questions.update');
-	Route::delete('/pytania/usun/{question}', 'QuestionController@destroy')->name('admin.questions.destroy');
 
-	Route::get('/pytania/odepnij/{question}/{survey}', 'QuestionController@detach')->name('admin.questions.detach');
+	Route::get('/pytanie/', 'QuestionController@index')->name('admin.questions.index');
+	Route::get('/pytanie/dodaj', 'QuestionController@create')->name('admin.questions.create');
+	Route::put('/pytanie/dodaj/', 'QuestionController@store')->name('admin.questions.store');
+	Route::get('/pytanie/edytuj/{question}', 'QuestionController@edit')->name('admin.questions.edit');
+	Route::patch('/pytanie/aktualizuj/{question}', 'QuestionController@update')->name('admin.questions.update');
+	Route::delete('/pytanie/usun/{question}', 'QuestionController@destroy')->name('admin.questions.destroy');
+	Route::get('/pytanie/odepnij/{question}/{survey}', 'QuestionController@detach')->name('admin.questions.detach');
 
-	
-	
+	Route::get('/skala/', 'ScaleController@index')->name('admin.scale.index');
+	Route::put('/skala/dodaj', 'ScaleController@store')->name('admin.scale.store');
+	Route::get('/skala/{scale}/edytuj', 'ScaleController@edit')->name('admin.scale.edit');
+	Route::patch('/skala/{scale}/edytuj', 'ScaleController@update')->name('admin.scale.update');
+	Route::delete('/skala/{scale}/usun', 'ScaleController@destroy')->name('admin.scale.destroy');
+
+	Route::put('/skala/{scale}/wartosc/dodaj', 'ScaleValueController@store')->name('admin.scale.value.store');
+	Route::get('/skala/{scale}/wartosc/{scaleValue}/edytuj', 'ScaleValueController@edit')->name('admin.scale.value.edit');
+	Route::patch('/skala/{scale}/wartosc/{scaleValue}/edytuj', 'ScaleValueController@update')->name('admin.scale.value.update');
+	Route::delete('/skala/{scale}/wartosc/usun/{scaleValue}', 'ScaleValueController@destroy')->name('admin.scale.value.destroy');
+
+	Route::get('/stanowisko/', 'PostController@index')->name('admin.post.index');
+	Route::put('/stanowisko/dodaj', 'PostController@store')->name('admin.post.store');
+	Route::get('/stanowisko/{post}/edytuj', 'PostController@edit')->name('admin.post.edit');
+	Route::patch('/stanowisko/{post}/edytuj', 'PostController@update')->name('admin.post.update');
+
+	Route::delete('/stanowisko/{post}/usun', 'PostController@destroy')->name('admin.post.destroy');
 
 
 });

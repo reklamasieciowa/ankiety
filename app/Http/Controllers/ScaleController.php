@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Scale;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateScale;
+use App\Http\Requests\CreateValue;
 
 class ScaleController extends Controller
 {
@@ -14,7 +16,9 @@ class ScaleController extends Controller
      */
     public function index()
     {
-        //
+        $scales = Scale::with('questions', 'values.translations')->get();
+
+        return view('admin.scale.index')->with(compact('scales'));
     }
 
     /**
@@ -24,7 +28,7 @@ class ScaleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.scale.create');
     }
 
     /**
@@ -33,9 +37,15 @@ class ScaleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateScale $request)
     {
-        //
+        
+        $scale = Scale::create($request->validated());
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Skala '.$scale->name.' zapisana.');
+
+        return redirect()->route('admin.scale.index');
     }
 
     /**
@@ -57,7 +67,9 @@ class ScaleController extends Controller
      */
     public function edit(Scale $scale)
     {
-        //
+        $scale->load('values.translations');
+
+        return view('admin.scale.edit')->with(compact('scale'));
     }
 
     /**
@@ -67,9 +79,14 @@ class ScaleController extends Controller
      * @param  \App\Scale  $scale
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Scale $scale)
+    public function update(CreateScale $request, Scale $scale)
     {
-        //
+        $scale->update($request->validated());
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Skala '.$scale->name.' zapisana.');
+
+        return redirect()->route('admin.scale.index');
     }
 
     /**
@@ -78,8 +95,20 @@ class ScaleController extends Controller
      * @param  \App\Scale  $scale
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Scale $scale)
+    public function destroy(Scale $scale, Request $request)
     {
-        //
+        if(!count($scale->questions)) {
+
+            $scale->values()->delete();
+            $scale->delete();
+
+            $request->session()->flash('class', 'alert-info');
+            $request->session()->flash('info', 'Skala '.$scale->name.' usunięta.');
+        } else {
+            $request->session()->flash('class', 'alert-danger');
+            $request->session()->flash('info', 'Ta skala jest używana! '.$scale->name.' nie została usunięta.');
+        }
+
+        return redirect()->route('admin.scale.index');
     }
 }

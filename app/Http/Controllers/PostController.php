@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreatePost;
 
 class PostController extends Controller
 {
@@ -14,7 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::with('translations')->get();
+
+        return view('admin.post.index')->with(compact('posts'));
     }
 
     /**
@@ -33,20 +36,19 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePost $request)
     {
-        //
-    }
+        $validated = $request->validated();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
-    {
-        //
+        $post = Post::create([
+            'pl'  => ['name' => $validated['name_pl']],
+            'en'  => ['name' => $validated['name_en']],
+        ]);
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Stanowisko '.$post->name.' zapisane.');
+
+        return redirect()->route('admin.post.index');
     }
 
     /**
@@ -57,7 +59,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $post->load('translations')->get();
+
+        return view('admin.post.edit')->with(compact('post'));
     }
 
     /**
@@ -67,9 +71,19 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(CreatePost $request, Post $post)
     {
-        //
+        $validated = $request->validated();
+
+        $post->update([
+            'pl'  => ['name' => $validated['name_pl']],
+            'en'  => ['name' => $validated['name_en']],
+        ]);
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Stanowisko '.$post->name.' zapisane.');
+
+        return redirect()->route('admin.post.index');
     }
 
     /**
@@ -78,8 +92,20 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post, Request $request)
     {
-        //
+        if(!count($post->people)) {
+            $post->delete();
+
+            $request->session()->flash('class', 'alert-info');
+            $request->session()->flash('info', 'Stanowisko '.$post->name.' usunięte.');
+
+            return redirect()->route('admin.post.index');
+        } else {
+            $request->session()->flash('class', 'alert-info');
+            $request->session()->flash('info', 'Stanowisko jest przypisane do ankietowanych. Nie zostało usunięte.');
+
+            return redirect()->route('admin.post.index');
+        }
     }
 }

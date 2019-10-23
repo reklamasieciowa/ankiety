@@ -36,8 +36,9 @@ class QuestionController extends Controller
         $question_types = QuestionType::all();
         $categories = Category::with('translations')->get();
         $surveys = Survey::with('translations')->get();
+        $scales = Scale::all();
 
-        return view('admin.question.create')->with(compact('question_types', 'categories', 'surveys'));
+        return view('admin.question.create')->with(compact('question_types', 'categories', 'surveys', 'scales'));
     }
 
     /**
@@ -60,6 +61,11 @@ class QuestionController extends Controller
                 'en'  => ['name' => $validated['en']],
                 'order' => $validated['order'],
             ]);
+
+        if(isset($validated['scale_id']) && !empty($validated['scale_id'])) {
+            $question->scale_id = $validated['scale_id'];
+            $question->save();
+        }
 
         if(isset($validated['surveys']) && !empty($validated['surveys'])) {
             $question->surveys()->sync($validated['surveys']);

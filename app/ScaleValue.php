@@ -11,7 +11,7 @@ class ScaleValue extends Model implements TranslatableContract
     use Translatable;
     
     public $translatedAttributes = ['name'];
-    protected $fillable = ['value'];
+    protected $fillable = ['scale_id', 'value'];
 
     public function scale()
     {
