@@ -17,6 +17,8 @@ class CreateQuestionOptionsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->integer('value');
+            $table->unique(['question_id', 'value']);
             $table->timestamps();
         });
     }

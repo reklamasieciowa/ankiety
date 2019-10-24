@@ -11,7 +11,7 @@ class QuestionOption extends Model implements TranslatableContract
     use Translatable;
     
     public $translatedAttributes = ['name'];
-    protected $fillable = ['question_id'];
+    protected $fillable = ['question_id', 'value'];
 
     public function question()
     {

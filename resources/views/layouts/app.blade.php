@@ -57,8 +57,9 @@
                   aria-haspopup="true" aria-expanded="false">Pytania</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarQuestions">
                   <a class="dropdown-item" href="{{ route('admin.questions.index') }}">Zobacz <i class="far fa-eye"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.questions.create') }}">Dodaj <i class="fas fa-plus-circle"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.category.index') }}">Kategorie pytań <i class="far fa-eye"></i></a>
-                  <a class="dropdown-item todo" href="#">Opcje pytań <i class="far fa-eye"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.questions.options.index') }}">Opcje pytań <i class="far fa-eye"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.scale.index') }}">Skale odpowiedzi <i class="far fa-eye"></i></a>
                 </div>
               </li>
@@ -69,7 +70,7 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarPeople">
                   <a class="dropdown-item" href="{{ route('admin.company.index') }}">Firmy <i class="far fa-eye"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.post.index') }}">Stanowiska <i class="far fa-eye"></i></a>
-                  <a class="dropdown-item todo" href="#">Oddziały <i class="fas fa-plus-circle"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.department.index') }}">Oddziały <i class="fas fa-plus-circle"></i></a>
                 </div>
               </li>
 

@@ -54,6 +54,9 @@
 		    'scale_id' => [
 		        'required_if' => 'Skala jest wymagana, jeżeli pytanie ma typ :value',
 		    ],
+		    'question_id' => [
+		        'required' => 'Przypisz do pytania.',
+		    ],
 		    
 	],
 

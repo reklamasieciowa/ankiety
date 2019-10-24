@@ -60,19 +60,16 @@ Route::group([
 	Route::delete('/ankieta/{survey}/usuń/', 'SurveyAdminController@destroy')->name('admin.survey.destroy');
 
 	Route::get('/firma/', 'CompanyController@index')->name('admin.company.index');
-	Route::get('/firma/dodaj', 'CompanyController@create')->name('admin.company.create');
 	Route::put('/firma/dodaj', 'CompanyController@store')->name('admin.company.store');
 	Route::get('/firma/edytuj/{company}', 'CompanyController@edit')->name('admin.company.edit');
 	Route::patch('/firma/edytuj/{company}', 'CompanyController@update')->name('admin.company.update');
 	Route::delete('/firma/usun/{company}', 'CompanyController@destroy')->name('admin.company.destroy');
-
 
 	Route::get('/kategoria/', 'CategoryController@index')->name('admin.category.index');
 	Route::put('/kategoria/', 'CategoryController@store')->name('admin.category.store');
 	Route::get('/kategoria/edytuj/{category}', 'CategoryController@edit')->name('admin.category.edit');
 	Route::patch('/kategoria/edytuj/{category}', 'CategoryController@update')->name('admin.category.update');
 	Route::delete('/kategoria/usun/{category}', 'CategoryController@destroy')->name('admin.category.destroy');
-
 
 	Route::get('/pytanie/', 'QuestionController@index')->name('admin.questions.index');
 	Route::get('/pytanie/dodaj', 'QuestionController@create')->name('admin.questions.create');
@@ -81,6 +78,13 @@ Route::group([
 	Route::patch('/pytanie/aktualizuj/{question}', 'QuestionController@update')->name('admin.questions.update');
 	Route::delete('/pytanie/usun/{question}', 'QuestionController@destroy')->name('admin.questions.destroy');
 	Route::get('/pytanie/odepnij/{question}/{survey}', 'QuestionController@detach')->name('admin.questions.detach');
+
+	Route::get('/opcja/', 'QuestionOptionController@index')->name('admin.questions.options.index');
+	Route::put('/opcja/', 'QuestionOptionController@store')->name('admin.questions.options.store');
+
+	Route::get('/opcja/{questionOption}/edytuj', 'QuestionOptionController@edit')->name('admin.questions.options.edit');
+	Route::patch('/opcja/{questionOption}/edytuj', 'QuestionOptionController@update')->name('admin.questions.options.update');
+
 
 	Route::get('/skala/', 'ScaleController@index')->name('admin.scale.index');
 	Route::put('/skala/dodaj', 'ScaleController@store')->name('admin.scale.store');
@@ -97,10 +101,13 @@ Route::group([
 	Route::put('/stanowisko/dodaj', 'PostController@store')->name('admin.post.store');
 	Route::get('/stanowisko/{post}/edytuj', 'PostController@edit')->name('admin.post.edit');
 	Route::patch('/stanowisko/{post}/edytuj', 'PostController@update')->name('admin.post.update');
-
 	Route::delete('/stanowisko/{post}/usun', 'PostController@destroy')->name('admin.post.destroy');
 
-
+	Route::get('/dzial/', 'DepartmentController@index')->name('admin.department.index');
+	Route::put('/dzial/dodaj', 'DepartmentController@store')->name('admin.department.store');
+	Route::get('/dzial/{department}/edytuj', 'DepartmentController@edit')->name('admin.department.edit');
+	Route::patch('/dzial/{department}/edytuj', 'DepartmentController@update')->name('admin.department.update');
+	Route::delete('/dzial/{department}/usun', 'DepartmentController@destroy')->name('admin.department.destroy');
 });
 
 

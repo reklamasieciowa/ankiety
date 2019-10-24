@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Survey;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateCompany;
 
@@ -15,9 +16,10 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        $companies = Company::with('survey.translations')->get();
+        $surveys = Survey::with('translations')->get();
+        $companies = Company::all();
 
-        return view('admin.company.index')->with(compact('companies'));
+        return view('admin.company.index')->with(compact('companies', 'surveys'));
     }
 
     /**
@@ -38,8 +40,8 @@ class CompanyController extends Controller
      */
     public function store(CreateCompany $request)
     {
-        
-        Company::create($request->validated());
+
+        $company = Company::create($request->validated());
 
         $request->session()->flash('class', 'alert-info');
         $request->session()->flash('info', 'Firma zapisana.');

@@ -165,7 +165,7 @@ class QuestionController extends Controller
     public function destroy(Question $question, Request $request)
     {
         //check if has any answers for this question
-        if(count($question->answers)) {
+        if(isset($question->answers) && count($question->answers)) {
             $request->session()->flash('class', 'alert-danger');
             $request->session()->flash('info', 'Pytanie '.$question->id.' nie może zostać usunięte, ponieważ zawiera odpowiedzi.');
 
@@ -173,12 +173,12 @@ class QuestionController extends Controller
         }
 
         //check if attached to any survey
-        if(count($question->surveys)) {
+        if(isset($question->surveys) && count($question->surveys)) {
             $question->surveys()->detach();
         }
         
         //check if has any options
-        if($question->question_type->options) {
+        if(isset($question->question_type->options) && !empty($question->question_type->options)) {
             $question->options()->delete();
         }
 

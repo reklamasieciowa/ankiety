@@ -10,7 +10,7 @@
 
     <div class="row mt-5 text-center">
       <div class="col-lg-12">
-         <h1 class="h2-responsive title">Stanowiska: {{ $posts->count() }}</h1>
+         <h1 class="h2-responsive title">Działy: {{ $departments->count() }}</h1>
          
       </div>
     </div>
@@ -20,9 +20,9 @@
         <div class="card">
           <div class="card-body">
             <h2 class="h4-responsive">
-              Dodaj stanowisko:
+              Dodaj dział:
             </h2>
-            <form method="POST" action="{{ route('admin.post.store') }}">
+            <form method="POST" action="{{ route('admin.department.store') }}">
               @csrf
               @method('PUT')
 
@@ -48,22 +48,22 @@
           <div class="card">
               <div class="card-body">
                
-                  @forelse($posts as $post)
+                  @forelse($departments as $department)
                     <div class="row question_prev">
                       <div class="col-lg-1">
-                        <p>ID: {{ $post->id }}</p>
+                        <p>ID: {{ $department->id }}</p>
                       </div>
                       <div class="col-lg-7">
-                        <p><strong>Nazwa PL: </strong>{{ $post->name }}</p>
-                        <p><strong>Nazwa EN: </strong>{{ $post->{'name:en'} }}</p>
+                        <p><strong>Nazwa PL: </strong>{{ $department->name }}</p>
+                        <p><strong>Nazwa EN: </strong>{{ $department->{'name:en'} }}</p>
                       </div>
                       <div class="col-lg-2">
-                        <a class="btn btn-accent btn-sm" href="{{ route('admin.post.edit', ['post' => $post->id]) }}">
+                        <a class="btn btn-accent btn-sm" href="{{ route('admin.department.edit', ['department' => $department->id ]) }}">
                             Edytuj <i class="fas fa-edit"></i>
                           </a>
                       </div>
                       <div class="col-lg-2">
-                        <form method="POST" action="{{ route('admin.post.destroy', ['post' => $post->id]) }}">
+                        <form method="POST" action="{{ route('admin.department.destroy', ['department' => $department->id ]) }}">
                           @csrf
                           @method('DELETE')
                           
@@ -73,7 +73,7 @@
                       </div>
                     </div>
                   @empty
-                    <p>Brak firm.</p>
+                    <p>Brak oddziałów.</p>
                   @endforelse
               </div>
           </div>

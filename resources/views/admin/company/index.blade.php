@@ -11,7 +11,29 @@
     <div class="row mt-5 text-center">
       <div class="col-lg-12">
          <h1 class="h2-responsive title">Firmy: {{ $companies->count() }}</h1>
-         <p><a href="{{ route('admin.company.create') }}" class="btn btn-accent btn-sm">Dodaj firmę <i class="fas fa-plus-circle"></i></a></p>
+      </div>
+    </div>
+
+      <div class="row mt-5">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="h3-responsive">Dodaj firmę:</h2>
+            <form action="{{ route('admin.company.store') }}" method="POST">
+              @csrf
+              @method('PUT')
+
+                <div class="form-group">
+                  <label for="name">Nazwa firmy:</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="" value="{{old('name') ?? ''}}">
+                </div>
+
+              <div class="form-group">
+                <button class="btn btn-info" type="submit">Zapisz</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Department;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateDepartment;
 
 class DepartmentController extends Controller
 {
@@ -14,17 +15,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $departments = Department::with('translations')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('admin.department.index')->with(compact('departments'));
     }
 
     /**
@@ -33,20 +26,19 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateDepartment $request)
     {
-        //
-    }
+        $validated = $request->validated();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Department  $department
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Department $department)
-    {
-        //
+        $department = Department::create([
+            'pl'  => ['name' => $validated['name_pl']],
+            'en'  => ['name' => $validated['name_en']],
+        ]);
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Dział '.$department->name.' zapisany.');
+
+        return redirect()->route('admin.department.index');
     }
 
     /**
@@ -57,7 +49,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        return view('admin.department.edit')->with(compact('department'));
     }
 
     /**
@@ -67,9 +59,19 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(CreateDepartment $request, Department $department)
     {
-        //
+        $validated = $request->validated();
+
+        $department->update([
+            'pl'  => ['name' => $validated['name_pl']],
+            'en'  => ['name' => $validated['name_en']],
+        ]);
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Dział '.$department->name.' zapisany.');
+
+        return redirect()->route('admin.department.index');
     }
 
     /**
@@ -78,8 +80,20 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy(Department $department, Request $request)
     {
-        //
+        if(!count($department->people)) {
+            $department->delete();
+
+            $request->session()->flash('class', 'alert-info');
+            $request->session()->flash('info', 'Dział '.$department->name.' usunięty.');
+
+            return redirect()->route('admin.department.index');
+        } else {
+            $request->session()->flash('class', 'alert-info');
+            $request->session()->flash('info', 'Dział jest przypisany do ankietowanych. Nie został usunięty.');
+
+            return redirect()->route('admin.department.index');
+        }
     }
 }

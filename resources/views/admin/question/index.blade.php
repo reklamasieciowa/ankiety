@@ -39,7 +39,11 @@
                           <p><strong>Dodane Opcje: </strong>
                           @if($question->getOptions())
                               @foreach($question->getOptions() as $option)
+                                @if($loop->last)
+                                  {{ $option->name }}
+                                @else
                                 {{ $option->name }},
+                                @endif
                               @endforeach
                           @else
                             brak. Dodaj opcje do tego pytania.
