@@ -106,6 +106,8 @@ class PersonController extends Controller
             $request->session()->flash('info', 'Użytkownik usunięty');
         }
 
-        return view('admin.person.index');
+        $people = Person::with(['answers', 'survey.translations', 'post.translations', 'department.translations'])->get();
+
+        return view('admin.person.index')->with(compact('people'));
     }
 }
