@@ -16,9 +16,9 @@
             <div class="card-body">
 
                <h2 class="card-title">{{ __('messages.Personal_info') }}</h2>
-                  <form method="POST" action="{{ route('person.store', ['locale' => App::getLocale(), 'survey' => $survey]) }}">
+                  <form method="POST" action="{{ route('person.store', ['locale' => App::getLocale(), 'survey_uuid' => $survey->uuid]) }}">
                     @csrf
-                    <input type="hidden" name="survey_id" value="{{ $survey->id }}">
+                    <input type="hidden" name="survey_uuid" value="{{ $survey->uuid }}">
 
                     <div class="form-group">
                       @if(count($posts))

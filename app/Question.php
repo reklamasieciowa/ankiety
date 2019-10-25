@@ -40,7 +40,7 @@ class Question extends Model implements TranslatableContract
 
     public function answers()
     {
-        return $this->belongsTo('App\Answer');
+        return $this->hasMany('App\Answer');
     }
 
     public function canHaveOptions()

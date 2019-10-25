@@ -45,8 +45,8 @@
                 <label>Skala odpowiedzi:</label>
                 @foreach($scales as $scale)
                 <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="s{{ $scale->id }}" name="scale_id" value="{{ $scale->id }}" {{old('scale->id') == $scale->id ? 'checked' : ''}}>
-                  <label class="custom-control-label" for="s{{ $scale->id }}">{{ $scale->name }}</label>
+                  <input type="radio" class="custom-control-input" id="sc{{ $scale->id }}" name="scale_id" value="{{ $scale->id }}" {{old('scale->id') == $scale->id ? 'checked' : ''}}>
+                  <label class="custom-control-label" for="sc{{ $scale->id }}">{{ $scale->name }}</label>
                 </div>
                 @endforeach
               </div>

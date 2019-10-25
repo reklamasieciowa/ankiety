@@ -32,4 +32,20 @@ class Person extends Model
     {
     	return $this->answers->count();
     }
+
+    public function percentAnswered()
+    {
+
+        if($this->countAnswers() && $this->survey->questions->count()) {
+            $answered = round(($this->countAnswers()/$this->survey->requiredQuestions()->count())*100, 2);
+            if($answered > 100) {
+                return '100%';
+            } else {
+                return $answered.'%';
+            }
+            
+        } else {
+            return '-';
+        }
+    }
 }

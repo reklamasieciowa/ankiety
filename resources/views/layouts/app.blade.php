@@ -49,6 +49,7 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarSurveys">
                   <a class="dropdown-item" href="{{ route('admin.index') }}">Pulpit <i class="far fa-eye"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.survey.create') }}">Dodaj ankietę <i class="fas fa-plus-circle"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.company.index') }}">Firmy <i class="far fa-eye"></i></a>
                 </div>
               </li>
 
@@ -68,9 +69,16 @@
                 <a class="nav-link dropdown-toggle" id="navbarPeople" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">Dane osób</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarPeople">
-                  <a class="dropdown-item" href="{{ route('admin.company.index') }}">Firmy <i class="far fa-eye"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.post.index') }}">Stanowiska <i class="far fa-eye"></i></a>
-                  <a class="dropdown-item" href="{{ route('admin.department.index') }}">Oddziały <i class="fas fa-plus-circle"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.department.index') }}">Działy <i class="far fa-eye"></i></a>
+                </div>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarPeople" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">Ankietowani</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarPeople">
+                  <a class="dropdown-item" href="{{ route('admin.people.index') }}">Zobacz <i class="far fa-eye"></i></a>
                 </div>
               </li>
 

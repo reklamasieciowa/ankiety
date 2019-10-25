@@ -77,7 +77,7 @@
                           </a>
                       </div>
                       <div class="col-lg-2">
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('admin.questions.options.destroy', ['questionOption' => $option->id]) }}">
                           @csrf
                           @method('DELETE')
                           

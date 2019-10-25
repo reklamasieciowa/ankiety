@@ -33,6 +33,11 @@ form {
 		border-radius: 20px;
 		margin: 30px 0;
 		padding: 20px;
+
+		p.label {
+			font-weight: 700;
+			color: $accent;
+		}
 	}
 
 	.form-group {

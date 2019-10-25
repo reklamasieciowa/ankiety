@@ -3,7 +3,7 @@
     @if(count($question->options))
       <select name="answers[{{ $question->id }}]" class="browser-default custom-select">
         @foreach($question->options as $option)
-          <option value="{{ $option->question_id }}" {{ $question->required ? 'required' : '' }}>{{ $option->name }}</option>
+          <option value="{{ $option->value }}" {{ $question->required ? 'required' : '' }}>{{ $option->name }}</option>
         @endforeach
       </select>
     @else

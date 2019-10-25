@@ -81,7 +81,7 @@ class SurveyAdminController extends Controller
      */
     public function show(Survey $survey)
     {
-        $survey = $survey->with(['people', 'questions.translations', 'questions.category.translations', 'questions.scale'])->first();
+        $survey = $survey->load(['people', 'questions.translations', 'questions.category.translations', 'questions.scale']);
 
          $peopleByPost = $survey->peopleByPost();
          $peopleByDepartment = $survey->peopleByDepartment();
@@ -164,6 +164,22 @@ class SurveyAdminController extends Controller
 
         $request->session()->flash('class', 'alert-info');
         $request->session()->flash('info', 'Status ankiety zapisany.');
+
+        return redirect()->back();
+    }
+
+    public function destroyEmptyPeople(Survey $survey, Request $request)
+    {
+        //dd($survey->peopleWithoutAnswersCollections());
+
+        $peopleWithNoAnswers = $survey->peopleWithoutAnswersCollections();
+
+        foreach($peopleWithNoAnswers as $person) {
+            $person->delete();
+        }
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Usunięto '.count($peopleWithNoAnswers).' użytkowników.');
 
         return redirect()->back();
     }

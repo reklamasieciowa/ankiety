@@ -95,8 +95,21 @@ class QuestionOptionController extends Controller
      * @param  \App\QuestionOption  $questionOption
      * @return \Illuminate\Http\Response
      */
-    public function destroy(QuestionOption $questionOption)
+    public function destroy(QuestionOption $questionOption, Request $request)
     {
-        //
+        //dd($questionOption->question->answers);
+
+        if(isset($questionOption->question->answers) && count($questionOption->question->answers)) {
+
+            $request->session()->flash('class', 'alert-danger');
+            $request->session()->flash('info', 'Opcja '.$questionOption->name.' jest przypisana do pytań z odpowiedziami. Nie została usunięta.');
+        } else {
+            $questionOption->delete();
+
+            $request->session()->flash('class', 'alert-info');
+            $request->session()->flash('info', 'Opcja '.$questionOption->name.' usunięta.');
+        }
+
+        return redirect()->route('admin.questions.options.index');
     }
 }

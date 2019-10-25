@@ -13,44 +13,15 @@ use Illuminate\Http\Request;
 class SurveyController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function personalInfo($locale, $survey_uuid)
     {
-        //
-    }
+        $survey = Survey::where('uuid', '=', $survey_uuid)->firstOrFail();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function personalInfo($locale, Survey $survey)
-    {
         $posts = Post::with('translations')->get();
         $departments = Department::with('translations')->get();
 
@@ -63,8 +34,10 @@ class SurveyController extends Controller
      * @param  \App\Survey  $survey
      * @return \Illuminate\Http\Response
      */
-    public function show($locale, Survey $survey, Request $request)
+    public function show($locale, $survey_uuid, Request $request)
     {
+        $survey = Survey::where('uuid', '=', $survey_uuid)->firstOrFail();
+
         return view('front.survey.show')->with('survey', $survey);
     }
 
@@ -74,10 +47,11 @@ class SurveyController extends Controller
      * @param  \App\Survey  $survey
      * @return \Illuminate\Http\Response
      */
-    public function showCategory($locale, Survey $survey, Person $person, Category $currentCategory)
+    public function showCategory($locale, $survey_uuid, Person $person, Category $currentCategory)
     {
+        $survey = Survey::where('uuid', '=', $survey_uuid)->firstOrFail();
 
-        $questions = $survey->questions->where('category_id', $currentCategory->id)->load('translations', 'question_type', 'options', 'scale.values')->sortBy('order');
+        $questions = $survey->questions->where('category_id', $currentCategory->id)->load('translations', 'question_type', 'options', 'scale.values.translations')->sortBy('order');
 
         $categories = Category::with('translations')->get();
         //$scales = Scale::with('values.translations')->get();
@@ -91,8 +65,10 @@ class SurveyController extends Controller
      * @param  \App\Survey  $survey
      * @return \Illuminate\Http\Response
      */
-    public function finish($locale, Survey $survey)
+    public function finish($locale, $survey_uuid)
     {
+        $survey = Survey::where('uuid', '=', $survey_uuid)->firstOrFail();
+        
         return view('front.survey.finish')->with('survey', $survey);
     }
 

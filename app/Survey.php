@@ -38,17 +38,29 @@ class Survey extends Model implements TranslatableContract
         return $this->belongsTo('App\Company');
     }
 
+    public function requiredQuestions()
+    {
+        return $this->questions->where('required', '=', 1);
+    }
+
     public function percentAnswered()
     {
-        if($this->answers->count() && $this->questions->count() && $this->people->count()) {
-            return  round($this->answers->count()/($this->questions->count()*$this->people->count())*100, 2).'%';
+        if($this->answers->count() && $this->requiredQuestions()->count() && $this->people->count()) {
+            return  round($this->answers->count()/($this->requiredQuestions()->count()*$this->people->count())*100, 2).'%';
         } else {
             return '-';
         }
-        
     }
 
-    public function peopleWithoutAnswers()
+    public function peopleWithoutAnswersCollections()
+    {
+        return $this->people->filter(function($person)
+        {
+            return !$person->answers->count();
+        });
+    }
+
+    public function peopleWithoutAnswersCount()
     {
         $people = $this->people;
 
@@ -64,7 +76,7 @@ class Survey extends Model implements TranslatableContract
                 }
             }
 
-            return $peopleWithoutAnswers.' ('.($peopleWithoutAnswers/$people->count()*100).'%)';
+            return $peopleWithoutAnswers.' ('.round(($peopleWithoutAnswers/$people->count()*100),2).'%)';
         } else {
             return '-';
         }
@@ -80,13 +92,13 @@ class Survey extends Model implements TranslatableContract
 
             foreach($people as $person)
             {
-                if($person->answers->count() !== $this->questions->count()) 
+                if($person->answers->count() < $this->requiredQuestions()->count()) 
                 {
                     $peopleUnfinished++;
                 }
             }
 
-            return $peopleUnfinished.' ('.($peopleUnfinished/$people->count()*100).'%)';
+            return $peopleUnfinished.'/'.count($people).' ('.round(($peopleUnfinished/$people->count()*100), 2).'%)';
         } else {
             return '-';
         }
@@ -95,7 +107,7 @@ class Survey extends Model implements TranslatableContract
 
     public function peopleByPost()
     {
-        $peopleByPost = $this->people->load('post')->groupBy(function($item, $key)
+        $peopleByPost = $this->people->load(['post.translations', 'answers'])->groupBy(function($item, $key)
         {
             return $item['post']->name;
         });
@@ -107,7 +119,7 @@ class Survey extends Model implements TranslatableContract
 
     public function peopleByDepartment()
     {
-        $peopleByDepartment = $this->people->load('department')->groupBy(function($item, $key)
+        $peopleByDepartment = $this->people->load('department.translations')->groupBy(function($item, $key)
         {
             return $item['department']->name;
         });

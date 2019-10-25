@@ -1,6 +1,8 @@
 <?php 
 	return [
 	    'Start' => 'Rozpocznij',
+	    'Finish' => 'Dziękujemy za wypełnienie ankiety',
+	    'Results' => 'Jeżeli podałeś/aś adres email i wyraziłeś odpowiednie zgody, wyślemy Ci prezentację wyników.',
 	    'Next' => 'Dalej',
 	    'Prev' => 'Wstecz',
 	    'Personal_info' => 'Dane osobowe',

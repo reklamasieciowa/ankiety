@@ -29,7 +29,7 @@
           <h1 class="h3-responsive title">{{ $survey->title }}</h1>
           <p class="lead grey-text w-responsive mx-auto mb-5">{!!html_entity_decode($survey->description)!!}</p>
 
-          <a href="{{ route('survey.personal.info', ['locale' => App::getLocale(), 'survey' => $survey->id]) }}" class="btn btn-success">{{ __('messages.Start') }}</a>
+          <a href="{{ route('survey.personal.info', ['locale' => App::getLocale(), 'survey_uuid' => $survey->uuid]) }}" class="btn btn-success">{{ __('messages.Start') }}</a>
 
       </div>
     </div>

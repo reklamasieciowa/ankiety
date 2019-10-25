@@ -38,20 +38,23 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($locale, Survey $survey, $person, $currentCategory, StoreAnswer $request)
+    public function store($locale, $survey_uuid, $person, $currentCategory, StoreAnswer $request)
     {
 
         $validated = $request->validated();
 
         $answers = $validated['answers'];
 
-        //dd($answers);
+        $survey = Survey::where('uuid', '=', $survey_uuid)->firstOrFail();
 
         //save answers
         if(isset($answers)) {
             foreach($answers as $key => $value) 
             {
-                if(!empty($answer))
+                // unique person id + question id
+                $duplicated = Answer::where('person_id', '=', $person)->where('question_id', '=', $key)->get();
+
+                if(!count($duplicated) && isset($value))  
                 {
                     Answer::create([
                         'survey_id' => $survey->id,
@@ -59,7 +62,7 @@ class AnswerController extends Controller
                         'question_id' => $key,
                         'value' => $value,
                     ]);
-                }
+                } 
             }
         }
 
@@ -68,10 +71,10 @@ class AnswerController extends Controller
         {
             $nextCategory = $currentCategory+1;
 
-            return redirect()->route('survey.category', ['locale' => App::getLocale(), 'survey' => $survey, 'person' => $person, 'currentCategory' => $nextCategory]);
+            return redirect()->route('survey.category', ['locale' => App::getLocale(), 'survey_uuid' => $survey_uuid, 'person' => $person, 'currentCategory' => $nextCategory]);
 
         } elseif($currentCategory == Category::all()->count()) {
-           return redirect()->route('survey.finish', ['locale' => App::getLocale(), 'survey' => $survey]);
+           return redirect()->route('survey.finish', ['locale' => App::getLocale(), 'survey_uuid' => $survey_uuid]);
         } else {
             abort(404);
         }

@@ -10,7 +10,7 @@
 
     <div class="row mt-5 text-center">
       <div class="col-lg-12">
-         <h1 class="h2-responsive title">{{ $survey->title }}</h1>
+         <h1 class="h3-responsive title">{{ $survey->title }}</h1>
       </div>
     </div>
 
@@ -25,8 +25,8 @@
                   <p>Ankietowanych: {{ $survey->people->count() }}</p>
                   <p>Odpowiedzi: {{ $survey->answers->count() }}</p>
                   <p>Pytania z odpowiedziami: {{ $survey->percentAnswered() }}</p>
-                  <p>Niedokończone ankiety: {{ $survey->peopleUnfinished() }} </p>
-                  <p>Ankietowani bez żadnych odpowiedzi: {{ $survey->peopleWithoutAnswers() }}</p>
+                  <p>Niedokończone ankiety: {{ $survey->peopleUnfinished() }}</p>
+                  <p>Ankietowani bez żadnych odpowiedzi: {{ $survey->peopleWithoutAnswersCount() }} </p>
                   <p>Firma: {{ $survey->company->name ?? '-' }}</p>
                   <p>Status: {{ $survey->finished ? 'Zakończona' : 'Aktywna' }} <a href="{{route('admin.survey.status.change', ['survey' => $survey->id])}}">Zmień <i class="fas fa-random"></i></a></p>
                   <hr>
@@ -37,6 +37,15 @@
                   <a class="btn btn-accent btn-sm" href="{{ route('admin.survey.attachQuestionsForm', ['survey' => $survey]) }}">
                       Dodaj pytania <i class="far fa-list-alt"></i></i>
                   </a>
+
+                  <form method="POST" action="{{ route('admin.survey.destroy.empty.people', ['survey' => $survey]) }}" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    
+                    <button type="submit" class="btn btn-danger btn-sm"> Usuń ankietowanych bez odpowiedzi <i class="far fa-trash-alt"></i></button>
+                  </form>
+
+                  
 
                    <form method="POST" action="{{ route('admin.survey.destroy', ['survey' => $survey->id]) }}">
                     @csrf

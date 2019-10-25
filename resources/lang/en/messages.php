@@ -1,6 +1,8 @@
 <?php 
 	return [
 	    'Start' => 'Start',
+	    'Finish' => 'Thank you for completing the survey',
+	    'Results' => 'If you have provided an e-mail address and given the appropriate consent, we will send you a presentation of the results.',
 	    'Next' => 'Next',
 	    'Prev' => 'Previous',
 	    'Personal_info' => 'Personal info',

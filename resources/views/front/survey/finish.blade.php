@@ -8,11 +8,11 @@
       <div class="col-lg-12">
 		<div class="card">
 			<div class="card-body">
-				 <h2 class="h2-responsive">Dziękujemy za wypełnienie ankiety</h2>
+				 <h2 class="h2-responsive">{{ __('messages.Finish') }}</h2>
          <h2 class="h2-responsive title">
            {{ $survey->title }}
          </h2>
-      			<p>Jeżeli podałeś/aś adres email i wyraziłeś odpowiednie zgody, wyślemy Ci prezentację wyników.</p>
+      			<p>{{ __('messages.Results') }}</p>
 			</div>
 		</div>
       </div>

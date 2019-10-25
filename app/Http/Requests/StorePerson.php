@@ -24,7 +24,7 @@ class StorePerson extends FormRequest
     public function rules()
     {
         return [
-            'survey_id' => 'required|integer',
+            'survey_uuid' => 'required|uuid',
             'post_id' => 'required|integer',
             'department_id' => 'required|integer',
             'email' => 'nullable|email',

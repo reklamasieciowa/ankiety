@@ -17,7 +17,9 @@ class SurveyActive
      */
     public function handle($request, Closure $next)
     {
-        if($request->survey->finished) 
+        $survey = Survey::where('uuid', '=', $request->survey_uuid)->firstOrFail();
+        
+        if($survey->finished) 
         {
 
             $request->session()->flash('class', 'alert-danger');

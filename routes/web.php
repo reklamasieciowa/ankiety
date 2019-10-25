@@ -26,19 +26,18 @@ Route::group([
 	Route::get('/', 'FrontController@index')->name('front.index'); //id ankiety + język
 
 	Route::middleware('surveyactive')->group(function () {
-		Route::get('/ankieta/{survey}/', 'SurveyController@show')->name('survey.start');
+		Route::get('/{survey_uuid}/', 'SurveyController@show')->name('survey.start');
 
-		Route::get('/ankieta/{survey}/dane', 'SurveyController@personalInfo')->name('survey.personal.info');
+		Route::get('/{survey_uuid}/dane', 'SurveyController@personalInfo')->name('survey.personal.info');
 		
-		Route::post('/ankieta/{survey}/dane', 'PersonController@store')->name('person.store');
+		Route::post('/{survey_uuid}/dane', 'PersonController@store')->name('person.store');
 
-		Route::get('/ankieta/{survey}/ankietowany/{person}/kategoria/{currentCategory}', 'SurveyController@showCategory')->name('survey.category');
+		Route::get('/{survey_uuid}/{person}/{currentCategory}', 'SurveyController@showCategory')->name('survey.category');
 
-		Route::get('/ankieta/{survey}/dziekujemy', 'SurveyController@finish')->name('survey.finish');
+		Route::post('/{survey_uuid}/{person}/{currentCategory}', 'answerController@store')->name('answer.store');
 
-		Route::post('/ankieta/{survey}/ankietowany/{person}/kategoria/{currentCategory}', 'answerController@store')->name('answer.store');
+		Route::get('/{survey_uuid}/dziekujemy', 'SurveyController@finish')->name('survey.finish');
 
-		//Route::get('/ankieta/{survey}/all', 'SurveyController@showAll')->name('survey.all');
 	});
 
 });
@@ -57,7 +56,8 @@ Route::group([
 	Route::get('/{survey}/status', 'SurveyAdminController@statusChange')->name('admin.survey.status.change');
 	Route::get('/ankieta/{survey}/pytania/', 'SurveyAdminController@attachQuestionsForm')->name('admin.survey.attachQuestionsForm');
 	Route::post('/ankieta/{survey}/pytania/', 'SurveyAdminController@attachQuestions')->name('admin.survey.attachQuestions');
-	Route::delete('/ankieta/{survey}/usuń/', 'SurveyAdminController@destroy')->name('admin.survey.destroy');
+	Route::delete('/ankieta/{survey}/usun/', 'SurveyAdminController@destroy')->name('admin.survey.destroy');
+	Route::delete('/ankieta/{survey}/usunpuste/', 'SurveyAdminController@destroyEmptyPeople')->name('admin.survey.destroy.empty.people');
 
 	Route::get('/firma/', 'CompanyController@index')->name('admin.company.index');
 	Route::put('/firma/dodaj', 'CompanyController@store')->name('admin.company.store');
@@ -81,10 +81,9 @@ Route::group([
 
 	Route::get('/opcja/', 'QuestionOptionController@index')->name('admin.questions.options.index');
 	Route::put('/opcja/', 'QuestionOptionController@store')->name('admin.questions.options.store');
-
 	Route::get('/opcja/{questionOption}/edytuj', 'QuestionOptionController@edit')->name('admin.questions.options.edit');
 	Route::patch('/opcja/{questionOption}/edytuj', 'QuestionOptionController@update')->name('admin.questions.options.update');
-
+	Route::delete('/opcja/{questionOption}/destroy', 'QuestionOptionController@destroy')->name('admin.questions.options.destroy');
 
 	Route::get('/skala/', 'ScaleController@index')->name('admin.scale.index');
 	Route::put('/skala/dodaj', 'ScaleController@store')->name('admin.scale.store');
@@ -96,6 +95,12 @@ Route::group([
 	Route::get('/skala/{scale}/wartosc/{scaleValue}/edytuj', 'ScaleValueController@edit')->name('admin.scale.value.edit');
 	Route::patch('/skala/{scale}/wartosc/{scaleValue}/edytuj', 'ScaleValueController@update')->name('admin.scale.value.update');
 	Route::delete('/skala/{scale}/wartosc/usun/{scaleValue}', 'ScaleValueController@destroy')->name('admin.scale.value.destroy');
+
+	Route::get('/ankietowany/', 'PersonController@index')->name('admin.people.index');
+	Route::delete('/ankietowany/{person}/destroy', 'PersonController@destroy')->name('admin.people.destroy');
+
+	Route::get('/odpowiedzi/{person}', 'PersonController@show')->name('admin.people.show');
+
 
 	Route::get('/stanowisko/', 'PostController@index')->name('admin.post.index');
 	Route::put('/stanowisko/dodaj', 'PostController@store')->name('admin.post.store');

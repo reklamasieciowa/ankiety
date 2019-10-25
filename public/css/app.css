@@ -173,6 +173,11 @@ form .question {
   padding: 20px;
 }
 
+form .question p.label {
+  font-weight: 700;
+  color: #00c3ff;
+}
+
 form .form-group {
   margin-top: 20px;
 }
