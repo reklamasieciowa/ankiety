@@ -120,7 +120,6 @@ class SurveyAdminController extends Controller
             'pl'  => ['title' => $validated['name_pl'], 'description' => $validated['description_pl']],
             'en'  => ['title' => $validated['name_en'], 'description' => $validated['description_pl']],
             'company_id' => $validated['company_id'],
-            'uuid' => (string) Str::uuid(),
         ]);
 
 
