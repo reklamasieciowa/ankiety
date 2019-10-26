@@ -61,7 +61,7 @@ class SurveyAdminController extends Controller
         Survey::create([
             'finished' => 0,
             'pl'  => ['title' => $validated['name_pl'], 'description' => $validated['description_pl']],
-            'en'  => ['title' => $validated['name_en'], 'description' => $validated['description_pl']],
+            'en'  => ['title' => $validated['name_en'], 'description' => $validated['description_en']],
             'company_id' => $validated['company_id'],
             'uuid' => (string) Str::uuid(),
         ]);
@@ -118,7 +118,7 @@ class SurveyAdminController extends Controller
         $survey->update([
             'finished' => $validated['finished'],
             'pl'  => ['title' => $validated['name_pl'], 'description' => $validated['description_pl']],
-            'en'  => ['title' => $validated['name_en'], 'description' => $validated['description_pl']],
+            'en'  => ['title' => $validated['name_en'], 'description' => $validated['description_en']],
             'company_id' => $validated['company_id'],
         ]);
 
