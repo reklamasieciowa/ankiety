@@ -11,9 +11,9 @@
   <div class="row my-5 text-center">
     <div class="col-lg-12">
       @if (App::isLocale('pl'))
-        <a href="{{ route('survey.start', ['locale' => 'en', 'survey' => $survey->id]) }}" class="btn btn-accent">Swith to english</a>
+        <a href="{{ route('survey.start', ['locale' => 'en', 'survey_uuid' => $survey->uuid]) }}" class="btn btn-accent">Swith to english</a>
       @else
-        <a href="{{ route('survey.start', ['locale' => 'pl', 'survey' => $survey->id]) }}" class="btn btn-accent">Zmień na polski</a>
+        <a href="{{ route('survey.start', ['locale' => 'pl', 'survey_uuid' => $survey->uuid]) }}" class="btn btn-accent">Zmień na polski</a>
       @endif
     </div>
   </div>
