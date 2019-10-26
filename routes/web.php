@@ -34,7 +34,7 @@ Route::group([
 
 		Route::get('/{survey_uuid}/{person}/{currentCategory}', 'SurveyController@showCategory')->name('survey.category');
 
-		Route::post('/{survey_uuid}/{person}/{currentCategory}', 'answerController@store')->name('answer.store');
+		Route::post('/{survey_uuid}/{person}/{currentCategory}', 'AnswerController@store')->name('answer.store');
 
 		Route::get('/{survey_uuid}/dziekujemy', 'SurveyController@finish')->name('survey.finish');
 
