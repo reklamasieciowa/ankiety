@@ -18,6 +18,12 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$6kgU2gWgUQpj0WiUVt72/eaqOeUsU7UO6izxnKDsqVLvgJvBqsflS',
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'Anna Grzywaczyk',
+            'email' => 'anna.grzywaczyk@wncl.pl',
+            'password' => Hash::make('12345678'),
+        ]);
+
         $survey = App\Survey::create([
             'finished' => 0,
             'pl'  => ['title' => 'Ogólnopolskie Badanie Kompetencji HR Biznes Partnerów 2019', 'description' => 'Opis pl'],

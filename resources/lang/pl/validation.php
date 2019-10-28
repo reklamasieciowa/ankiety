@@ -57,6 +57,11 @@
 		    'question_id' => [
 		        'required' => 'Przypisz do pytania.',
 		    ],
+		    'password' => [
+		        'min' => 'Hasło musi mieć min. 8 znaków.',
+		        'confirmed' => 'Oba hasła muszą być identyczne.',
+		    ],
+
 		    
 	],
 

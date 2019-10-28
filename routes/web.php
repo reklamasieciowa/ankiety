@@ -11,9 +11,6 @@
 |
 */
 
-
-
-
 Route::get('/', function () {
     return redirect(app()->getLocale());
 });
@@ -113,6 +110,15 @@ Route::group([
 	Route::get('/dzial/{department}/edytuj', 'DepartmentController@edit')->name('admin.department.edit');
 	Route::patch('/dzial/{department}/edytuj', 'DepartmentController@update')->name('admin.department.update');
 	Route::delete('/dzial/{department}/usun', 'DepartmentController@destroy')->name('admin.department.destroy');
+
+	Route::get('/uzytkownik/', 'UserController@index')->name('admin.user.index');
+
+	Route::get('/uzytkownik/dodaj', 'Auth\RegisterController@showRegistrationForm')->name('admin.user.create');
+	Route::post('/uzytkownik/dodaj', 'Auth\RegisterController@register')->name('admin.user.store');
+
+	//edit
+	//update
+	//delete
 });
 
 

@@ -12,7 +12,9 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
+    'Register' => 'Dodaj użytkownika',
+    'Name' => 'Nazwa',
+    'Confirm Password' => 'Potwierdź hasło',
     'failed' => 'Nieprawidłowe dane',
     'throttle' => 'Zbyt wiele nieudanych prób logowania. Spróbuj ponownie za :seconds sekund.',
     'Login' => 'Logowanie',

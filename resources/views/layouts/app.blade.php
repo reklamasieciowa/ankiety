@@ -86,8 +86,8 @@
                 <a class="nav-link dropdown-toggle" id="navbarUsers" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">Użytkownicy</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarUsers">
-                  <a class="dropdown-item todo" href="#">Zobacz <i class="far fa-eye"></i></a>
-                  <a class="dropdown-item todo" href="#">Dodaj <i class="fas fa-plus-circle"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.user.index') }}">Zobacz <i class="far fa-eye"></i></a>
+                  <a class="dropdown-item todo" href="{{ route('admin.user.create') }}">Dodaj <i class="fas fa-plus-circle"></i></a>
                 </div>
               </li>
 
