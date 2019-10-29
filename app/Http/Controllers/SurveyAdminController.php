@@ -85,8 +85,9 @@ class SurveyAdminController extends Controller
 
          $peopleByPost = $survey->peopleByPost();
          $peopleByDepartment = $survey->peopleByDepartment();
+         $peopleByIndustry = $survey->peopleByIndustry();
 
-        return view('admin.survey.show')->with(compact('survey','peopleByPost','peopleByDepartment'));
+        return view('admin.survey.show')->with(compact('survey','peopleByPost','peopleByDepartment', 'peopleByIndustry'));
     }
 
     /**

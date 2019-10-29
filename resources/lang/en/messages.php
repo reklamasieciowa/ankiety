@@ -1,15 +1,16 @@
 <?php 
 	return [
 	    'Start' => 'Start',
-	    'Finish' => 'Thank you for completing the survey',
-	    'Results' => 'If you have provided an e-mail address and given the appropriate consent, we will send you a presentation of the results.',
+	    'Finish' => 'Thank you for filling out our survey',
+	    'Results' => 'If you leave us your e-mail address and provide us with your consent, we will send you a report on the results of this study.',
 	    'Next' => 'Next',
 	    'Prev' => 'Previous',
-	    'Personal_info' => 'Personal info',
-	    'Post' => 'Post',
+	    'Personal_info' => 'Metric',
+	    'Post' => 'Level of your position',
 	    'Department' => 'Department',
+	    'Industry' => 'Industry',
 	    'Email' => 'E-mail address',
-	    'Email_info' => 'EN Jeśli zostawisz nam swój mail i wyrazisz na to stosowne, obowiązkowe zgody, wyślemy Ci Raport z wyników tego badania.',
+	    'Email_info' => 'If you leave us your e-mail address and provide us with your consent, we will send you a report on the results of this study.',
 	    '404' => 'This page cannot be found.',
 	    'back_to_home' => 'Back to the home page.',
 	];

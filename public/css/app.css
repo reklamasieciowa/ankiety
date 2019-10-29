@@ -160,6 +160,14 @@ body {
   margin: 20px 0;
   color: #00c3ff;
   text-transform: uppercase;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 991px) {
+  .category-title {
+    font-size: 1.3rem;
+    text-transform: none;
+  }
 }
 
 a.todo {

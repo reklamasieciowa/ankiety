@@ -67,7 +67,7 @@
               <div class="card-body">
                 
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                       <h5 class="h4-responsive">
                         Stanowiska:
                       </h5>
@@ -75,11 +75,19 @@
                         <p><strong>{{ $key }}:</strong> {{ $value->count() }} ({{ round($value->count()/ $survey->people->count()*100,2) }}%)</p>
                       @endforeach 
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                       <h5 class="h4-responsive">
                         Działy:
                       </h5>
                       @foreach($peopleByDepartment as $key => $value)
+                        <p><strong>{{ $key }}:</strong> {{ $value->count() }} ({{ round($value->count()/ $survey->people->count()*100,2) }}%)</p>
+                      @endforeach 
+                    </div>
+                    <div class="col-lg-4">
+                      <h5 class="h4-responsive">
+                        Branże:
+                      </h5>
+                      @foreach($peopleByIndustry as $key => $value)
                         <p><strong>{{ $key }}:</strong> {{ $value->count() }} ({{ round($value->count()/ $survey->people->count()*100,2) }}%)</p>
                       @endforeach 
                     </div>

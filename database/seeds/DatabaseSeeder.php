@@ -39,10 +39,10 @@ class DatabaseSeeder extends Seeder
             'en'  => ['title' => 'HR Business Partners Competences Study', 'description' => '<p><strong>DOES HR MEET TODAY\'S BUSINESS EXPECTATIONS? </strong></p>
             <p><strong>Help to assess the most critical HR competencies. It will be your input in a better, more business- centered and partnered HR.</strong></p>
             <p>Dear participant,</p>
-            <p>In this Survey we want to know how HR is assessed by business managers and how it evaluates itself. Review your HR Business Partner / HR Manager / HR Director - the person who works closest to you and supports you with broadly understood HR matters. </p>
-            <p>In this short form (ca 12 min) you will find descriptions of specific behaviours that are most desirable for a HR business person and the scale of evaluation. First read the scale - it will help you with your rating. By completing the form, rate how your HR presents these behaviours in cooperation with you. If you are not currently working with HRBP or HR, you can refer to your experience from previous jobs.</p>
-            <p>We also encourage you to share the survey link with other managers. Every opinion is valuable to us!</p>
-            <p>If you leave us your e-mail address and provide us your consent, we will send you a report on the results of this study.</p>
+            <p>In this Survey we want to know how HR is assessed by business managers and how it evaluates. Review your HR Business Partner / HR Manager / HR Director - the person who works closest to you and supports you with broadly understood HR matters. </p>
+            <p>In this short form (ca 12 min) you will find descriptions of specific behaviours that are most desirable for an HR business person and the scale of evaluation. First read the scale - it will help you with your rating. By completing the form, rate how your HR presents these behaviours in cooperation with you. If you are not currently working with HRBP or HR, you can refer to your experience from previous jobs.</p>
+            <p>We also encourage you to share the survey link with other managers. Every opinion matters!</p>
+            <p>If you leave us your e-mail address and provide us with your consent, we will send you a report on the results of this study.</p>
             <p>Thank you!<br>
             WNCL Team</p>
             '],
@@ -172,37 +172,37 @@ $scale_values = [
     'scale_id' => '1',
     'value' => '5',
     'pl' => 'Prezentuje zachowanie na doskonałym poziomie, zawsze powyżej Twoich oczekiwań.',
-    'en' => 'Presents this behavior on excellent level, always exceeding your expectations.',
+    'en' => 'Presents this behavior on excellent level, always exceeds your expectations.',
 ],
 6 => [
     'scale_id' => '2',
     'value' => '0',
-    'pl' => 'brak narzędzi',
-    'en' => 'lack of tools',
+    'pl' => 'brak narzędzi informatycznych',
+    'en' => 'lack of IT tools',
 ],
 7 => [
     'scale_id' => '2',
     'value' => '1',
-    'pl' => 'niedostatecznie',
-    'en' => 'not effective tools',
+    'pl' => 'niedostateczne narzędzia informatyczne',
+    'en' => 'not effective IT tools',
 ],
 8 => [
     'scale_id' => '2',
     'value' => '2',
-    'pl' => 'dobrze',
-    'en' => 'relevant tools',
+    'pl' => 'dobre narzędzia informatyczne',
+    'en' => 'relevant IT tools',
 ],
 9 => [
     'scale_id' => '2',
     'value' => '3',
-    'pl' => 'bardzo dobrze',
-    'en' => 'well functioning tool',
+    'pl' => 'bardzo dobre narzędzia informatyczne',
+    'en' => 'well functioning IT tools',
 ],
 10 => [
     'scale_id' => '2',
     'value' => '4',
-    'pl' => 'idealnie',
-    'en' => 'very good, effective tools',
+    'pl' => 'idealne narzędzia informatyczne',
+    'en' => 'very good, effective IT tools',
 ],
 
 ];
@@ -329,6 +329,77 @@ $departments = [
 
 foreach($departments as $key => $value) {
  App\Department::create([
+     'pl'  => ['name' => $value['pl']],
+     'en'  => ['name' => $value['en']],
+ ]);
+}
+
+        //indastries
+$indastries = [
+ 0 => [
+  'pl' => 'Farmaceutyczna / Medyczna',
+  'en' => 'Pharmaceutical / Medical',
+],
+1 => [
+  'pl' => 'Media',
+  'en' => 'Media',
+],
+2 => [
+  'pl' => 'E-commerce',
+  'en' => 'E-commerce',
+],
+3 => [
+  'pl' => 'Technologia / IT / Telecom',
+  'en' => 'Technology / IT/ Telecom',
+],
+4 => [
+  'pl' => 'FMCG / Kosmetyczna',
+  'en' => 'FMCG / Cosmetics',
+],
+5 => [
+  'pl' => 'Detal',
+  'en' => 'Retail',
+],
+6 => [
+  'pl' => 'Automotive',
+  'en' => 'Automotive',
+],
+7 => [
+  'pl' => 'Finanse, bankowość i ubezpieczenia',
+  'en' => 'Finance, banking and insurance',
+],
+8 => [
+  'pl' => 'Logistyka, transport i dystrybucja',
+  'en' => 'Logistics, transportation and distribution',
+],
+9 => [
+  'pl' => 'Budowlana',
+  'en' => 'Construction',
+],
+10 => [
+  'pl' => 'BPO / SCC',
+  'en' => 'BPO / SCC',
+],
+11 => [
+  'pl' => 'Konsulting',
+  'en' => 'Consulting and advisory services',
+],
+12 => [
+  'pl' => 'Jednostki samorządowe, budżetowe i non profit',
+  'en' => 'Local government, public services and NGOs',
+],
+13 => [
+  'pl' => 'Usługowa',
+  'en' => 'Other services',
+],
+14 => [
+  'pl' => 'Przemysłowa',
+  'en' => 'Other production or heavy industry',
+],
+];
+
+foreach($indastries as $key => $value) {
+ App\Industry::create([
      'pl'  => ['name' => $value['pl']],
      'en'  => ['name' => $value['en']],
  ]);
@@ -476,7 +547,6 @@ $questions = [
         'pl' => 'Śledzi innowacje i trendy w HR oraz proponuje Ci ich wykorzystanie, adekwatnie do potrzeb.',
         'en' => 'Watches the latest innovations and trends in HR and suggests its implementation, adequately to your needs.',
     ],
-
     21 => [
         'category_id' => 5,
         'question_type_id' => 1,
@@ -610,7 +680,7 @@ $questions = [
         'scale_id' => null,
         'required' => 0,
         'pl' => 'Jakie procesy HR w Waszej firmie powinny być udoskonalone z wykorzystaniem nowych technologii?',
-        'en' => 'Which HR processes in your company shall be optimize by IT tools?',
+        'en' => 'Which HR processes in your company should be optimized by IT tools?',
     ],
     40 => [
         'category_id' => 8,
@@ -643,19 +713,16 @@ foreach($questions as $key => $value) {
             'en'  => ['name' => $value['en']],
         ]);
     }
-    
-}
 
-        //$questions = factory(App\Question::class, 10)->create();
+}
 
 $survey->questions()->saveMany(App\Question::All());
 
-        //$entries = factory(App\Entry::class, 30)->create();
-
-       // $status = factory(App\Status::class)->create([
-       //   'name' => 'Przyjęte',
-       //   'color' => '#ff4444',
-       //  ]);
+//create people with answers
+// factory(App\Person::class, 10)->create()->each(function ($person) {
+// factory to do: person, answer
+//     $person->answers()->save(factory(App\Answer::class, 38)->make());
+// });
 
 }
 }

@@ -112,8 +112,6 @@ class Survey extends Model implements TranslatableContract
             return $item['post']->name;
         });
 
-       //dd($peopleByPost);
-
         return $peopleByPost;
     }
 
@@ -125,5 +123,15 @@ class Survey extends Model implements TranslatableContract
         });
 
         return $peopleByDepartment;
+    }
+
+    public function peopleByIndustry()
+    {
+        $peopleByIndustry = $this->people->load('industry.translations')->groupBy(function($item, $key)
+        {
+            return $item['industry']->name;
+        });
+
+        return $peopleByIndustry;
     }
 }

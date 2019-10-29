@@ -21,31 +21,40 @@
                     <input type="hidden" name="survey_uuid" value="{{ $survey->uuid }}">
 
                     <div class="form-group">
-                      @if(count($posts))
+                    
                         <p>{{ __('messages.Post') }}</p>
-                        @foreach($posts as $post)
+                        @forelse($posts as $post)
                           <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" id="post{{ $post->id }}" name="post_id" value="{{ $post->id }}" required>
                             <label class="custom-control-label" for="post{{ $post->id }}">{{ $post->name }}</label>
                           </div>
-                        @endforeach
-                      @else
-                        <p>Brak zawodów.</p>
-                      @endif
+                        @empty
+                          <p>Brak zawodów.</p>
+                        @endforelse
                     </div>
                     
                     <div class="form-group">
-                      @if(count($departments))
-                        <p>{{ __('messages.Department') }}</p>
-                        @foreach($departments as $department)
-                          <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="department{{ $department->id }}" name="department_id" value="{{ $department->id }}" required>
-                            <label class="custom-control-label" for="department{{ $department->id }}">{{ $department->name }}</label>
-                          </div>
-                        @endforeach
-                      @else
+                      <p>{{ __('messages.Department') }}</p>
+                      @forelse($departments as $department)
+                        <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="department{{ $department->id }}" name="department_id" value="{{ $department->id }}" required>
+                          <label class="custom-control-label" for="department{{ $department->id }}">{{ $department->name }}</label>
+                        </div>
+                      @empty
                         <p>Brak działów.</p>
-                      @endif
+                      @endforelse
+                    </div>
+
+                    <div class="form-group">
+                      <p>{{ __('messages.Industry') }}</p>
+                      @forelse($industries as $industry)
+                        <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="industry{{ $industry->id }}" name="industry_id" value="{{ $industry->id }}" required>
+                          <label class="custom-control-label" for="industry{{ $industry->id }}">{{ $industry->name }}</label>
+                        </div>
+                      @empty
+                        <p>Brak branż.</p>
+                      @endforelse
                     </div>
 
                     <div class="form-group">

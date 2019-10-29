@@ -18,6 +18,7 @@ class CreatePeopleTable extends Migration
             $table->bigInteger('survey_id')->unsigned();
             $table->bigInteger('post_id')->unsigned();
             $table->bigInteger('department_id')->unsigned();
+            $table->bigInteger('industry_id')->unsigned();
             $table->string('email')->nullable();
             $table->foreign('survey_id')->references('id')->on('surveys');
             $table->foreign('post_id')->references('id')->on('posts');

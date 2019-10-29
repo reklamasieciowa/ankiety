@@ -40,6 +40,7 @@ class PersonController extends Controller
             'survey_id' => $survey->id,
             'post_id' => $validated['post_id'],
             'department_id' => $validated['department_id'],
+            'industry_id' => $validated['industry_id'],
             'email' => $validated['email'],
         ]);
 

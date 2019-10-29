@@ -27,6 +27,7 @@ class StorePerson extends FormRequest
             'survey_uuid' => 'required|uuid',
             'post_id' => 'required|integer',
             'department_id' => 'required|integer',
+            'industry_id' => 'required|integer',
             'email' => 'nullable|email',
         ];
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    protected $fillable = ['survey_id', 'post_id', 'department_id', 'email'];
+    protected $fillable = ['survey_id', 'post_id', 'department_id', 'industry_id', 'email'];
 
     public function answers()
     {
@@ -21,6 +21,11 @@ class Person extends Model
     public function post()
     {
         return $this->belongsTo('App\Post');
+    }
+
+    public function industry()
+    {
+        return $this->belongsTo('App\Industry');
     }
 
     public function department()

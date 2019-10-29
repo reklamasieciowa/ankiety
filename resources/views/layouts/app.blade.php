@@ -71,6 +71,7 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarPeople">
                   <a class="dropdown-item" href="{{ route('admin.post.index') }}">Stanowiska <i class="far fa-eye"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.department.index') }}">Działy <i class="far fa-eye"></i></a>
+                  <a class="dropdown-item todo" href="{{ route('admin.department.index') }}">Branże <i class="far fa-eye"></i></a>
                 </div>
               </li>
 

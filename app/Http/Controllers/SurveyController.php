@@ -7,6 +7,7 @@ use App\Category;
 use App\Scale;
 use App\Post;
 use App\Department;
+use App\Industry;
 use App\Person;
 use Illuminate\Http\Request;
 
@@ -24,8 +25,9 @@ class SurveyController extends Controller
 
         $posts = Post::with('translations')->get();
         $departments = Department::with('translations')->get();
+        $industries = Industry::with('translations')->get();
 
-        return view('front.survey.personalInfo')->with('survey', $survey)->with('posts', $posts)->with('departments', $departments);
+        return view('front.survey.personalInfo')->with(compact('survey', 'posts', 'departments', 'industries'));
     }
 
     /**
