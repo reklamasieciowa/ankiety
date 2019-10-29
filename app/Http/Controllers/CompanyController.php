@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Survey;
+use App\Post;
+use App\Department;
+use App\Industry;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateCompany;
 
@@ -18,8 +21,11 @@ class CompanyController extends Controller
     {
         $surveys = Survey::with('translations')->get();
         $companies = Company::all();
+        $posts = Post::with('translations')->get();
+        $departments = Department::with('translations')->get();
+        $industries = Industry::with('translations')->get();
 
-        return view('admin.company.index')->with(compact('companies', 'surveys'));
+        return view('admin.company.index')->with(compact('companies', 'surveys', 'posts', 'departments', 'industries'));
     }
 
     /**
@@ -29,7 +35,11 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('admin.company.create');
+        $posts = Post::with('translations')->get();
+        $departments = Department::with('translations')->get();
+        $industries = Industry::with('translations')->get();
+
+        return view('admin.company.create')->with(compact('posts', 'departments', 'industries'));
     }
 
     /**
@@ -68,7 +78,11 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        return view('admin.company.edit')->with(compact('company'));
+        $posts = Post::with('translations')->get();
+        $departments = Department::with('translations')->get();
+        $industries = Industry::with('translations')->get();
+
+        return view('admin.company.edit')->with(compact('company', 'posts', 'departments', 'industries'));
     }
 
     /**

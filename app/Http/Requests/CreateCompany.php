@@ -25,6 +25,9 @@ class CreateCompany extends FormRequest
     {
         return [
             'name' => 'string|required',
+            'post_id' => 'integer|nullable',
+            'department_id' => 'integer|nullable',
+            'industry_id' => 'integer|nullable',
         ];
     }
 }
