@@ -120,6 +120,8 @@ Route::group([
 	//edit
 	//update
 	//delete
+
+	Route::get('/wyniki/stanowiska', 'ResultsController@PostListChart')->name('admin.wyniki.stanowiska');
 });
 
 
