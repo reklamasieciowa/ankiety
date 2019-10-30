@@ -20,6 +20,7 @@ class CreatePeopleTable extends Migration
             $table->bigInteger('department_id')->unsigned();
             $table->bigInteger('industry_id')->unsigned();
             $table->string('email')->nullable();
+            $table->boolean('agree')->nullable()->default('0');
             $table->foreign('survey_id')->references('id')->on('surveys');
             $table->foreign('post_id')->references('id')->on('posts');
             $table->foreign('department_id')->references('id')->on('departments');

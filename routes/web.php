@@ -57,6 +57,7 @@ Route::group([
 	Route::delete('/ankieta/{survey}/usunpuste/', 'SurveyAdminController@destroyEmptyPeople')->name('admin.survey.destroy.empty.people');
 
 	Route::get('/firma/', 'CompanyController@index')->name('admin.company.index');
+	Route::get('/firma/dodaj', 'CompanyController@create')->name('admin.company.create');
 	Route::put('/firma/dodaj', 'CompanyController@store')->name('admin.company.store');
 	Route::get('/firma/edytuj/{company}', 'CompanyController@edit')->name('admin.company.edit');
 	Route::patch('/firma/edytuj/{company}', 'CompanyController@update')->name('admin.company.update');

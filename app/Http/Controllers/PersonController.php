@@ -42,6 +42,7 @@ class PersonController extends Controller
             'department_id' => $validated['department_id'],
             'industry_id' => $validated['industry_id'],
             'email' => $validated['email'],
+            'agree' => $validated['agree'],
         ]);
 
 

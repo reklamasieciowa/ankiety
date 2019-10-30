@@ -133,7 +133,7 @@ class SurveyAdminController extends Controller
 
     public function attachQuestionsForm(Survey $survey)
     {
-        $questions = Question::with('category')->get();
+        $questions = Question::with('category.translations', 'translations')->get();
 
         return view('admin.survey.attachQuestions')->with(compact('questions', 'survey'));
     }

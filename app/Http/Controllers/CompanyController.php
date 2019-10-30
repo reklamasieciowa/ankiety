@@ -21,11 +21,8 @@ class CompanyController extends Controller
     {
         $surveys = Survey::with('translations')->get();
         $companies = Company::all();
-        $posts = Post::with('translations')->get();
-        $departments = Department::with('translations')->get();
-        $industries = Industry::with('translations')->get();
 
-        return view('admin.company.index')->with(compact('companies', 'surveys', 'posts', 'departments', 'industries'));
+        return view('admin.company.index')->with(compact('companies', 'surveys'));
     }
 
     /**

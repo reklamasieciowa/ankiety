@@ -61,8 +61,9 @@
 		        'min' => 'Hasło musi mieć min. 8 znaków.',
 		        'confirmed' => 'Oba hasła muszą być identyczne.',
 		    ],
-
-		    
+		    'agree' => [
+		        'required_with' => 'Zgoda na przetwarzanie danych jest wymagana, gdy podano :values.',
+		    ],
 	],
 
 	'values' => [

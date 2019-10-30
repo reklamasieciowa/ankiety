@@ -50,6 +50,7 @@
                   <a class="dropdown-item" href="{{ route('admin.index') }}">Pulpit <i class="far fa-eye"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.survey.create') }}">Dodaj ankietę <i class="fas fa-plus-circle"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.company.index') }}">Firmy <i class="far fa-eye"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.company.create') }}">Dodaj firmę <i class="fas fa-plus-circle"></i></a>
                 </div>
               </li>
 
