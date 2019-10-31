@@ -16,12 +16,17 @@
    </div>
 
    <div class="row mt-5">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
+    <div class="col-lg-12" style="height: 800px;">
+
           {!! $chart->container() !!}
-        </div>
-      </div>
+
+    </div>
+    <div class="col-lg-12">
+      @if(isset($questions))
+        @foreach($questions as $question)
+          <p>{{ $loop->index }}: {{ $question->{'name:en'} }}</p>
+        @endforeach
+      @endif
     </div>
   </div>
 

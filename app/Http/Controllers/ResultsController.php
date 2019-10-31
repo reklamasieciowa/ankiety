@@ -8,6 +8,7 @@ use App\Charts\Number;
 use App\Person;
 use App\Answer;
 use App\Category;
+use App\Question;
 
 class ResultsController extends Controller
 {
@@ -58,16 +59,46 @@ class ResultsController extends Controller
     public function CategoryChart($category_id)
     {
         $category = Category::findOrFail($category_id);
+        $questions = $category->questions->load('translations');
 
-        $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
+        // $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
+        //     // Return the avg for answers
+        //     return [$item->{'name:en'} => $item->answers->avg('value')];
+        //     //return $item->answers->avg('value');
+        // });
+
+        $answers = $category->questions->load('answers')->map(function ($item) {
             // Return the avg for answers
-            return [$item->{'name:en'} => $item->answers->avg('value')];
+            return $item->answers->avg('value');
             //return $item->answers->avg('value');
         });
 
        // dd($answers);
 
         $title = 'Kategoria '.$category->{'name:en'};
+
+        $chart = Number::generateChart($answers, 'bar', '');
+
+        return view('admin.result.chart', compact('chart', 'title', 'questions'));
+    }
+
+    public function topFive($order = "worst")
+    {
+
+        $answers = Question::all()->load('answers')->mapWithKeys(function ($item) {
+            // Return the number of persons with that age
+            return [ $item->{'name:en'} => $item->answers->avg('value')];
+        });
+
+        $answers = $answers->sort();
+
+        if($order == "best") {
+            $answers = $answers->reverse();
+        }
+        
+        $answers = $answers->take(5);
+
+        $title = 'Kategorie';
 
         $chart = Number::generateChart($answers, 'bar', '');
 
@@ -82,7 +113,9 @@ class ResultsController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all()->take(6);
+
+        return view('admin.result.index', compact('categories'));
     }
 
     /**

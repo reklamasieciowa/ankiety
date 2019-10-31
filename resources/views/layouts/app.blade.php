@@ -93,6 +93,10 @@
                 </div>
               </li>
 
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.result') }}"><i class="fas fa-cogs fa-lg"></i> Wyniki</a>
+              </li> 
+
             </ul>
                        
           <!-- Right Side Of Navbar -->

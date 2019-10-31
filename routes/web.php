@@ -120,10 +120,14 @@ Route::group([
 	//edit
 	//update
 	//delete
+	Route::get('/wyniki/', 'ResultsController@index')->name('admin.result');
 
-	Route::get('/wyniki/stanowiska', 'ResultsController@PostListChart')->name('admin.wyniki.stanowiska');
-	Route::get('/wyniki/kategorie', 'ResultsController@AllCategoriesChart')->name('admin.wyniki.kategorie');
-	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.wyniki.kategoria');
+	Route::get('/wyniki/stanowiska', 'ResultsController@PostListChart')->name('admin.result.post');
+	Route::get('/wyniki/kategorie', 'ResultsController@AllCategoriesChart')->name('admin.result.categories');
+	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.result.category');
+
+	Route::get('/wyniki/top5/{order}', 'ResultsController@topFive')->name('admin.result.top5');
+
 });
 
 

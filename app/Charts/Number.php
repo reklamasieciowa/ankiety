@@ -60,7 +60,7 @@ class Number extends Chart
                             'stepSize' => 1,
                             'fontSize' => 18,
                             'autoSkip' => false,
-                            'maxRotation' => 50,
+                            'maxRotation' => 80,
                             'minRotation' => 0,
                         ],
                     ],
