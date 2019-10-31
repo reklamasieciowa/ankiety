@@ -80,12 +80,12 @@
               <p>Pytanie o email</p>
               
                 <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="emailyes" name="email" value="1" checked>
+                  <input type="radio" class="custom-control-input" id="emailyes" name="emails" value="1" checked>
                   <label class="custom-control-label" for="emailyes">Tak</label>
                 </div>
 
                 <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="emailno" name="email" value="0">
+                  <input type="radio" class="custom-control-input" id="emailno" name="emails" value="0">
                   <label class="custom-control-label" for="emailno">Nie</label>
                 </div>
 
