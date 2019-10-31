@@ -19,7 +19,7 @@ class CreateCompaniesTable extends Migration
             $table->bigInteger('post_id')->unsigned()->nullable();
             $table->bigInteger('department_id')->unsigned()->nullable();
             $table->bigInteger('industry_id')->unsigned()->nullable();
-            $table->boolean('email')->default('1');
+            $table->boolean('emails')->default('1');
             $table->timestamps();
 
             $table->foreign('post_id')->references('id')->on('posts');
