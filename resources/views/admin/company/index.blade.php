@@ -35,6 +35,7 @@
               <p><strong>Domyślny poziom stanowiska:</strong> {{ $company->post->name ?? '-' }}</p>
               <p><strong>Domyślny dział:</strong> {{ $company->department->name ?? '-' }}</p>
               <p><strong>Domyślna branża:</strong> {{ $company->industry->name ?? '-' }}</p>
+              <p><strong>Pytanie o email</strong> {{ $company->email==1 ? 'tak' : 'nie' }}</p>
             </div>
             <div class="col-lg-2">
               <a class="btn btn-accent btn-sm" href="{{ route('admin.company.edit', ['company' => $company->id]) }}">
