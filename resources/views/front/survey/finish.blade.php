@@ -12,7 +12,9 @@
          <h2 class="h2-responsive title">
            {{ $survey->title }}
          </h2>
+         @if(isset($survey->company->email) && $survey->company->email == 1))
       			<p>{{ __('messages.Results') }}</p>
+          @endif
 			</div>
 		</div>
       </div>
