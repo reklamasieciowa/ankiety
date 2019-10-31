@@ -11,5 +11,6 @@ $factory->define(Person::class, function (Faker $faker) {
         'post_id' => $faker->biasedNumberBetween($min = 1, $max = 7),
         'department_id' => $faker->biasedNumberBetween($min = 1, $max = 17),
         'industry_id' => $faker->biasedNumberBetween($min = 1, $max = 15),
+        'practice' => $faker->biasedNumberBetween($min = 0, $max = 2),
     ];
 });

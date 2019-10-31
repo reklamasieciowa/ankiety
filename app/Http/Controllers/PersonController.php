@@ -39,6 +39,10 @@ class PersonController extends Controller
             $validated['agree'] = 0;
         }
 
+        if(!isset($validated['email'])) {
+            $validated['email'] = '';
+        }
+
         //zapis person i przekierowanie do ankieta/1/kategoria/1
         $person = Person::create([
             'survey_id' => $survey->id,
@@ -47,6 +51,7 @@ class PersonController extends Controller
             'industry_id' => $validated['industry_id'],
             'email' => $validated['email'],
             'agree' => $validated['agree'],
+            'practice' => $validated['practice'],
         ]);
 
 

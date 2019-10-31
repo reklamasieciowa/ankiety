@@ -18,7 +18,7 @@ class ResultsController extends Controller
     {
         $peopleCount = Person::count();
 
-        $peopleByPost = Person::all()->load(['post.translations', 'answers'])->groupBy(function($item, $key)
+        $peopleByPost = Person::all()->load(['post.translations', 'answers'])->sortBy('post_id')->groupBy(function($item, $key)
         {
             return $item['post']->{'name:en'};
         })->map(function ($item) use($peopleCount) {
@@ -82,6 +82,26 @@ class ResultsController extends Controller
         return view('admin.result.chart', compact('chart', 'title', 'questions'));
     }
 
+    public function CategoryValuesChart($category_id)
+    {
+        $category = Category::findOrFail($category_id);
+
+        $answers = $category->questions->load('answers')->map(function ($item) {
+            // Return the avg for answers
+            return $item->answers->sortBy('value')->groupBy('value');
+            //return $item->answers->avg('value');
+        });
+
+        dd($answers);
+
+
+        $title = 'Kategoria ';
+
+        $chart = Number::generateChart($answers, 'bar', '');
+
+        return view('admin.result.chart', compact('chart', 'title', 'questions'));
+    }
+
     public function topFive($order = "worst")
     {
 
@@ -98,7 +118,7 @@ class ResultsController extends Controller
         
         $answers = $answers->take(5);
 
-        $title = 'Kategorie';
+        $title = 'Top 5 '.$order;
 
         $chart = Number::generateChart($answers, 'bar', '');
 

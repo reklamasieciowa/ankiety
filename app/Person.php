@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    protected $fillable = ['survey_id', 'post_id', 'department_id', 'industry_id', 'email', 'agree'];
+    protected $fillable = ['survey_id', 'post_id', 'department_id', 'industry_id', 'email', 'agree', 'practice'];
 
     public function answers()
     {

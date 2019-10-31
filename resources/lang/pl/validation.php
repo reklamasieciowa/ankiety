@@ -64,6 +64,9 @@
 		    'agree' => [
 		        'required_with' => 'Zgoda na przetwarzanie danych jest wymagana, gdy podano :values.',
 		    ],
+		    'practice' => [
+		        'required' => 'Wybierz przedział doświadczenia zawodowego.',
+		    ],
 	],
 
 	'values' => [

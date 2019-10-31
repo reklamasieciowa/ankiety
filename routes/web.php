@@ -126,6 +126,8 @@ Route::group([
 	Route::get('/wyniki/kategorie', 'ResultsController@AllCategoriesChart')->name('admin.result.categories');
 	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.result.category');
 
+	Route::get('/wyniki/kategoria/rozklad/{category_id}', 'ResultsController@CategoryValuesChart')->name('admin.result.category.values');
+
 	Route::get('/wyniki/top5/{order}', 'ResultsController@topFive')->name('admin.result.top5');
 
 });
