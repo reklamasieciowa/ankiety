@@ -31,4 +31,9 @@
 
 @section('footer-scripts')
   {!! $chart->script() !!}
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
+  <script>
+    jQuery('#{{ $chart->id }}').destroy();
+  </script>
 @endsection

@@ -35,6 +35,10 @@ class PersonController extends Controller
 
         $survey = Survey::where('uuid', '=', $survey_uuid)->firstOrFail();
 
+        if(!isset($validated['agree'])) {
+            $validated['agree'] = 0;
+        }
+
         //zapis person i przekierowanie do ankieta/1/kategoria/1
         $person = Person::create([
             'survey_id' => $survey->id,

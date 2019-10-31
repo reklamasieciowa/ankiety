@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Charts\PostsList;
+use App\Charts\PostListAlternative;
 use App\Person;
 
 class ResultsController extends Controller
@@ -11,6 +12,20 @@ class ResultsController extends Controller
 
     public function PostListChart()
     {
+        $peopleCount = Person::count();
+
+        $peopleByPost = Person::all()->load(['post.translations', 'answers'])->groupBy(function($item, $key)
+        {
+            return $item['post']->name;
+        })->map(function ($item) use($peopleCount) {
+            // Return the number of persons with that age
+            return round(count($item)/$peopleCount, 4)*100;
+        });
+
+        //dd($peopleByPost);
+
+        $title = 'Stanowiska';
+
         $borderColors = [
             "rgba(255, 99, 132, 1.0)",
             "rgba(22,160,133, 1.0)",
@@ -24,45 +39,44 @@ class ResultsController extends Controller
             "rgba(205,220,57, 1.0)"
         ];
         $fillColors = [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(22,160,133, 0.2)",
-            "rgba(255, 205, 86, 0.2)",
-            "rgba(51,105,232, 0.2)",
-            "rgba(244,67,54, 0.2)",
-            "rgba(34,198,246, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)",
-            "rgba(233,30,99, 0.2)",
-            "rgba(205,220,57, 0.2)"
-
+            "rgba(255, 99, 132, 0.6)",
+            "rgba(22,160,133, 0.6)",
+            "rgba(255, 205, 86, 0.6)",
+            "rgba(51,105,232, 0.6)",
+            "rgba(244,67,54, 0.6)",
+            "rgba(34,198,246, 0.6)",
+            "rgba(153, 102, 255, 0.6)",
+            "rgba(255, 159, 64, 0.6)",
+            "rgba(233,30,99, 0.6)",
+            "rgba(205,220,57, 0.6)"
         ];
 
-        $title = 'Stanowiska w %';
+        //dd(Person::all()->groupBy('post_id'));
 
         $data = Person::all()->groupBy('post_id')
+            ->map(function ($item) {
+                // Return the number of persons with that age
+                return count($item);
+            });
 
-        ->map(function ($item) {
-            // Return the number of persons with that age
-            return count($item);
-        });
+        //dd($data->keys());
 
         $chart = new PostsList;
-        //$chart->labels($data->keys());
-        //$chart->dataset('Stanowiska w %.', 'pie', $data);
-
-        $chart->labels(['One', 'Two', 'Three', 'Four']);
-        $chart->dataset('dataset1', 'pie', [1, 2, 3, 4])
+        $chart->labels($peopleByPost->keys());
+        $chart->dataset('Stanowiska w %.', 'pie', $peopleByPost->values())
             ->color($borderColors)
             ->backgroundcolor($fillColors);
+
         $chart->displayAxes(false);
         $chart->options([
             'tooltip' => [
-                'show' => true // or false, depending on what you want.
+                'show' => false // or false, depending on what you want.
             ]
         ]);
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
+
     /**
      * Display a listing of the resource.
      *
