@@ -240,7 +240,7 @@ $posts = [
 ],
 5 => [
   'pl' => 'Pozostałe stanowiska HR',
-  'en' => 'HR Business Partner',
+  'en' => 'Other HR positions',
 ],
 6 => [
   'pl' => 'Inne',
@@ -718,11 +718,25 @@ foreach($questions as $key => $value) {
 
 $survey->questions()->saveMany(App\Question::All());
 
+$allquestions = App\Question::All();
+
 //create people with answers
-// factory(App\Person::class, 10)->create()->each(function ($person) {
-// factory to do: person, answer
-//     $person->answers()->save(factory(App\Answer::class, 38)->make());
-// });
+factory(App\Person::class, 10)->create()->each(function ($person) use ($allquestions) {
+//factory to do: person, answer
+
+        foreach($allquestions as $question) {
+            $person->answers()->save(
+                factory(App\Answer::class)->make([
+                    'survey_id' => '1',
+                    'person_id' => $person->id,
+                    'question_id' => $question->id,
+                ])
+            );
+        }
+        
+    
+});
+
 
 }
 }

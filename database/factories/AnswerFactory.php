@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Answer::class, function (Faker $faker) {
     return [
-        //
+        'value' => $faker->biasedNumberBetween($min = 0, $max = 4),
     ];
 });

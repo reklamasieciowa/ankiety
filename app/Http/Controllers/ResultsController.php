@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Charts\PostsList;
-use App\Charts\PostListAlternative;
+use App\Charts\Percent;
+use App\Charts\Number;
 use App\Person;
+use App\Answer;
+use App\Category;
 
 class ResultsController extends Controller
 {
+
 
     public function PostListChart()
     {
@@ -16,66 +19,61 @@ class ResultsController extends Controller
 
         $peopleByPost = Person::all()->load(['post.translations', 'answers'])->groupBy(function($item, $key)
         {
-            return $item['post']->name;
+            return $item['post']->{'name:en'};
         })->map(function ($item) use($peopleCount) {
             // Return the number of persons with that age
-            return round(count($item)/$peopleCount, 4)*100;
+            return count($item)/$peopleCount;
         });
-
-        //dd($peopleByPost);
 
         $title = 'Stanowiska';
 
-        $borderColors = [
-            "rgba(255, 99, 132, 1.0)",
-            "rgba(22,160,133, 1.0)",
-            "rgba(255, 205, 86, 1.0)",
-            "rgba(51,105,232, 1.0)",
-            "rgba(244,67,54, 1.0)",
-            "rgba(34,198,246, 1.0)",
-            "rgba(153, 102, 255, 1.0)",
-            "rgba(255, 159, 64, 1.0)",
-            "rgba(233,30,99, 1.0)",
-            "rgba(205,220,57, 1.0)"
-        ];
-        $fillColors = [
-            "rgba(255, 99, 132, 0.6)",
-            "rgba(22,160,133, 0.6)",
-            "rgba(255, 205, 86, 0.6)",
-            "rgba(51,105,232, 0.6)",
-            "rgba(244,67,54, 0.6)",
-            "rgba(34,198,246, 0.6)",
-            "rgba(153, 102, 255, 0.6)",
-            "rgba(255, 159, 64, 0.6)",
-            "rgba(233,30,99, 0.6)",
-            "rgba(205,220,57, 0.6)"
-        ];
-
-        //dd(Person::all()->groupBy('post_id'));
-
-        $data = Person::all()->groupBy('post_id')
-            ->map(function ($item) {
-                // Return the number of persons with that age
-                return count($item);
-            });
-
-        //dd($data->keys());
-
-        $chart = new PostsList;
-        $chart->labels($peopleByPost->keys());
-        $chart->dataset('Stanowiska w %.', 'pie', $peopleByPost->values())
-            ->color($borderColors)
-            ->backgroundcolor($fillColors);
-
-        $chart->displayAxes(false);
-        $chart->options([
-            'tooltip' => [
-                'show' => false // or false, depending on what you want.
-            ]
-        ]);
+        $chart = Percent::generateChart($peopleByPost, 'pie', '%');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
+
+    public function AllCategoriesChart()
+    {
+
+        $answers = Answer::all()->load('question.category.translations')->groupBy(function($item, $key)
+        {
+            return $item['question']['category']->{'name:en'};
+        })->map(function ($item) {
+            // Return the number of persons with that age
+            return $item->avg('value');
+        });
+
+        //cut 2 categories IT and additional
+        $answers = $answers->slice(0,6);
+
+       // dd($answers);
+
+        $title = 'Kategorie';
+
+        $chart = Number::generateChart($answers, 'horizontalBar', '');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function CategoryChart($category_id)
+    {
+        $category = Category::findOrFail($category_id);
+
+        $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
+            // Return the avg for answers
+            return [$item->{'name:en'} => $item->answers->avg('value')];
+            //return $item->answers->avg('value');
+        });
+
+       // dd($answers);
+
+        $title = 'Kategoria '.$category->{'name:en'};
+
+        $chart = Number::generateChart($answers, 'bar', '');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
 
     /**
      * Display a listing of the resource.

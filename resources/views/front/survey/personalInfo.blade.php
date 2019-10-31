@@ -20,7 +20,7 @@
                     @csrf
                     <input type="hidden" name="survey_uuid" value="{{ $survey->uuid }}">
                    
-                      @if($survey->company->post_id)
+                      @if(isset($survey->company->post_id))
                         <input type="hidden" id="post_id" name="post_id" value="{{ $survey->company->post_id }}">
                       @else
                         <div class="form-group">
@@ -36,7 +36,7 @@
                         </div>
                       @endif
 
-                    @if($survey->company->department_id)
+                    @if(isset($survey->company->department_id))
                         <input type="hidden" id="department_id" name="department_id" value="{{ $survey->company->department_id }}">
                     @else
                       <div class="form-group">
@@ -52,7 +52,7 @@
                       </div>
                     @endif
 
-                    @if($survey->company->industry_id)
+                    @if(isset($survey->company->industry_id))
                         <input type="hidden" id="industry_id" name="industry_id" value="{{ $survey->company->industry_id }}">
                     @else
                       <div class="form-group">

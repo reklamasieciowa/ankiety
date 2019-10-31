@@ -122,6 +122,8 @@ Route::group([
 	//delete
 
 	Route::get('/wyniki/stanowiska', 'ResultsController@PostListChart')->name('admin.wyniki.stanowiska');
+	Route::get('/wyniki/kategorie', 'ResultsController@AllCategoriesChart')->name('admin.wyniki.kategorie');
+	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.wyniki.kategoria');
 });
 
 
