@@ -28,6 +28,7 @@ class CreateCompany extends FormRequest
             'post_id' => 'integer|nullable',
             'department_id' => 'integer|nullable',
             'industry_id' => 'integer|nullable',
+            'emails' => 'integer|required',
         ];
     }
 }
