@@ -23,6 +23,11 @@ class Survey extends Model implements TranslatableContract
         return $this->belongsToMany('App\Question');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category');
+    }
+
     public function answers()
     {
         return $this->hasMany('App\Answer');

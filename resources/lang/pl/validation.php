@@ -46,6 +46,9 @@
 		    'questions' => [
 		        '*' => 'Proszę wybrać pytania.',
 		    ],
+		    'categories' => [
+		        '*' => 'Proszę wybrać kategorie.',
+		    ],
 		    'value' => [
 		        'value' => 'Wartość musi być liczbą.',
 		        'unique' => 'Ta wartość istnieje już w tej skali. Podaj inną wartość.',

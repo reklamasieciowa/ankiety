@@ -55,8 +55,7 @@ class SurveyController extends Controller
 
         $questions = $survey->questions->where('category_id', $currentCategory->id)->load('translations', 'question_type', 'options', 'scale.values.translations')->sortBy('order');
 
-        $categories = Category::with('translations')->get();
-        //$scales = Scale::with('values.translations')->get();
+        $categories = $survey->categories->load('translations');
 
         return view('front.survey.showCategory')->with('questions', $questions)->with('categories', $categories)->with('survey', $survey)->with('currentCategory', $currentCategory);
     }

@@ -716,7 +716,16 @@ foreach($questions as $key => $value) {
 
 }
 
+App\Company::create([
+    'name' => 'Estera',
+    'post_id' => 4,
+    'department_id' => 13,
+    'industry_id' => 8,
+    'emails' => 0,
+]);
+
 $survey->questions()->saveMany(App\Question::All());
+$survey->categories()->saveMany(App\Category::All());
 
 // $allquestions = App\Question::All();
 

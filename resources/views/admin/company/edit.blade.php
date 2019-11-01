@@ -76,6 +76,19 @@
                   @endforelse
                 </div>
 
+                <div class="form-group">
+                  <p>Pytanie o email</p>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input" id="emailyes" name="emails" value="1" {{ $company->emails == '1' ? 'checked' : ''}}>
+                      <label class="custom-control-label" for="emailyes">Tak</label>
+                    </div>
+
+                    <div class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input" id="emailno" name="emails" value="0" {{ $company->emails == '0' ? 'checked' : ''}}>
+                      <label class="custom-control-label" for="emailno">Nie</label>
+                    </div>
+                </div>
+
               <div class="form-group">
                 <button class="btn btn-info" type="submit">Zapisz</button>
               </div>

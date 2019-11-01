@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CreateSurvey;
 use App\Http\Requests\UpdateSurvey;
 use App\Http\Requests\AttachQuestionsToSurvey;
+use App\Http\Requests\AttachCategoriesToSurvey;
 use Illuminate\Support\Str;
 
 class SurveyAdminController extends Controller
@@ -25,7 +26,7 @@ class SurveyAdminController extends Controller
      */
     public function index()
     {
-        $surveys = Survey::with(['translations', 'people', 'answers', 'questions', 'company'])->get();
+        $surveys = Survey::with(['translations', 'people', 'answers', 'questions', 'company', 'categories'])->get();
         $people = Person::all();
         $answers = Answer::all();
         $questions = Question::all();
@@ -148,6 +149,27 @@ class SurveyAdminController extends Controller
 
         $request->session()->flash('class', 'alert-info');
         $request->session()->flash('info', 'Pytania dołączone do ankiety: '.count($validated['questions']).'.');
+
+        return redirect()->back();
+    }
+
+    public function attachCategoriesForm(Survey $survey)
+    {
+        $categories = Category::with('questions', 'translations')->get();
+
+        return view('admin.survey.attachCategories')->with(compact('categories', 'survey'));
+    }
+
+    public function attachCategories(AttachCategoriesToSurvey $request, Survey $survey)
+    {
+        $validated = $request->validated();
+
+        //dd($validated);
+
+        $survey->categories()->sync($validated['categories']);
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Kategorie dołączone do ankiety: '.count($validated['categories']).'.');
 
         return redirect()->back();
     }

@@ -66,14 +66,14 @@ class AnswerController extends Controller
             }
         }
 
-        //determine next category/page
-        if($currentCategory < Category::all()->count()) 
+        //determine next category/page for this survey
+        if($currentCategory < $survey->categories->count()) 
         {
             $nextCategory = $currentCategory+1;
 
             return redirect()->route('survey.category', ['locale' => App::getLocale(), 'survey_uuid' => $survey_uuid, 'person' => $person, 'currentCategory' => $nextCategory]);
 
-        } elseif($currentCategory == Category::all()->count()) {
+        } elseif($currentCategory == $survey->categories->count()) {
            return redirect()->route('survey.finish', ['locale' => App::getLocale(), 'survey_uuid' => $survey_uuid]);
         } else {
             abort(404);

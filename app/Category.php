@@ -16,4 +16,9 @@ class Category extends Model implements TranslatableContract
     {
         return $this->hasMany('App\Question');
     }
+
+    public function surveys()
+    {
+        return $this->belongsToMany('App\Survey');
+    }
 }

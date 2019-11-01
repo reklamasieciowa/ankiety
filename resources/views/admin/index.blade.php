@@ -16,6 +16,7 @@
                         </div>
                         <div class="card-body">
                             <p>Pytań: {{ $survey->questions->count() }}</p>
+                            <p>Kategorii: {{ $survey->categories->count() }}</p>
                               <p>Ankietowanych: {{ $survey->people->count() }}</p>
                               <p>Odpowiedzi: {{ $survey->answers->count() }}</p>
                               <p>Pytania z odpowiedziami: {{ $survey->percentAnswered() }}</p>
@@ -32,6 +33,11 @@
                             <a class="btn btn-accent btn-sm" href="{{ route('admin.survey.edit', ['survey' => $survey->id]) }}">
                                 Edytuj <i class="fas fa-edit"></i>
                             </a>
+
+                            <a class="btn btn-accent btn-sm" href="{{ route('admin.survey.attachCategoriesForm', ['survey' => $survey]) }}">
+                                Dodaj kategorie <i class="far fa-list-alt"></i></i>
+                            </a>
+
                             <a class="btn btn-accent btn-sm" href="{{ route('admin.survey.attachQuestionsForm', ['survey' => $survey]) }}">
                                 Dodaj pytania <i class="far fa-list-alt"></i></i>
                             </a>
