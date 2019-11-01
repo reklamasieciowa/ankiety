@@ -50,13 +50,13 @@ class PercentMultiple extends Chart
         //dataset 3 p1 4-5
 
 
-        $chart->dataset('0-1', $type, $data['data']['01'])
+        $chart->dataset('Poniżej oczekiwań', $type, $data['data']['01'])
             ->backgroundcolor($fillColors[6]);
 
-        $chart->dataset('2-3', $type, $data['data']['02'])
+        $chart->dataset('Spełnia oczekiwania', $type, $data['data']['02'])
             ->backgroundcolor($fillColors[2]);
 
-        $chart->dataset('4-5', $type, $data['data']['03'])
+        $chart->dataset('Powyżej oczekiwań', $type, $data['data']['03'])
             ->backgroundcolor($fillColors[1]);
         
 
@@ -93,7 +93,7 @@ class PercentMultiple extends Chart
                     [
                         'ticks' => [
                             'beginAtZero' => true,
-                            'max' => 1,
+                            'max' => 100,
                             'fontSize' => 20,
                             'autoSkip' => false,
                             'maxRotation' => 0,
@@ -112,7 +112,7 @@ class PercentMultiple extends Chart
                         'family' : 'Merriweather',
                     },
                     formatter: function(value, context) {
-                        return Math.round(value*100) + '$valueSuffix';
+                        return Math.round(value) + '$valueSuffix';
                     }
                 }
             }"

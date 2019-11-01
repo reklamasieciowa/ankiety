@@ -139,9 +139,9 @@ class ResultsController extends Controller
             // $answersValues['data']['2-3'] = $count2_3/$totalnaswers;
             // $answersValues['data']['4-5'] = $count4_5/$totalnaswers;
 
-            array_push($data0_1, $count0_1/$totalnaswers);
-            array_push($data2_3, $count2_3/$totalnaswers);
-            array_push($data4_5, $count4_5/$totalnaswers);
+            array_push($data0_1, $count0_1/$totalnaswers*100);
+            array_push($data2_3, $count2_3/$totalnaswers*100);
+            array_push($data4_5, $count4_5/$totalnaswers*100);
 
 
             // $answersValues[$key]['0-1'] = $count1_2/$totalnaswers;
