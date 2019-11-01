@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Charts\Percent;
+use App\Charts\PercentMultiple;
 use App\Charts\Number;
 use App\Person;
 use App\Answer;
@@ -73,7 +74,7 @@ class ResultsController extends Controller
             //return $item->answers->avg('value');
         });
 
-       // dd($answers);
+        //dd($answers);
 
         $title = 'Kategoria '.$category->{'name:en'};
 
@@ -86,18 +87,86 @@ class ResultsController extends Controller
     {
         $category = Category::findOrFail($category_id);
 
-        $answers = $category->questions->load('answers')->map(function ($item) {
-            // Return the avg for answers
-            return $item->answers->sortBy('value')->groupBy('value');
-            //return $item->answers->avg('value');
+        $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
+            return [$item->{'name:en'} => $item->answers->sortBy('value')->groupBy('value')];
         });
 
-        dd($answers);
+        //dd($answers);
+
+        $answersValues = [];
+        $keys = [];
+        $data0_1 = [];
+        $data2_3 = [];
+        $data4_5 = [];
+
+        foreach ($answers as $key => $answer_value) {
+                
+            $count0_1 = 0;
+            if(isset($answer_value[0])) {
+                $count0_1 += $answer_value[0]->count();
+            }
+
+            if(isset($answer_value[1])) {
+                $count0_1 += $answer_value[1]->count();
+            }
+
+            
+            $count2_3 = 0;
+            if(isset($answer_value[2])) {
+                $count2_3 += $answer_value[2]->count();
+            }
+
+            if(isset($answer_value[3])) {
+                $count2_3 += $answer_value[3]->count();
+            }
+
+            
+            $count4_5 = 0;
+            if(isset($answer_value[4])) {
+                $count4_5 += $answer_value[4]->count();
+            }
+
+            if(isset($answer_value[5])) {
+                $count4_5 += $answer_value[5]->count();
+            }
+
+            array_push($keys, $key);
 
 
-        $title = 'Kategoria ';
+            $totalnaswers = $count0_1 + $count2_3 + $count4_5;
 
-        $chart = Number::generateChart($answers, 'bar', '');
+            // $answersValues['data']['0-1'] = $count1_2/$totalnaswers;
+            // $answersValues['data']['2-3'] = $count2_3/$totalnaswers;
+            // $answersValues['data']['4-5'] = $count4_5/$totalnaswers;
+
+            array_push($data0_1, $count0_1/$totalnaswers);
+            array_push($data2_3, $count2_3/$totalnaswers);
+            array_push($data4_5, $count4_5/$totalnaswers);
+
+
+            // $answersValues[$key]['0-1'] = $count1_2/$totalnaswers;
+
+            // $answersValues[$key]['2-3']  = $count2_3/$totalnaswers;
+
+            // $answersValues[$key]['4-5'] = $count4_5/$totalnaswers;
+        }
+
+        $data['keys'] = $keys;
+
+        // $answersValues = collect($answersValues)->map(function ($item) {
+        //     return (object) $item;
+        // });
+
+        $answersValues['keys'] = $data['keys'];
+        $answersValues['data']['01'] = $data0_1;
+        $answersValues['data']['02'] = $data2_3;
+        $answersValues['data']['03'] = $data4_5;
+
+        //dd($answersValues);
+
+        $title = 'Rozkład odpowiedzi kategorii '.$category->name;
+
+        $chart = PercentMultiple::generateChart($answersValues, 'bar', '%');
 
         return view('admin.result.chart', compact('chart', 'title', 'questions'));
     }

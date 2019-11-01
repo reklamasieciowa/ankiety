@@ -56,10 +56,8 @@ Route::group([
 	Route::post('/ankieta/{survey}/pytania/', 'SurveyAdminController@attachQuestions')->name('admin.survey.attachQuestions');
 	Route::delete('/ankieta/{survey}/usun/', 'SurveyAdminController@destroy')->name('admin.survey.destroy');
 
-
 	Route::get('/ankieta/{survey}/kategorie/', 'SurveyAdminController@attachCategoriesForm')->name('admin.survey.attachCategoriesForm');
 	Route::post('/ankieta/{survey}/kategorie/', 'SurveyAdminController@attachCategories')->name('admin.survey.attachCategories');
-
 
 	Route::delete('/ankieta/{survey}/usunpuste/', 'SurveyAdminController@destroyEmptyPeople')->name('admin.survey.destroy.empty.people');
 
