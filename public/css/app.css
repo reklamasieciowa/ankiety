@@ -170,8 +170,7 @@ body {
 
 @media (max-width: 991px) {
   .category-title {
-    font-size: 1.3rem;
-    text-transform: none;
+    font-size: 1.2rem;
   }
 }
 
