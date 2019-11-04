@@ -34,17 +34,17 @@
 
                       </div>
                       <div class="col-lg-2">
-                          <a class="btn btn-accent btn-sm" href="">
+                          <a class="btn btn-accent btn-sm" href="{{ route('admin.user.edit', ['user' => $user->id ]) }}">
                             Edytuj <i class="fas fa-edit"></i>
                           </a>
 
-                          <form method="POST" action="">
+                          @if($user->id !== Auth::id())
+                          <form method="POST" action="{{ route('admin.user.destroy', ['user' => $user->id ]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm"> Usuń <i class="far fa-trash-alt"></i></button>
                           </form>
-
-                        
+                          @endif
                       </div>
 
                     </div>

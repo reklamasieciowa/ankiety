@@ -133,9 +133,14 @@ Route::group([
 	Route::get('/uzytkownik/dodaj', 'Auth\RegisterController@showRegistrationForm')->name('admin.user.create');
 	Route::post('/uzytkownik/dodaj', 'Auth\RegisterController@register')->name('admin.user.store');
 
+	Route::get('/uzytkownik/{user}/edytuj', 'UserController@edit')->name('admin.user.edit');
+	Route::post('/uzytkownik/{user}/edytuj', 'UserController@update')->name('admin.user.update');
+
+	Route::delete('/uzytkownik/{user}/usun', 'UserController@destroy')->name('admin.user.destroy');
+
 	//edit
 	//update
-	//delete
+
 	Route::get('/wyniki/', 'ResultsController@index')->name('admin.result');
 
 	Route::get('/wyniki/stanowiska', 'ResultsController@PostListChart')->name('admin.result.post');

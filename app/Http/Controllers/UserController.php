@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\UpdateUser;
+use Hash;
 
 class UserController extends Controller
 {
@@ -26,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        //done in Auth/RegisterController
     }
 
     /**
@@ -37,19 +39,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //done in Auth/RegisterController
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -57,9 +49,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user)
     {
-        //
+        $user = User::FindOrfail($user);
+
+        return view('admin.user.edit')->with(compact('user'));
     }
 
     /**
@@ -69,9 +63,40 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUser $request, $user)
     {
-        //
+
+        //dd($request->all());
+
+        $user = User::FindOrfail($user);
+
+        $user->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+        ]);
+
+        //check if !empty old & new pass
+        if(isset($request['old_password']) && !empty($request['old_password']) && isset($request['password']) && !empty($request['password']) && isset($request['password_confirmation']) && !empty($request['password_confirmation'])) {
+            //check if old pass is correct
+
+            if(Hash::check($request['old_password'], $user->password)) {
+                
+                //set the new password
+                $user->password = Hash::make($request['password']);
+                $user->save();
+            } else {
+                $request->session()->flash('class', 'alert-danger');
+                $request->session()->flash('info', 'Nieprawidłowe hasło.');
+
+                return redirect()->route('admin.user.edit', ['user' => $user->id]);
+            }
+        }
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Użytkownik '.$user->name.' zaktualizowany.');
+
+        return redirect()->route('admin.user.index');
+        
     }
 
     /**
@@ -80,8 +105,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($user, Request $request)
     {
-        //
+        $user = User::FindOrfail($user);
+
+        $user->delete();
+
+        $request->session()->flash('class', 'alert-info');
+        $request->session()->flash('info', 'Użytkownik '.$user->name.' usunięty.');
+
+        return redirect()->route('admin.user.index');
     }
 }
