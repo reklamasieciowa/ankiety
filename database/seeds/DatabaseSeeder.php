@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'michal@mediaeffectivegroup.pl',
-            'password' => '$2y$10$6kgU2gWgUQpj0WiUVt72/eaqOeUsU7UO6izxnKDsqVLvgJvBqsflS',
+            'password' => env('ADMIN_PASS'),
         ]);
 
         DB::table('users')->insert([
             'name' => 'Anna Grzywaczyk',
             'email' => 'anna.grzywaczyk@wncl.pl',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make(env('USER_PASS')),
         ]);
 
         $survey = App\Survey::create([
