@@ -68,7 +68,7 @@
                       </div>
                     @endif
 
-                    @if(isset($survey->company->email) && $survey->company->email == 1))
+                    @if(isset($survey->company->emails) && $survey->company->emails == 1)
                       <div class="form-group">
                         <label for="email">{{ __('messages.Email') }}</label>
                         <small>{{ __('messages.Email_info') }}</small>
@@ -81,21 +81,22 @@
                       </div>
                     @endif
 
+                    <div class="form-group">
+                      <p>{{ __('messages.Practice') }}</p>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="practice1" name="practice" value="0" required>
+                        <label class="custom-control-label" for="practice1">{{ __('messages.LessThen1') }}</label>
+                      </div>
 
-                    <p>{{ __('messages.Practice') }}</p>
-                    <div class="custom-control custom-radio">
-                      <input type="radio" class="custom-control-input" id="practice1" name="practice" value="0" required>
-                      <label class="custom-control-label" for="practice1">{{ __('messages.LessThen1') }}</label>
-                    </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="practice2" name="practice" value="1" required>
+                        <label class="custom-control-label" for="practice2">{{ __('messages.Between1-3') }}</label>
+                      </div>
 
-                    <div class="custom-control custom-radio">
-                      <input type="radio" class="custom-control-input" id="practice2" name="practice" value="1" required>
-                      <label class="custom-control-label" for="practice2">{{ __('messages.Between1-3') }}</label>
-                    </div>
-
-                    <div class="custom-control custom-radio">
-                      <input type="radio" class="custom-control-input" id="practice3" name="practice" value="2" required>
-                      <label class="custom-control-label" for="practice3">{{ __('messages.MoreThen3') }}</label>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="practice3" name="practice" value="2" required>
+                        <label class="custom-control-label" for="practice3">{{ __('messages.MoreThen3') }}</label>
+                      </div>
                     </div>
 
                     <div class="form-group">

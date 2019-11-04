@@ -18,7 +18,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-        $people = Person::with(['answers', 'survey.translations', 'post.translations', 'department.translations'])->get();
+        $people = Person::with(['answers', 'survey.translations', 'post.translations', 'department.translations', 'industry.translations'])->get();
 
         return view('admin.person.index')->with(compact('people'));
     }

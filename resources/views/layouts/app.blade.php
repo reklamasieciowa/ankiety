@@ -72,7 +72,7 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarPeople">
                   <a class="dropdown-item" href="{{ route('admin.post.index') }}">Stanowiska <i class="far fa-eye"></i></a>
                   <a class="dropdown-item" href="{{ route('admin.department.index') }}">Działy <i class="far fa-eye"></i></a>
-                  <a class="dropdown-item todo" href="{{ route('admin.department.index') }}">Branże <i class="far fa-eye"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.industry.index') }}">Branże <i class="far fa-eye"></i></a>
                 </div>
               </li>
 
@@ -94,7 +94,7 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.result') }}"><i class="fas fa-cogs fa-lg"></i> Wyniki</a>
+                <a class="nav-link" href="{{ route('admin.result') }}"><i class="fas fa-poll fa-lg"></i> Wyniki</a>
               </li> 
 
             </ul>

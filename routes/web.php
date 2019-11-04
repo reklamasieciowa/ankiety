@@ -104,7 +104,6 @@ Route::group([
 
 	Route::get('/odpowiedzi/{person}', 'PersonController@show')->name('admin.people.show');
 
-
 	Route::get('/stanowisko/', 'PostController@index')->name('admin.post.index');
 	Route::put('/stanowisko/dodaj', 'PostController@store')->name('admin.post.store');
 	Route::get('/stanowisko/{post}/edytuj', 'PostController@edit')->name('admin.post.edit');
@@ -116,6 +115,18 @@ Route::group([
 	Route::get('/dzial/{department}/edytuj', 'DepartmentController@edit')->name('admin.department.edit');
 	Route::patch('/dzial/{department}/edytuj', 'DepartmentController@update')->name('admin.department.update');
 	Route::delete('/dzial/{department}/usun', 'DepartmentController@destroy')->name('admin.department.destroy');
+
+
+
+	Route::get('/branza/', 'IndustryController@index')->name('admin.industry.index');
+	Route::put('/branza/dodaj', 'IndustryController@store')->name('admin.industry.store');
+
+	Route::get('/branza/{industry}/edytuj', 'IndustryController@edit')->name('admin.industry.edit');
+	Route::patch('/branza/{industry}/edytuj', 'IndustryController@update')->name('admin.industry.update');
+
+	Route::delete('/branza/{industry}/usun', 'IndustryController@destroy')->name('admin.industry.destroy');
+
+
 
 	Route::get('/uzytkownik/', 'UserController@index')->name('admin.user.index');
 
