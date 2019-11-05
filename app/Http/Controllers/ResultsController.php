@@ -179,6 +179,11 @@ class ResultsController extends Controller
             return [ $item->{'name:en'} => $item->answers->avg('value')];
         });
 
+        //remove null
+        $answers = $answers->filter(function ($value, $key) {
+            return !is_null($value);
+        });
+
         $answers = $answers->sort();
 
         if($order == "best") {
