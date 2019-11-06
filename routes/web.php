@@ -103,6 +103,8 @@ Route::group([
 	Route::get('/ankietowany/', 'PersonController@index')->name('admin.people.index');
 	Route::delete('/ankietowany/{person}/destroy', 'PersonController@destroy')->name('admin.people.destroy');
 
+	Route::get('/ankietowany/maile', 'PersonController@emails')->name('admin.people.emails');
+
 	Route::get('/odpowiedzi/{person}', 'PersonController@show')->name('admin.people.show');
 
 	Route::get('/stanowisko/', 'PostController@index')->name('admin.post.index');

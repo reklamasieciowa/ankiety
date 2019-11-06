@@ -81,6 +81,7 @@
                   aria-haspopup="true" aria-expanded="false">Ankietowani</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarPeople">
                   <a class="dropdown-item" href="{{ route('admin.people.index') }}">Zobacz <i class="far fa-eye"></i></a>
+                  <a class="dropdown-item" href="{{ route('admin.people.emails') }}">Lista maili <i class="far fa-envelope"></i></a>
                 </div>
               </li>
 

@@ -121,4 +121,11 @@ class PersonController extends Controller
 
         return view('admin.person.index')->with(compact('people'));
     }
+
+    public function emails()
+    {
+        $emails = Person::whereNotNull('email')->pluck('email');
+        
+        return view('admin.person.emails')->with(compact('emails'));
+    }
 }
