@@ -32,7 +32,7 @@
                     <i class="fas fa-briefcase"></i> {{ $person->post->name }}, {{ $person->department->name }}, {{ $person->industry->name }}
                   </p>
                   <p>
-                    {{ $person->email ? '<i class="far fa-envelope"></i> '.$person->email.', ' : '' }}<i class="far fa-calendar-alt"></i> {{ $person->created_at }}
+                    {!! $person->email ? '<i class="far fa-envelope"></i> '.$person->email.', ' : '' !!}<i class="far fa-calendar-alt"></i> {{ $person->created_at }}
                   </p>
                   <p>
                     <i class="far fa-list-alt"></i> {{ $person->survey->title }} {{  isset($person->survey->company->name) ? 'Firma: '.$person->survey->company->name : ''}}
