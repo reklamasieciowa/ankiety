@@ -29,7 +29,7 @@ class StorePerson extends FormRequest
             'department_id' => 'required|integer',
             'industry_id' => 'required|integer',
             'email' => 'nullable|email',
-            'agree' => 'sometimes|required_with:email|integer',
+            'agree' => 'required_with:email|integer',
             'practice' => 'required|integer',
         ];
     }
