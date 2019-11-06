@@ -27,7 +27,7 @@
                           <p>{{ __('messages.Post') }}</p>
                           @forelse($posts as $post)
                             <div class="custom-control custom-radio">
-                              <input type="radio" class="custom-control-input" id="post{{ $post->id }}" name="post_id" value="{{ $post->id }}" required>
+                              <input type="radio" class="custom-control-input" id="post{{ $post->id }}" name="post_id" value="{{ $post->id }}" {{old('post_id') == $post->id ? 'checked' : ''}} required>
                               <label class="custom-control-label" for="post{{ $post->id }}">{{ $post->name }}</label>
                             </div>
                           @empty
@@ -43,7 +43,7 @@
                         <p>{{ __('messages.Department') }}</p>
                         @forelse($departments as $department)
                           <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="department{{ $department->id }}" name="department_id" value="{{ $department->id }}" required>
+                            <input type="radio" class="custom-control-input" id="department{{ $department->id }}" name="department_id" value="{{ $department->id }}" {{old('department_id') == $department->id ? 'checked' : ''}} required>
                             <label class="custom-control-label" for="department{{ $department->id }}">{{ $department->name }}</label>
                           </div>
                         @empty
@@ -59,7 +59,7 @@
                         <p>{{ __('messages.Industry') }}</p>
                         @forelse($industries as $industry)
                           <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="industry{{ $industry->id }}" name="industry_id" value="{{ $industry->id }}" required>
+                            <input type="radio" class="custom-control-input" id="industry{{ $industry->id }}" name="industry_id" value="{{ $industry->id }}" {{old('industry_id') == $industry->id ? 'checked' : ''}} required>
                             <label class="custom-control-label" for="industry{{ $industry->id }}">{{ $industry->name }}</label>
                           </div>
                         @empty
@@ -72,7 +72,7 @@
                       <div class="form-group">
                         <label for="email">{{ __('messages.Email') }}</label>
                         <small>{{ __('messages.Email_info') }}</small>
-                        <input type="text" id="email" name="email" class="form-control">
+                        <input type="text" id="email" name="email" class="form-control" value="{{old('email') ?? ''}}">
                       </div>
 
                       <div class="custom-control custom-checkbox">
