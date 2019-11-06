@@ -40,7 +40,7 @@ class PersonController extends Controller
         }
 
         if(!isset($validated['email'])) {
-            $validated['email'] = '';
+            $validated['email'] = null;
         }
 
         //zapis person i przekierowanie do ankieta/1/kategoria/1
