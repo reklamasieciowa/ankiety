@@ -81,7 +81,7 @@
                       </div>
                     @endif
 
-                    <div class="form-group">
+<!--                     <div class="form-group">
                       <p>{{ __('messages.Practice') }}</p>
                       <div class="custom-control custom-radio">
                         <input type="radio" class="custom-control-input" id="practice1" name="practice" value="0" required>
@@ -97,7 +97,9 @@
                         <input type="radio" class="custom-control-input" id="practice3" name="practice" value="2" required>
                         <label class="custom-control-label" for="practice3">{{ __('messages.MoreThen3') }}</label>
                       </div>
-                    </div>
+                    </div> -->
+
+                    <input type="hidden" id="practice" name="practice" value="0">
 
                     <div class="form-group">
                       <button class="btn btn-info" type="submit">{{ __('messages.Next') }}</button>
