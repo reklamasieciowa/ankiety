@@ -40,16 +40,6 @@ class PercentMultiple extends Chart
         $chart = new PercentMultiple;
         $chart->labels($data['keys']);
 
-        //1 dataset same 0-1
-        //2 dataset same 2-3
-        //3 dataset same 4-5
-        //zestawia obok wartość 1 z każdego datasetu
-
-        //dataset 1 p1 0-1  p2 0-1  p3 0-1
-        //dataset 2 p1 2-3
-        //dataset 3 p1 4-5
-
-
         $chart->dataset('Poniżej oczekiwań', $type, $data['data']['01'])
             ->backgroundcolor($fillColors[6]);
 
@@ -62,6 +52,11 @@ class PercentMultiple extends Chart
 
         $chart->displayAxes(true);
         $chart->options([
+            'layout' => [
+                'padding' => [
+                    'bottom' => 30,
+                ],
+            ],
             'tooltips' => [
                 'enabled' => false
             ],
@@ -71,6 +66,7 @@ class PercentMultiple extends Chart
                 'labels' => [
                     'fontSize' => 18,
                     'fontFamily' => "Merriweather",
+                    'padding' => 10,
                 ],
             ],
             'scales' => [
@@ -83,7 +79,7 @@ class PercentMultiple extends Chart
                             'fontSize' => 18,
                             'autoSkip' => false,
                             'maxRotation' => 80,
-                            'minRotation' => 0,
+                            'minRotation' => 20,
                             'categorySpacing' => 0,
 
                         ],

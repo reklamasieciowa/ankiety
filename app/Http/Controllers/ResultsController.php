@@ -34,6 +34,25 @@ class ResultsController extends Controller
         return view('admin.result.chart', compact('chart', 'title'));
     }
 
+    public function IndustryListChart()
+    {
+        $peopleCount = Person::count();
+
+        $peopleByIndustry = Person::all()->load(['industry.translations', 'answers'])->sortBy('industry_id')->groupBy(function($item, $key)
+        {
+            return $item['industry']->{'name:en'};
+        })->map(function ($item) use($peopleCount) {
+            // Return the number of persons with that age
+            return count($item)/$peopleCount;
+        });
+
+        $title = 'Branże';
+
+        $chart = Percent::generateChart($peopleByIndustry, 'pie', '%');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
     public function AllCategoriesChart()
     {
 
@@ -60,27 +79,17 @@ class ResultsController extends Controller
     public function CategoryChart($category_id)
     {
         $category = Category::findOrFail($category_id);
-        $questions = $category->questions->load('translations');
 
-        // $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
-        //     // Return the avg for answers
-        //     return [$item->{'name:en'} => $item->answers->avg('value')];
-        //     //return $item->answers->avg('value');
-        // });
-
-        $answers = $category->questions->load('answers')->map(function ($item) {
+        $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
             // Return the avg for answers
-            return $item->answers->avg('value');
-            //return $item->answers->avg('value');
+            return [$item->{'name:en'} => $item->answers->avg('value')];
         });
-
-        //dd($answers);
 
         $title = 'Kategoria '.$category->{'name:en'};
 
         $chart = Number::generateChart($answers, 'bar', '');
 
-        return view('admin.result.chart', compact('chart', 'title', 'questions'));
+        return view('admin.result.chart', compact('chart', 'title'));
     }
 
     public function CategoryValuesChart($category_id)
@@ -90,8 +99,6 @@ class ResultsController extends Controller
         $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
             return [$item->{'name:en'} => $item->answers->sortBy('value')->groupBy('value')];
         });
-
-        //dd($answers);
 
         $answersValues = [];
         $keys = [];
@@ -135,34 +142,18 @@ class ResultsController extends Controller
 
             $totalnaswers = $count0_1 + $count2_3 + $count4_5;
 
-            // $answersValues['data']['0-1'] = $count1_2/$totalnaswers;
-            // $answersValues['data']['2-3'] = $count2_3/$totalnaswers;
-            // $answersValues['data']['4-5'] = $count4_5/$totalnaswers;
-
             array_push($data0_1, $count0_1/$totalnaswers*100);
             array_push($data2_3, $count2_3/$totalnaswers*100);
             array_push($data4_5, $count4_5/$totalnaswers*100);
 
-
-            // $answersValues[$key]['0-1'] = $count1_2/$totalnaswers;
-
-            // $answersValues[$key]['2-3']  = $count2_3/$totalnaswers;
-
-            // $answersValues[$key]['4-5'] = $count4_5/$totalnaswers;
         }
 
         $data['keys'] = $keys;
-
-        // $answersValues = collect($answersValues)->map(function ($item) {
-        //     return (object) $item;
-        // });
 
         $answersValues['keys'] = $data['keys'];
         $answersValues['data']['01'] = $data0_1;
         $answersValues['data']['02'] = $data2_3;
         $answersValues['data']['03'] = $data4_5;
-
-        //dd($answersValues);
 
         $title = 'Rozkład odpowiedzi kategorii '.$category->name;
 

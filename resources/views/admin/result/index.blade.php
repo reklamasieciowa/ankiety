@@ -24,6 +24,11 @@
                 </p>
                 <hr>
                 <p>
+                  <strong>Ankietowani wg branż:</strong>
+                  <a href="{{ route('admin.result.industry') }}" target="_blank">Zobacz</a>
+                </p>
+                <hr>
+                <p>
                     <strong>Średnia wszystkich kategorii:</strong>
                     <a href="{{ route('admin.result.categories') }}" target="_blank">Zobacz</a>
                   </p>

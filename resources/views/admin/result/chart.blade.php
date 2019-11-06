@@ -55,4 +55,10 @@
       downloadLink.click();
   }
   </script>
+
+  <script>
+    Chart.Legend.prototype.afterFit = function() {
+      this.height = this.height + 30;
+  };
+  </script>
 @endsection

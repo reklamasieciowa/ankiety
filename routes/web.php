@@ -116,34 +116,24 @@ Route::group([
 	Route::patch('/dzial/{department}/edytuj', 'DepartmentController@update')->name('admin.department.update');
 	Route::delete('/dzial/{department}/usun', 'DepartmentController@destroy')->name('admin.department.destroy');
 
-
-
 	Route::get('/branza/', 'IndustryController@index')->name('admin.industry.index');
 	Route::put('/branza/dodaj', 'IndustryController@store')->name('admin.industry.store');
-
 	Route::get('/branza/{industry}/edytuj', 'IndustryController@edit')->name('admin.industry.edit');
 	Route::patch('/branza/{industry}/edytuj', 'IndustryController@update')->name('admin.industry.update');
-
 	Route::delete('/branza/{industry}/usun', 'IndustryController@destroy')->name('admin.industry.destroy');
 
-
-
 	Route::get('/uzytkownik/', 'UserController@index')->name('admin.user.index');
-
 	Route::get('/uzytkownik/dodaj', 'Auth\RegisterController@showRegistrationForm')->name('admin.user.create');
 	Route::post('/uzytkownik/dodaj', 'Auth\RegisterController@register')->name('admin.user.store');
-
 	Route::get('/uzytkownik/{user}/edytuj', 'UserController@edit')->name('admin.user.edit');
 	Route::post('/uzytkownik/{user}/edytuj', 'UserController@update')->name('admin.user.update');
-
 	Route::delete('/uzytkownik/{user}/usun', 'UserController@destroy')->name('admin.user.destroy');
-
-	//edit
-	//update
 
 	Route::get('/wyniki/', 'ResultsController@index')->name('admin.result');
 
 	Route::get('/wyniki/stanowiska', 'ResultsController@PostListChart')->name('admin.result.post');
+	Route::get('/wyniki/branze', 'ResultsController@IndustryListChart')->name('admin.result.industry');
+
 	Route::get('/wyniki/kategorie', 'ResultsController@AllCategoriesChart')->name('admin.result.categories');
 	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.result.category');
 
