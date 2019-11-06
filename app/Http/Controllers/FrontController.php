@@ -15,4 +15,9 @@ class FrontController extends Controller
     {
         return view('front.index');
     }
+
+    public function rodo()
+    {
+    	return view('front.rodo');
+    }
 }

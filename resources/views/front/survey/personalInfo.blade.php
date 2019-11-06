@@ -68,7 +68,7 @@
                       </div>
                     @endif
 
-                    @if(isset($survey->company->emails) && $survey->company->emails == 1)
+                    @if(isset($survey->company->emails) && $survey->company->emails == 1 || !isset($survey->company))
                       <div class="form-group">
                         <label for="email">{{ __('messages.Email') }}</label>
                         <small>{{ __('messages.Email_info') }}</small>
@@ -77,7 +77,7 @@
 
                       <div class="custom-control custom-checkbox">
                           <input type="checkbox" class="custom-control-input" id="agree" name="agree" value="1">
-                          <label class="custom-control-label" for="agree">{{ __('messages.Agree') }}</label>
+                          <label class="custom-control-label" for="agree">{{ __('messages.Agree') }} <a href="{{ route('front.rodo', ['locale' => App::getLocale()]) }}" target="_blank">{{ __('messages.Policy') }}</a></label>
                       </div>
                     @endif
 

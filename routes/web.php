@@ -20,7 +20,8 @@ Route::group([
   'where' => ['locale' => '[a-zA-Z]{2}'],
   'middleware' => 'setlocale'
 ], function() {
-	Route::get('/', 'FrontController@index')->name('front.index'); //id ankiety + język
+	Route::get('/', 'FrontController@index')->name('front.index');
+	Route::get('/polityka-prywatnosci', 'FrontController@rodo')->name('front.rodo');
 
 	Route::middleware('surveyactive')->group(function () {
 		Route::get('/{survey_uuid}/', 'SurveyController@show')->name('survey.start');
