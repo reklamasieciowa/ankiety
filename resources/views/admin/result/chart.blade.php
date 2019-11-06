@@ -30,6 +30,12 @@
     </div>
   </div>
 
+  <div class="row mt-5">
+    <div class="col-lg-12">
+      <button class="btn btn-success" onclick="DownloadCanvasAsImage()">Pobierz</button>
+    </div>
+  </div>
+
 </div>
 </div>
 @endsection
@@ -37,4 +43,16 @@
 @section('footer-scripts')
   {!! $chart->script() !!}
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+  <script>
+
+    function DownloadCanvasAsImage(){
+      let downloadLink = document.createElement('a');
+      downloadLink.setAttribute('download', '{{ $title }}.png');
+      let canvas = document.getElementById('{{ $chart->id }}');
+      let dataURL = canvas.toDataURL('image/png');
+      let url = dataURL.replace(/^data:image\/png/,'data:application/octet-stream');
+      downloadLink.setAttribute('href', url);
+      downloadLink.click();
+  }
+  </script>
 @endsection
