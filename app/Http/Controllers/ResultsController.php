@@ -55,26 +55,44 @@ class ResultsController extends Controller
 
     public function AllCategoriesChart()
     {
+        //without effectivness of IT tools and text answers
+        $answers = Answer::where('question_id', '<', 32)->get();
 
-        $answers = Answer::all()->load('question.category.translations')->groupBy(function($item, $key)
+        $answersgrouped = $answers->load('question.category.translations')->groupBy(function($item, $key)
         {
             return $item['question']['category']->{'name:en'};
         })->map(function ($item) {
-            // Return the number of persons with that age
             return $item->avg('value');
         });
 
-        //cut 2 categories IT and additional
-        $answers = $answers->slice(0,6);
-
-       // dd($answers);
-
         $title = 'Kategorie';
 
-        $chart = Number::generateChart($answers, 'horizontalBar', '');
+        $chart = Number::generateChart($answersgrouped, 'horizontalBar', '');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
+
+    // public function AllCategoriesChart()
+    // {
+
+    //     $answers = Answer::all()->load('question.category.translations')->groupBy(function($item, $key)
+    //     {
+    //         return $item['question']['category']->{'name:en'};
+    //     })->map(function ($item) {
+    //         return $item->avg('value');
+    //     });
+
+    //     //cut 2 categories IT and additional
+    //     $answers = $answers->slice(0,6);
+
+    //    // dd($answers);
+
+    //     $title = 'Kategorie';
+
+    //     $chart = Number::generateChart($answers, 'horizontalBar', '');
+
+    //     return view('admin.result.chart', compact('chart', 'title'));
+    // }
 
     public function CategoryChart($category_id)
     {
@@ -157,7 +175,7 @@ class ResultsController extends Controller
 
         $title = 'Rozkład odpowiedzi kategorii '.$category->name;
 
-        $chart = PercentMultiple::generateChart($answersValues, 'bar', '%');
+        $chart = PercentMultiple::generateChart($answersValues, 'horizontalBar', '%');
 
         return view('admin.result.chart', compact('chart', 'title', 'questions'));
     }

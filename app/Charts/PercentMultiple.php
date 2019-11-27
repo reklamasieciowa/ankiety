@@ -71,22 +71,24 @@ class PercentMultiple extends Chart
             ],
             'scales' => [
                 'xAxes' => [
-
                     [
+                        'stacked' => true,
                         'ticks' => [
                             'beginAtZero' => true,
-                            'stepSize' => 1,
+                            'stepSize' => 10,
                             'fontSize' => 18,
                             'autoSkip' => false,
                             'maxRotation' => 80,
                             'minRotation' => 20,
                             'categorySpacing' => 0,
+                            'max' => 100,
 
                         ],
                     ],
                 ],
                 'yAxes' => [
                     [
+                        'stacked' => true,
                         'ticks' => [
                             'beginAtZero' => true,
                             'max' => 100,
