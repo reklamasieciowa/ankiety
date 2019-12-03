@@ -133,16 +133,18 @@ Route::group([
 	Route::delete('/uzytkownik/{user}/usun', 'UserController@destroy')->name('admin.user.destroy');
 
 	Route::get('/wyniki/', 'ResultsController@index')->name('admin.result');
-
 	Route::get('/wyniki/stanowiska', 'ResultsController@PostListChart')->name('admin.result.post');
 	Route::get('/wyniki/branze', 'ResultsController@IndustryListChart')->name('admin.result.industry');
-
 	Route::get('/wyniki/kategorie', 'ResultsController@AllCategoriesChart')->name('admin.result.categories');
 	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.result.category');
-
 	Route::get('/wyniki/kategoria/rozklad/{category_id}', 'ResultsController@CategoryValuesChart')->name('admin.result.category.values');
-
 	Route::get('/wyniki/top5/{order}', 'ResultsController@topFive')->name('admin.result.top5');
+
+	Route::get('/porownanie/', 'ResultsCompareController@select')->name('admin.compare.select');
+	Route::get('/porownanie/{survey}', 'ResultsCompareController@index')->name('admin.compare');
+	Route::get('/porownanie/{survey}/kategorie', 'ResultsCompareController@AllCategoriesChart')->name('admin.result.compare.categories');
+
+	Route::get('/porownanie/{survey}/kategoria/{category_id}', 'ResultsCompareController@CategoryChart')->name('admin.result.compare.category');
 
 });
 

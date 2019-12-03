@@ -94,8 +94,13 @@
                 </div>
               </li>
 
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.result') }}"><i class="fas fa-poll fa-lg"></i> Wyniki</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarResults" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">Wyniki</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarResults">
+                   <a class="dropdown-item" href="{{ route('admin.result') }}"><i class="fas fa-poll fa-lg"></i> Wszystkie</a>
+                   <a class="dropdown-item" href="{{ route('admin.compare.select') }}"><i class="fas fa-poll fa-lg"></i> Porównanie firmy</a>
+                </div>
               </li> 
 
             </ul>

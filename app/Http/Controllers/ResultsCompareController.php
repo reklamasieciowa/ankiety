@@ -6,106 +6,133 @@ use Illuminate\Http\Request;
 use App\Charts\Percent;
 use App\Charts\PercentMultiple;
 use App\Charts\Number;
+use App\Charts\NumberCompare;
 use App\Person;
 use App\Answer;
 use App\Category;
 use App\Question;
+use App\Survey;
 
-class ResultsController extends Controller
+class ResultsCompareController extends Controller
 {
 
 
-    public function PostListChart()
-    {
-        $peopleCount = Person::count();
+    // public function PostListChart()
+    // {
+    //     $peopleCount = Person::count();
 
-        $peopleByPost = Person::all()->load(['post.translations', 'answers'])->sortBy('post_id')->groupBy(function($item, $key)
-        {
-            return $item['post']->{'name:pl'};
-        })->map(function ($item) use($peopleCount) {
-            // Return the number of persons with that age
-            return count($item)/$peopleCount;
-        });
+    //     $peopleByPost = Person::all()->load(['post.translations', 'answers'])->sortBy('post_id')->groupBy(function($item, $key)
+    //     {
+    //         return $item['post']->{'name:pl'};
+    //     })->map(function ($item) use($peopleCount) {
+    //         // Return the number of persons with that age
+    //         return count($item)/$peopleCount;
+    //     });
 
-        $title = 'Stanowiska';
+    //     $title = 'Stanowiska';
 
-        $chart = Percent::generateChart($peopleByPost, 'pie', '%');
+    //     $chart = Percent::generateChart($peopleByPost, 'pie', '%');
 
-        return view('admin.result.chart', compact('chart', 'title'));
-    }
+    //     return view('admin.result.chart', compact('chart', 'title'));
+    // }
 
-    public function IndustryListChart()
-    {
-        $peopleCount = Person::count();
+    // public function IndustryListChart()
+    // {
+    //     $peopleCount = Person::count();
 
-        $peopleByIndustry = Person::all()->load(['industry.translations', 'answers'])->sortBy('industry_id')->groupBy(function($item, $key)
-        {
-            return $item['industry']->{'name:pl'};
-        })->map(function ($item) use($peopleCount) {
-            // Return the number of persons with that age
-            return count($item)/$peopleCount;
-        });
+    //     $peopleByIndustry = Person::all()->load(['industry.translations', 'answers'])->sortBy('industry_id')->groupBy(function($item, $key)
+    //     {
+    //         return $item['industry']->{'name:pl'};
+    //     })->map(function ($item) use($peopleCount) {
+    //         // Return the number of persons with that age
+    //         return count($item)/$peopleCount;
+    //     });
 
-        $title = 'Branże';
+    //     $title = 'Branże';
 
-        $chart = Percent::generateChart($peopleByIndustry, 'pie', '%');
+    //     $chart = Percent::generateChart($peopleByIndustry, 'pie', '%');
 
-        return view('admin.result.chart', compact('chart', 'title'));
-    }
+    //     return view('admin.result.chart', compact('chart', 'title'));
+    // }
 
-    public function AllCategoriesChart()
+    public function AllCategoriesChart(Survey $survey)
     {
         //without effectivness of IT tools and text answers
-        $answers = Answer::where('question_id', '<', 32)->get();
+        $answersAll = Answer::where('question_id', '<', 32)->where('survey_id', '<>', $survey->id)->get();
+        $answersSurvey = Answer::where('question_id', '<', 32)->where('survey_id',  $survey->id)->get();
 
-        $answersgrouped = $answers->load('question.category.translations')->groupBy(function($item, $key)
+        $answersAllGrouped = $answersAll->load('question.category.translations')->groupBy(function($item, $key)
         {
             return $item['question']['category']->{'name:pl'};
         })->map(function ($item) {
             return $item->avg('value');
         });
 
+        $answersSurveyGrouped = $answersSurvey->load('question.category.translations')->groupBy(function($item, $key)
+        {
+            return $item['question']['category']->{'name:pl'};
+        })->map(function ($item) {
+            return $item->avg('value');
+        });
+
+        $answersValues = [];
+
+        $answersValues['company'] = $survey->company->name;
+
+        $answersValues['keys'] = $answersAllGrouped->keys();
+
+        array_push($answersValues, $answersAllGrouped->values());
+        array_push($answersValues, $answersSurveyGrouped->values());
+
         $title = 'Kategorie';
 
-        $chart = Number::generateChart($answersgrouped, 'horizontalBar', '');
+        $chart = NumberCompare::generateChart($answersValues, 'horizontalBar', '');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
 
-    // public function AllCategoriesChart()
-    // {
-
-    //     $answers = Answer::all()->load('question.category.translations')->groupBy(function($item, $key)
-    //     {
-    //         return $item['question']['category']->{'name:pl'};
-    //     })->map(function ($item) {
-    //         return $item->avg('value');
-    //     });
-
-    //     //cut 2 categories IT and additional
-    //     $answers = $answers->slice(0,6);
-
-    //    // dd($answers);
-
-    //     $title = 'Kategorie';
-
-    //     $chart = Number::generateChart($answers, 'horizontalBar', '');
-
-    //     return view('admin.result.chart', compact('chart', 'title'));
-    // }
-
-    public function CategoryChart($category_id)
+    public function CategoryChart(Survey $survey, $category_id)
     {
         $category = Category::findOrFail($category_id);
+        $category_questions = $category->questions->pluck('id');
 
-        $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
-            // Return the avg for answers
-            return [$item->{'name:pl'} => $item->answers->avg('value')];
+
+        $answersAll = Answer::whereIn('question_id', $category_questions)->where('survey_id', '<>', $survey->id)->get();
+
+        $answersAllGrouped = $answersAll->load('question.translations')->groupBy(function($item, $key)
+        {
+            return $item['question']->{'name:pl'};
+        })->map(function ($item) {
+            return $item->avg('value');
         });
+
+        //dd($answersAllGrouped);
+
+        $answersSurvey = Answer::whereIn('question_id', $category_questions)->where('survey_id', $survey->id)->get();
+
+        $answersSurveyGrouped = $answersSurvey->load('question.translations')->groupBy(function($item, $key)
+        {
+            return $item['question']->{'name:pl'};
+        })->map(function ($item) {
+            return $item->avg('value');
+        });
+
+        //dd($answersSurveyGrouped);
+
+        $answersValues = [];
+
+        $answersValues['company'] = $survey->company->name;
+
+        $answersValues['keys'] = $answersAllGrouped->keys();
+
+        array_push($answersValues, $answersAllGrouped->values());
+        array_push($answersValues, $answersSurveyGrouped->values());
 
         $title = 'Kategoria '.$category->{'name:pl'};
 
-        $chart = Number::generateChart($answers, 'bar', '');
+        //dd($answersValues);
+
+        $chart = NumberCompare::generateChart($answersValues, 'bar', '');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
@@ -212,17 +239,29 @@ class ResultsController extends Controller
         return view('admin.result.chart', compact('chart', 'title'));
     }
 
+    /**
+     * Display a listing of companies.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function select()
+    {
+        $surveys = Survey::whereNotNull('company_id')->with('company')->get();
+
+        return view('admin.compare.select_survey', compact('surveys'));
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Survey $survey)
     {
-        $categories = Category::all()->take(6);
 
-        return view('admin.result.index', compact('categories'));
+        $categories = Category::all()->take(6)->load('translations');
+
+        return view('admin.compare.index', compact('categories', 'survey'));
     }
 
     /**
