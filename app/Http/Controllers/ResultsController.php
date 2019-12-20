@@ -190,12 +190,13 @@ class ResultsController extends Controller
 
         //without effectivness of IT tools and text answers
 
-        $answers = Question::where('id', '<', 32)
-                    ->with('answers')
-                    ->mapWithKeys(function ($item) {
-                        // Return the number of persons with that age
-                        return [ $item->{'name:pl'} => $item->answers->avg('value')];
-                    });
+        $answers = Question::where('id', '<', 32);
+        
+      $answers->load('answers')
+            ->mapWithKeys(function ($item) {
+                // Return the number of persons with that age
+                return [ $item->{'name:pl'} => $item->answers->avg('value')];
+            });
 
 
 
