@@ -189,7 +189,7 @@ class ResultsController extends Controller
         // });
 
         //without effectivness of IT tools and text answers
-        $test =  Question::where('id', '<', 32)->load('answers')->get();
+        $test =  Question::where('id', '<', 32)->with('answers')->get();
         dd($test);
 
         $answers = Question::where('id', '<', 32)
