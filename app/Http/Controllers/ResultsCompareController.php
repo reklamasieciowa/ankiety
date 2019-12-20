@@ -106,8 +106,6 @@ class ResultsCompareController extends Controller
             return $item->avg('value');
         });
 
-        //dd($answersAllGrouped);
-
         $answersSurvey = Answer::whereIn('question_id', $category_questions)->where('survey_id', $survey->id)->get();
 
         $answersSurveyGrouped = $answersSurvey->load('question.translations')->groupBy(function($item, $key)
@@ -116,8 +114,6 @@ class ResultsCompareController extends Controller
         })->map(function ($item) {
             return $item->avg('value');
         });
-
-        //dd($answersSurveyGrouped);
 
         $answersValues = [];
 
@@ -129,8 +125,6 @@ class ResultsCompareController extends Controller
         array_push($answersValues, $answersSurveyGrouped->values());
 
         $title = 'Kategoria '.$category->{'name:pl'};
-
-        //dd($answersValues);
 
         $chart = NumberCompare::generateChart($answersValues, 'bar', '');
 
@@ -216,10 +210,6 @@ class ResultsCompareController extends Controller
         });
 
         //remove null
-        $answers = $answers->filter(function ($value, $key) {
-            return !is_null($value);
-        });
-
         $answers = $answers->filter(function ($value, $key) {
             return !is_null($value);
         });

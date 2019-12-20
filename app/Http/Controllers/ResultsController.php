@@ -193,10 +193,6 @@ class ResultsController extends Controller
             return !is_null($value);
         });
 
-        $answers = $answers->filter(function ($value, $key) {
-            return !is_null($value);
-        });
-
         $answers = $answers->sort();
 
         if($order == "best") {
