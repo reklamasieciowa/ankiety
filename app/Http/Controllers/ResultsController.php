@@ -188,10 +188,6 @@ class ResultsController extends Controller
         //     return [ $item->{'name:pl'} => $item->answers->avg('value')];
         // });
 
-        //without effectivness of IT tools and text answers
-        //$test =  Question::where('id', '<', 32)->with('answers')->get();
-        //dd($test);
-
         $answers = Question::where('id', '<', 32)
                     ->with('answers')
                     ->get()
@@ -199,8 +195,6 @@ class ResultsController extends Controller
                         // Return the number of persons with that age
                         return [ $item->{'name:pl'} => $item->answers->avg('value')];
                     });
-
-
 
         //remove null
         $answers = $answers->filter(function ($value, $key) {
