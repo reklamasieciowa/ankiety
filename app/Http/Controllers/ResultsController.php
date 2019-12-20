@@ -189,6 +189,9 @@ class ResultsController extends Controller
         // });
 
         //without effectivness of IT tools and text answers
+        $test =  Question::where('id', '<', 32)->load('answers')->get();
+        dd($test);
+
         $answers = Question::where('id', '<', 32)
                     ->load('answers')
                     ->mapWithKeys(function ($item) {
