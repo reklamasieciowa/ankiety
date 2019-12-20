@@ -183,7 +183,13 @@ class ResultsController extends Controller
     public function topFive($order = "worst")
     {
 
-        $answers = Question::all()->load('answers')->mapWithKeys(function ($item) {
+        // $answers = Question::all()->load('answers')->mapWithKeys(function ($item) {
+        //     // Return the number of persons with that age
+        //     return [ $item->{'name:pl'} => $item->answers->avg('value')];
+        // });
+
+        //without effectivness of IT tools and text answers
+        $answers = Question::where('id', '<', 32)->load('answers')->mapWithKeys(function ($item) {
             // Return the number of persons with that age
             return [ $item->{'name:pl'} => $item->answers->avg('value')];
         });
