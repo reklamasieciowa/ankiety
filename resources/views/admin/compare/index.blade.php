@@ -46,7 +46,7 @@
                   </p>
                   <p>
                     <strong>Rozkład wyników kategorii {{ $category->name }}:</strong>
-                    <a href="{{ route('admin.result.category.values', ['category_id' => $category->id]) }}" target="_blank">Zobacz</a>
+                    <a href="{{ route('admin.result.compare.category.values', ['category_id' => $category->id, 'survey' => $survey->id]) }}" target="_blank">Zobacz</a>
                   </p>
                   <hr>
                 @endforeach

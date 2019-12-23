@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Charts\Percent;
 use App\Charts\PercentMultiple;
+use App\Charts\PercentMultipleCompare;
 use App\Charts\Number;
 use App\Charts\NumberCompare;
 use App\Person;
@@ -131,72 +132,120 @@ class ResultsCompareController extends Controller
         return view('admin.result.chart', compact('chart', 'title'));
     }
 
-    public function CategoryValuesChart($category_id)
+    public function CategoryValuesChart(Survey $survey, $category_id)
     {
         $category = Category::findOrFail($category_id);
+        $category_questions = $category->questions->pluck('id');
 
-        $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
-            return [$item->{'name:pl'} => $item->answers->sortBy('value')->groupBy('value')];
+        $category_keys = $category->questions->pluck('name:pl');
+        $company = $survey->company->name;
+
+        $company_category_keys = $category_keys->map(function ($item, $key) use ($company) {
+            //return $item.' ('.$company.')';
+            return $company;
         });
 
+        $category_keys = $category_keys->concat($company_category_keys);
+
+        $answersAll = Answer::whereIn('question_id', $category_questions)
+            ->where('survey_id', '<>', $survey->id)
+            ->get()
+            ->load('question.translations')
+            ->groupBy([
+                'question_id', 'value'
+            ]);
+
+        $answersSurvey = Answer::whereIn('question_id', $category_questions)
+            ->where('survey_id', '=', $survey->id)
+            ->get()
+            ->load('question.translations')
+            ->groupBy([
+                'question_id', 'value'
+        ]);
+
+        $answers = array();
+        array_push($answers, $answersAll);
+        array_push($answers, $answersSurvey);
+
+        // $answersAllGrouped = $answersAll->mapWithKeys(function ($item, $value) {
+        //     return [$item['question']->{'name:pl'} => $item->sortBy('value')->groupBy('value')];
+        // });
+
+        // dd($answersAllGrouped);
+
         $answersValues = [];
-        $keys = [];
         $data0_1 = [];
         $data2_3 = [];
         $data4_5 = [];
+        $iteration = 0;
+        $i = 0;
 
-        foreach ($answers as $key => $answer_value) {
+        foreach ($answers as $answer) {
+
+           foreach ($answer as $key => $answer_value) {
+                $count0_1 = 0;
+                if(isset($answer_value[0])) {
+                    $count0_1 += $answer_value[0]->count();
+                }
+
+                if(isset($answer_value[1])) {
+                    $count0_1 += $answer_value[1]->count();
+                }
+
+                $count2_3 = 0;
+                if(isset($answer_value[2])) {
+                    $count2_3 += $answer_value[2]->count();
+                }
+
+                if(isset($answer_value[3])) {
+                    $count2_3 += $answer_value[3]->count();
+                }
                 
-            $count0_1 = 0;
-            if(isset($answer_value[0])) {
-                $count0_1 += $answer_value[0]->count();
+                $count4_5 = 0;
+                if(isset($answer_value[4])) {
+                    $count4_5 += $answer_value[4]->count();
+                }
+
+                if(isset($answer_value[5])) {
+                    $count4_5 += $answer_value[5]->count();
+                }
+
+                $totalnaswers = $count0_1 + $count2_3 + $count4_5;
+
+                $data0_1[$iteration] = $count0_1/$totalnaswers*100;
+                $data2_3[$iteration] = $count2_3/$totalnaswers*100;
+                $data4_5[$iteration] = $count4_5/$totalnaswers*100;
+
+                $answersValues['keys'][$iteration] = $category_keys[$i];
+
+                $iteration += 2; // odd and even table indexes
+                $i++;
+
+                // array_push($data0_1, $count0_1/$totalnaswers*100);
+                // array_push($data2_3, $count2_3/$totalnaswers*100);
+                // array_push($data4_5, $count4_5/$totalnaswers*100);
             }
 
-            if(isset($answer_value[1])) {
-                $count0_1 += $answer_value[1]->count();
-            }
+            $answersValues['data']['01'] = $data0_1;
+            $answersValues['data']['02'] = $data2_3;
+            $answersValues['data']['03'] = $data4_5;
 
-            
-            $count2_3 = 0;
-            if(isset($answer_value[2])) {
-                $count2_3 += $answer_value[2]->count();
-            }
-
-            if(isset($answer_value[3])) {
-                $count2_3 += $answer_value[3]->count();
-            }
-
-            
-            $count4_5 = 0;
-            if(isset($answer_value[4])) {
-                $count4_5 += $answer_value[4]->count();
-            }
-
-            if(isset($answer_value[5])) {
-                $count4_5 += $answer_value[5]->count();
-            }
-
-            array_push($keys, $key);
-
-
-            $totalnaswers = $count0_1 + $count2_3 + $count4_5;
-
-            array_push($data0_1, $count0_1/$totalnaswers*100);
-            array_push($data2_3, $count2_3/$totalnaswers*100);
-            array_push($data4_5, $count4_5/$totalnaswers*100);
+            $iteration = 1;
 
         }
 
-        $data['keys'] = $keys;
+        ksort($answersValues['keys']);
+        ksort($answersValues['data']['01']);
+        ksort($answersValues['data']['02']);
+        ksort($answersValues['data']['03']);
 
-        $answersValues['keys'] = $data['keys'];
-        $answersValues['data']['01'] = $data0_1;
-        $answersValues['data']['02'] = $data2_3;
-        $answersValues['data']['03'] = $data4_5;
+        //$answersValues['keys'] = $category_keys;
+
+        //dd($answersValues);
 
         $title = 'Rozkład odpowiedzi kategorii '.$category->name;
 
-        $chart = PercentMultiple::generateChart($answersValues, 'horizontalBar', '%');
+        $chart = PercentMultipleCompare::generateChart($answersValues, 'horizontalBar', '%');
 
         return view('admin.result.chart', compact('chart', 'title', 'questions'));
     }

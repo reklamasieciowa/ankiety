@@ -118,6 +118,8 @@ class ResultsController extends Controller
             return [$item->{'name:pl'} => $item->answers->sortBy('value')->groupBy('value')];
         });
 
+        //dd($answers);
+
         $answersValues = [];
         $keys = [];
         $data0_1 = [];

@@ -143,8 +143,9 @@ Route::group([
 	Route::get('/porownanie/', 'ResultsCompareController@select')->name('admin.compare.select');
 	Route::get('/porownanie/{survey}', 'ResultsCompareController@index')->name('admin.compare');
 	Route::get('/porownanie/{survey}/kategorie', 'ResultsCompareController@AllCategoriesChart')->name('admin.result.compare.categories');
-
 	Route::get('/porownanie/{survey}/kategoria/{category_id}', 'ResultsCompareController@CategoryChart')->name('admin.result.compare.category');
+
+	Route::get('/porownanie/{survey}/kategoria/rozklad/{category_id}', 'ResultsCompareController@CategoryValuesChart')->name('admin.result.compare.category.values');
 
 });
 
