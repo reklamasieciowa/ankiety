@@ -16,7 +16,7 @@
 
     <div class="row">
       <div class="col-lg-12">
-        Wszystkich ankietowanych
+        Wszystkich ankietowanych: {{ $survey->people->count() }}.
       </div>
     </div>
 

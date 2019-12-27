@@ -100,6 +100,7 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarResults">
                    <a class="dropdown-item" href="{{ route('admin.result') }}"><i class="fas fa-poll fa-lg"></i> Wszystkie</a>
                    <a class="dropdown-item" href="{{ route('admin.compare.select') }}"><i class="fas fa-poll fa-lg"></i> Porównanie firmy</a>
+                   <a class="dropdown-item" href="{{ route('admin.resultbydepartment.select.survey') }}"><i class="fas fa-poll fa-lg"></i> Działy firmy</a>
                 </div>
               </li> 
 

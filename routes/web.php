@@ -135,6 +135,7 @@ Route::group([
 	Route::get('/wyniki/', 'ResultsController@index')->name('admin.result');
 	Route::get('/wyniki/stanowiska', 'ResultsController@PostListChart')->name('admin.result.post');
 	Route::get('/wyniki/branze', 'ResultsController@IndustryListChart')->name('admin.result.industry');
+	Route::get('/wyniki/dzialy', 'ResultsController@DepartmentListChart')->name('admin.result.department');
 	Route::get('/wyniki/kategorie', 'ResultsController@AllCategoriesChart')->name('admin.result.categories');
 	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.result.category');
 	Route::get('/wyniki/kategoria/rozklad/{category_id}', 'ResultsController@CategoryValuesChart')->name('admin.result.category.values');
@@ -144,8 +145,18 @@ Route::group([
 	Route::get('/porownanie/{survey}', 'ResultsCompareController@index')->name('admin.compare');
 	Route::get('/porownanie/{survey}/kategorie', 'ResultsCompareController@AllCategoriesChart')->name('admin.result.compare.categories');
 	Route::get('/porownanie/{survey}/kategoria/{category_id}', 'ResultsCompareController@CategoryChart')->name('admin.result.compare.category');
-
 	Route::get('/porownanie/{survey}/kategoria/rozklad/{category_id}', 'ResultsCompareController@CategoryValuesChart')->name('admin.result.compare.category.values');
+
+	Route::get('/wynikidzialow/', 'ResultsByDepartmentController@selectSurvey')->name('admin.resultbydepartment.select.survey');
+
+	Route::get('/wynikidzialow/{survey}', 'ResultsByDepartmentController@selectDepartment')->name('admin.resultbydepartment.select.department');
+	Route::get('/wynikidzialow/{survey}/{department}', 'ResultsByDepartmentController@index')->name('admin.resultbydepartment');
+	Route::get('/wynikidzialow/{survey}/{department}/stanowiska', 'ResultsByDepartmentController@PostListChart')->name('admin.resultbydepartment.post');
+	Route::get('/wynikidzialow/{survey}/{department}/kategorie', 'ResultsByDepartmentController@AllCategoriesChart')->name('admin.resultbydepartment.categories');
+	Route::get('/wynikidzialow/{survey}/{department}/kategoria/{category}', 'ResultsByDepartmentController@CategoryChart')->name('admin.resultbydepartment.category');
+	Route::get('/wynikidzialow/{survey}/{department}/kategoria/rozklad/{category}', 'ResultsByDepartmentController@CategoryValuesChart')->name('admin.resultbydepartment.category.values');
+
+	Route::get('/wynikidzialow/{survey}/{department}/top5/{order}', 'ResultsByDepartmentController@topFive')->name('admin.resultbydepartment.top5');
 
 });
 

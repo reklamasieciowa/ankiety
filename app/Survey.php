@@ -139,4 +139,12 @@ class Survey extends Model implements TranslatableContract
 
         return $peopleByIndustry;
     }
+
+    public function peopleFromDepartment($department)
+    {
+        return $this->people
+                    ->where('department_id', $department->id)
+                    ->pluck('id');
+    }
+
 }

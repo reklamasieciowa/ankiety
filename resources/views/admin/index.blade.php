@@ -19,9 +19,11 @@
                             <p>Kategorii: {{ $survey->categories->count() }}</p>
                               <p>Ankietowanych: {{ $survey->people->count() }}</p>
                               <p>Odpowiedzi: {{ $survey->answers->count() }}</p>
+
                               <p>Pytania z odpowiedziami: {{ $survey->percentAnswered() }}</p>
                               <p>Niedokończone ankiety: {{ $survey->peopleUnfinished() }}</p>
                               <p>Ankietowani bez żadnych odpowiedzi: {{ $survey->peopleWithoutAnswersCount() }} </p>
+                              
                               <p>Firma: {{ $survey->company->name ?? '-' }}</p>
                               <p>Status: {{ $survey->finished ? 'Zakończona' : 'Aktywna' }} <a href="{{route('admin.survey.status.change', ['survey' => $survey->id])}}">Zmień <i class="fas fa-random"></i></a></p>
                               <p>Link pl: <a href="{{ route('survey.start', ['locale' => 'pl', 'survey_uuid' => $survey->uuid]) }}" target="_blank">{{ route('survey.start', ['locale' => 'pl', 'survey_uuid' => $survey->uuid]) }}</a></p>

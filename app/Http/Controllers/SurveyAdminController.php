@@ -27,7 +27,7 @@ class SurveyAdminController extends Controller
     public function index()
     {
         $surveys = Survey::with(['translations', 'people', 'answers', 'questions', 'company', 'categories'])->get();
-        $people = Person::all();
+        $people = Person::with('answers')->get();
         $answers = Answer::all();
         $questions = Question::all();
         $categories = Category::all();

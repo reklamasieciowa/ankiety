@@ -42,13 +42,30 @@ class ResultsController extends Controller
         {
             return $item['industry']->{'name:pl'};
         })->map(function ($item) use($peopleCount) {
-            // Return the number of persons with that age
             return count($item)/$peopleCount;
         });
 
         $title = 'Branże';
 
         $chart = Percent::generateChart($peopleByIndustry, 'pie', '%');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function DepartmentListChart()
+    {
+        $peopleCount = Person::count();
+
+        $peopleByDepartment = Person::all()->load(['department.translations', 'answers'])->sortBy('department_id')->groupBy(function($item, $key)
+        {
+            return $item['department']->{'name:pl'};
+        })->map(function ($item) use($peopleCount) {
+            return count($item)/$peopleCount;
+        });
+
+        $title = 'Działy';
+
+        $chart = Percent::generateChart($peopleByDepartment, 'pie', '%');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
@@ -118,7 +135,7 @@ class ResultsController extends Controller
             return [$item->{'name:pl'} => $item->answers->sortBy('value')->groupBy('value')];
         });
 
-        //dd($answers);
+        dd($answers);
 
         $answersValues = [];
         $keys = [];
@@ -185,16 +202,10 @@ class ResultsController extends Controller
     public function topFive($order = "worst")
     {
 
-        // $answers = Question::all()->load('answers')->mapWithKeys(function ($item) {
-        //     // Return the number of persons with that age
-        //     return [ $item->{'name:pl'} => $item->answers->avg('value')];
-        // });
-
         $answers = Question::where('id', '<', 32)
                     ->with('answers')
                     ->get()
                     ->mapWithKeys(function ($item) {
-                        // Return the number of persons with that age
                         return [ $item->{'name:pl'} => $item->answers->avg('value')];
                     });
 
