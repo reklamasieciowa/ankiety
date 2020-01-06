@@ -59,6 +59,11 @@
                   <strong>Top5 najgorzej ocenianych:</strong>
                   <a href="{{ route('admin.result.top5', ['order' => 'worst']) }}" target="_blank">Zobacz</a>
                 </p>
+                <hr>
+                <p>
+                  <strong>Odpowiedzi na pytania otwarte:</strong>
+                  <a href="{{ route('admin.result.openQuestions') }}" target="_blank">Zobacz</a>
+                </p>
 
               </div>
           </div>
