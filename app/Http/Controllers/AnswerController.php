@@ -71,6 +71,11 @@ class AnswerController extends Controller
         {
             $nextCategory = $currentCategory+1;
 
+            //check if current category has any questions else go next
+            if(!$survey->questions->where('category_id', $nextCategory)) {
+                $nextCategory++;
+            } 
+            
             return redirect()->route('survey.category', ['locale' => App::getLocale(), 'survey_uuid' => $survey_uuid, 'person' => $person, 'currentCategory' => $nextCategory]);
 
         } elseif($currentCategory == $survey->categories->count()) {
