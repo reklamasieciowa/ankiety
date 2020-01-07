@@ -140,7 +140,6 @@ Route::group([
 	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.result.category');
 	Route::get('/wyniki/kategoria/rozklad/{category_id}', 'ResultsController@CategoryValuesChart')->name('admin.result.category.values');
 	Route::get('/wyniki/top5/{order}', 'ResultsController@topFive')->name('admin.result.top5');
-
 	Route::get('/wyniki/otwarte', 'ResultsController@openQuestions')->name('admin.result.openQuestions');
 
 	Route::get('/porownanie/', 'ResultsCompareController@select')->name('admin.compare.select');
@@ -148,7 +147,17 @@ Route::group([
 	Route::get('/porownanie/{survey}/kategorie', 'ResultsCompareController@AllCategoriesChart')->name('admin.result.compare.categories');
 	Route::get('/porownanie/{survey}/kategoria/{category_id}', 'ResultsCompareController@CategoryChart')->name('admin.result.compare.category');
 	Route::get('/porownanie/{survey}/kategoria/rozklad/{category_id}', 'ResultsCompareController@CategoryValuesChart')->name('admin.result.compare.category.values');
+	Route::get('/porownanie/{survey}/top5/{order}', 'ResultsCompareController@topFive')->name('admin.result.compare.top5');
 	Route::get('/porownanie/{survey}/otwarte', 'ResultsCompareController@openQuestions')->name('admin.result.compare.openQuestions');
+
+
+	Route::get('/hrbp/', 'HrbpBusinessCompareController@select')->name('admin.hrbp.select');
+	Route::get('/hrbp/{survey}', 'HrbpBusinessCompareController@index')->name('admin.hrbp');
+	Route::get('/hrbp/{survey}/kategorie', 'HrbpBusinessCompareController@AllCategoriesChart')->name('admin.hrbp.categories');
+	Route::get('/hrbp/{survey}/kategoria/{category_id}', 'HrbpBusinessCompareController@CategoryChart')->name('admin.hrbp.category');
+	Route::get('/hrbp/{survey}/kategoria/rozklad/{category_id}', 'HrbpBusinessCompareController@CategoryValuesChart')->name('admin.hrbp.category.values');
+	Route::get('/hrbp/{survey}/top5/{group}/{order}', 'HrbpBusinessCompareController@topFive')->name('admin.hrbp.top5');
+
 
 	Route::get('/wynikidzialow/', 'ResultsByDepartmentController@selectSurvey')->name('admin.resultbydepartment.select.survey');
 	Route::get('/wynikidzialow/{survey}', 'ResultsByDepartmentController@selectDepartment')->name('admin.resultbydepartment.select.department');
