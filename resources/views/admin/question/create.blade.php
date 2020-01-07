@@ -84,7 +84,7 @@
                 @foreach($surveys as $survey)
                   <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" id="s{{ $survey->id }}" name="surveys[]" value="{{ $survey->id }}">
-                      <label class="custom-control-label" for="s{{ $survey->id }}">{{ $survey->title }}</label>
+                      <label class="custom-control-label" for="s{{ $survey->id }}">{{ $survey->title }} @if($survey->company) ({{ $survey->company->name }}) @endif</label>
                   </div>
                 @endforeach
               </div>
