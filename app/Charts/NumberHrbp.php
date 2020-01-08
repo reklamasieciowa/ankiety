@@ -36,10 +36,13 @@ class NumberHrbp extends Chart
         $chart->labels($data['keys']);
 
         $chart->dataset('HRBP', $type, $data[0])
-            ->backgroundcolor($fillColors);
+            ->backgroundcolor('#00b0f0');
 
         $chart->dataset('Business', $type, $data[1])
             ->backgroundcolor('#2c31ef');
+
+        $chart->dataset('All', $type, $data[2])
+            ->backgroundcolor('#98a0a9');
 
         $chart->displayAxes(true);
         $chart->options([

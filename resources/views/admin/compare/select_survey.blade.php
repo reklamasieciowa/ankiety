@@ -16,7 +16,7 @@
     <div class="row mt-5">
 
       @forelse($surveys as $survey)
-          <div class="col-lg-6">
+          <div class="col-lg-6 my-3">
               <div class="card">
                 <div class="card-body">
                   <p>

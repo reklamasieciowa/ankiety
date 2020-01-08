@@ -44,6 +44,16 @@ class HrbpBusinessCompareController extends Controller
         })->map(function ($item) {
             return $item->avg('value');
         });
+
+        $answersAll = $survey->answers
+                ->whereIn('question_id', $questions_ids);
+
+        $answersAllGrouped = $answersAll->load('question.category.translations')->groupBy(function($item, $key)
+        {
+            return $item['question']['category']->{'name:pl'};
+        })->map(function ($item) {
+            return $item->avg('value');
+        });
         
         $answersValues = [];
 
@@ -51,6 +61,7 @@ class HrbpBusinessCompareController extends Controller
 
         array_push($answersValues, $answersHrbpGrouped->values());
         array_push($answersValues, $answersBusinessGrouped->values());
+        array_push($answersValues, $answersAllGrouped->values());
 
         $title = 'Kategorie';
 
@@ -88,12 +99,23 @@ class HrbpBusinessCompareController extends Controller
             return $item->avg('value');
         });
 
+        $answersAll = $survey->answers
+                        ->whereIn('question_id', $category_questions);
+
+        $answersAllGrouped = $answersAll->load('question.category.translations')->groupBy(function($item, $key)
+        {
+            return $item['question']['category']->{'name:pl'};
+        })->map(function ($item) {
+            return $item->avg('value');
+        });
+
         $answersValues = [];
 
         $answersValues['keys'] = $answersHrbpGrouped->keys();
 
         array_push($answersValues, $answersHrbpGrouped->values());
         array_push($answersValues, $answersBusinessGrouped->values());
+        array_push($answersValues, $answersAllGrouped->values());
 
         $title = 'Kategoria '.$category->{'name:pl'};
 
@@ -119,6 +141,11 @@ class HrbpBusinessCompareController extends Controller
             return 'Business';
         });
 
+        $all_category_keys = $category_keys->map(function ($item, $key) use ($company) {
+            //return $item.' ('.$company.')';
+            return 'All';
+        });
+
         $people = $survey->poepleHrbpBusinessIds();
 
         $answersHrbp = $survey->answers
@@ -137,11 +164,22 @@ class HrbpBusinessCompareController extends Controller
                     'question_id', 'value'
                 ]);
 
+        $answersAll = $survey->answers
+                ->whereIn('question_id', $category_questions)
+                ->load('question.translations')
+                ->groupBy([
+                    'question_id', 'value'
+                ]);
+
         $category_keys = $category_keys->concat($company_category_keys);
+        $category_keys = $category_keys->concat($all_category_keys);
 
         $answers = array();
         array_push($answers, $answersHrbp);
         array_push($answers, $answersBusiness);
+        array_push($answers, $answersAll);
+
+        //dd($answers);
 
         $answersValues = [];
         $data0_1 = [];
@@ -151,6 +189,8 @@ class HrbpBusinessCompareController extends Controller
         $i = 0;
 
         foreach ($answers as $answer) {
+
+            //dd($answer);
 
            foreach ($answer as $key => $answer_value) {
                 $count0_1 = 0;
@@ -188,7 +228,7 @@ class HrbpBusinessCompareController extends Controller
 
                 $answersValues['keys'][$iteration] = $category_keys[$i];
 
-                $iteration += 2; // odd and even table indexes
+                $iteration += 3; // odd and even table indexes
                 $i++;
 
                 // array_push($data0_1, $count0_1/$totalnaswers*100);
@@ -200,7 +240,13 @@ class HrbpBusinessCompareController extends Controller
             $answersValues['data']['02'] = $data2_3;
             $answersValues['data']['03'] = $data4_5;
 
-            $iteration = 1;
+            //count($answer)*3
+            if($iteration == count($answer)*3) {
+                $iteration = 1;
+                //count($answer)*3+1
+            } elseif($iteration == count($answer)*3+1) {
+                $iteration = 2;
+            } 
 
         }
 
@@ -208,8 +254,6 @@ class HrbpBusinessCompareController extends Controller
         ksort($answersValues['data']['01']);
         ksort($answersValues['data']['02']);
         ksort($answersValues['data']['03']);
-
-        //$answersValues['keys'] = $category_keys;
 
         //dd($answersValues);
 
