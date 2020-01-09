@@ -24,7 +24,7 @@ class SurveyController extends Controller
         $survey = Survey::where('uuid', '=', $survey_uuid)->firstOrFail();
 
         $posts = Post::with('translations')->get();
-        $departments = Department::with('translations')->get();
+        $departments = Department::with('translations')->get()->sortBy('order');
         $industries = Industry::with('translations')->get();
 
         return view('front.survey.personalInfo')->with(compact('survey', 'posts', 'departments', 'industries'));

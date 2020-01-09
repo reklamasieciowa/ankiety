@@ -31,6 +31,10 @@
                 <input type="text" class="form-control" id="name_en" name="name_en" value="{{old('name_en') ?? $department->{'name:en'} }}">
               </div>
               <div class="form-group">
+                <label for="order">Kolejność</label>
+                <input type="number" class="form-control" id="order" name="order" value="{{old('order') ?? $department->order }}">
+              </div>
+              <div class="form-group">
                 <button type="submit" class="btn btn-accent">Zapisz</button>
               </div>
             </form>

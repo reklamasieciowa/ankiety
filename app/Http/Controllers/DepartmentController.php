@@ -15,7 +15,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::with('translations')->get();
+        $departments = Department::with('translations')->get()->sortBy('order');
 
         return view('admin.department.index')->with(compact('departments'));
     }
@@ -33,6 +33,7 @@ class DepartmentController extends Controller
         $department = Department::create([
             'pl'  => ['name' => $validated['name_pl']],
             'en'  => ['name' => $validated['name_en']],
+            'order' => $validated['order'],
         ]);
 
         $request->session()->flash('class', 'alert-info');
@@ -66,6 +67,7 @@ class DepartmentController extends Controller
         $department->update([
             'pl'  => ['name' => $validated['name_pl']],
             'en'  => ['name' => $validated['name_en']],
+            'order' => $validated['order'],
         ]);
 
         $request->session()->flash('class', 'alert-info');

@@ -11,6 +11,7 @@ class Department extends Model implements TranslatableContract
     use Translatable;
     
     public $translatedAttributes = ['name'];
+    protected $fillable = ['order'];
 
     public function people()
     {

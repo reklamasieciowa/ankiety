@@ -35,6 +35,11 @@
                 <input type="text" class="form-control" id="name_en" name="name_en" value="{{old('name_en') ?? ''}}">
               </div>
               <div class="form-group">
+                <label for="order">Kolejność</label>
+                <input type="number" class="form-control" id="order" name="order" value="{{old('order') ?? ''}}">
+              </div>
+
+              <div class="form-group">
                 <button type="submit" class="btn btn-accent">Zapisz</button>
               </div>
             </form>
@@ -50,10 +55,10 @@
                
                   @forelse($departments as $department)
                     <div class="row question_prev">
-                      <div class="col-lg-1">
-                        <p>ID: {{ $department->id }}</p>
+                      <div class="col-lg-2">
+                        <p>Kolejność: {{ $department->order }}</p>
                       </div>
-                      <div class="col-lg-7">
+                      <div class="col-lg-6">
                         <p><strong>Nazwa PL: </strong>{{ $department->name }}</p>
                         <p><strong>Nazwa EN: </strong>{{ $department->{'name:en'} }}</p>
                       </div>

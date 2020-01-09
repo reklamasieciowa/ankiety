@@ -26,6 +26,7 @@ class CreateDepartment extends FormRequest
         return [
             'name_pl' => 'string|required',
             'name_en' => 'string|required',
+            'order' => 'integer|required',
         ];
     }
 }
