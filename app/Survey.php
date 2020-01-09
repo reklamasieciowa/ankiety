@@ -67,19 +67,12 @@ class Survey extends Model implements TranslatableContract
 
     public function peopleWithoutAnswersCount()
     {
-        $people = $this->people;
+        $people = $this->people->load('answers');
 
-        if(count($people))
-        {
-            $peopleWithoutAnswers = 0;
-
-            foreach($people as $person)
-            {
-                if(!$person->answers->count()) 
-                {
-                    $peopleWithoutAnswers++;
-                }
-            }
+        if(count($people)) {
+            $peopleWithoutAnswers = $people->filter(function ($item, $key) {
+                return !$item->answers->count();
+            })->count();
 
             return $peopleWithoutAnswers.' ('.round(($peopleWithoutAnswers/$people->count()*100),2).'%)';
         } else {
@@ -89,19 +82,13 @@ class Survey extends Model implements TranslatableContract
 
     public function peopleUnfinished()
     {
-        $people = $this->people;
+        $people = $this->people->load('answers');
 
         if(count($people)) 
         {
-            $peopleUnfinished = 0;
-
-            foreach($people as $person)
-            {
-                if($person->answers->count() < $this->requiredQuestions()->count()) 
-                {
-                    $peopleUnfinished++;
-                }
-            }
+            $peopleUnfinished = $people->filter(function ($item, $key) {
+                return $item->answers->count() < $this->requiredQuestions()->count();
+            })->count();
 
             return $peopleUnfinished.'/'.count($people).' ('.round(($peopleUnfinished/$people->count()*100), 2).'%)';
         } else {
