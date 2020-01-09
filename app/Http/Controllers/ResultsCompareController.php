@@ -8,6 +8,7 @@ use App\Charts\PercentMultiple;
 use App\Charts\PercentMultipleCompare;
 use App\Charts\Number;
 use App\Charts\NumberCompare;
+use App\Charts\Line;
 use App\Person;
 use App\Answer;
 use App\Category;
@@ -49,6 +50,47 @@ class ResultsCompareController extends Controller
         $title = 'Kategorie';
 
         $chart = NumberCompare::generateChart($answersValues, 'horizontalBar', '');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function CompareIndustries(Survey $survey)
+    {
+        
+        $answers = Answer::where('question_id', '<', 32)->where('survey_id', '<>', $survey->id)->with('person.industry.translations','question.category.translations')->get();
+
+        $answersByIndustry = $answers->groupBy(
+             ['person.industry.name', 'question.category.name']
+        )
+        ->filter(function ($item) {
+            //only industries with answers from all categories
+            return $item->count() == 6;
+        })
+        ->map(function ($item) {   
+            return $item->map(function ($nesteditem) {
+                return $nesteditem->avg('value');
+            })->sortKeys();
+        })
+        ->sortKeys();
+
+        $surveyAnswers = $survey->answers->where('question_id', '<', 32)->load('person.industry.translations', 'survey', 'question.category.translations');
+
+        $surveyAnswersGrouped = $surveyAnswers->groupBy(
+             ['survey.company.name', 'question.category.name']
+        )
+        ->map(function ($item) {   
+            return $item->map(function ($nesteditem) {
+                return $nesteditem->avg('value');
+            })->sortKeys();
+        });
+
+        $answersAll = $answersByIndustry->merge($surveyAnswersGrouped);
+
+        //dd($answersAll);
+
+        $title = 'Średnie kategorii wg branż vs '.$survey->company->name;
+
+        $chart = Line::generateChart($answersAll, 'line', '');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }

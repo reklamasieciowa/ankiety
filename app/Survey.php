@@ -94,7 +94,6 @@ class Survey extends Model implements TranslatableContract
         } else {
             return '-';
         }
-        
     }
 
     public function peopleByPost()

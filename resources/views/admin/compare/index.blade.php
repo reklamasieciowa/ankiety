@@ -61,6 +61,13 @@
                   <a href="{{ route('admin.result.compare.top5', ['survey' => $survey->id, 'order' => 'worst']) }}" target="_blank">Zobacz</a>
                 </p>
                 <hr>
+
+                <p>
+                  <strong>Porównanie po branżach:</strong>
+                  <a href="{{ route('admin.result.compare.industries.values', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
+                </p>
+                <hr>
+
                 <p>
                   <strong>Odpowiedzi na pytania otwarte:</strong>
                   <a href="{{ route('admin.result.compare.openQuestions', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
