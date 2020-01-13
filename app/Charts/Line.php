@@ -95,9 +95,9 @@ class Line extends Chart
                         'ticks' => [
                             'beginAtZero' => true,
                             'max' => 5,
-                            'stepSize' => .5,
-                            'fontSize' => 20,
-                            'autoSkip' => false,
+                            'stepSize' => .2,
+                            'fontSize' => 16,
+                            'autoSkip' => true,
                             'maxRotation' => 0,
                             'minRotation' => 0,
                         ],

@@ -168,6 +168,8 @@ Route::group([
 	Route::get('/wynikidzialow/{survey}/{department}/kategoria/{category}', 'ResultsByDepartmentController@CategoryChart')->name('admin.resultbydepartment.category');
 	Route::get('/wynikidzialow/{survey}/{department}/kategoria/rozklad/{category}', 'ResultsByDepartmentController@CategoryValuesChart')->name('admin.resultbydepartment.category.values');
 	Route::get('/wynikidzialow/{survey}/{department}/top5/{order}', 'ResultsByDepartmentController@topFive')->name('admin.resultbydepartment.top5');
+
+	Route::get('/export/all', 'ResultsExportController@exportAll')->name('admin.export.all');
 });
 
 
