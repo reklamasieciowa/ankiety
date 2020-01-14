@@ -99,9 +99,10 @@
                   aria-haspopup="true" aria-expanded="false">Wyniki</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarResults">
                    <a class="dropdown-item" href="{{ route('admin.result') }}"><i class="fas fa-poll fa-lg"></i> Wszystkie</a>
+                   <div class="dropdown-divider"></div>
                    <a class="dropdown-item" href="{{ route('admin.compare.select') }}"><i class="fas fa-poll fa-lg"></i> Porównanie firmy</a>
                    <a class="dropdown-item" href="{{ route('admin.resultbydepartment.select.survey') }}"><i class="fas fa-poll fa-lg"></i> Działy firmy</a>
-                   <a class="dropdown-item" href="{{ route('admin.hrbp.select') }}"><i class="fas fa-poll fa-lg"></i> Porównanie HRBP vs Business</a>
+                   <a class="dropdown-item" href="{{ route('admin.hrbp.select') }}"><i class="fas fa-poll fa-lg"></i> Firma: HRBP vs Business</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('admin.export.all') }}"><i class="fas fa-file-excel fa-lg"></i> Exportuj Wszystkie</a>
                     <a class="dropdown-item" href="{{ route('admin.export.survey.select') }}"><i class="fas fa-file-excel fa-lg"></i> Exportuj Ankietę</a>
