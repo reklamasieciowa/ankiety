@@ -65,8 +65,8 @@ class PeopleExport implements FromCollection, WithMapping, WithHeadings
     	$peopleWithAnswers = $people->filter(function ($item) {
 		    return $item->answers->count() > 0;
 		});
-    	
-    	//dd($people->last());
+
+		//dd($peopleWithAnswers->take(5));
 
         return $peopleWithAnswers;
     }

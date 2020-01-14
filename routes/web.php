@@ -170,6 +170,10 @@ Route::group([
 	Route::get('/wynikidzialow/{survey}/{department}/top5/{order}', 'ResultsByDepartmentController@topFive')->name('admin.resultbydepartment.top5');
 
 	Route::get('/export/all', 'ResultsExportController@exportAll')->name('admin.export.all');
+	
+	Route::get('/export/ankieta', 'ResultsExportController@SelectSurvey')->name('admin.export.survey.select');
+	Route::get('/export/ankieta{survey}', 'ResultsExportController@exportSurveyView')->name('admin.export.survey');
+
 });
 
 
