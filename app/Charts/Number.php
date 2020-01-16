@@ -24,12 +24,14 @@ class Number extends Chart
             "#33ccff",
             "#7aecf2",
             "#6a6f7e",
-            "#8e92a0",
-            "#a7aab5",
-            "#c0c3ca",
+            "#55bcc9",
+            "#1768AC",
+            "#8ee4af",
             "#98a0a9",
-            "#0077f0",
-            "73b8ff",
+            "#cafafe",
+            "#557a95",
+            "#1768AC",
+            "#2541B2",
         ];
 
         $chart = new Percent;

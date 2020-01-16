@@ -4,7 +4,7 @@ namespace App\Charts;
 
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
-class NumberHrbp extends Chart
+class NumberBusiness extends Chart
 {
     /**
      * Initializes the chart.
@@ -37,13 +37,13 @@ class NumberHrbp extends Chart
         $chart = new Percent;
         $chart->labels($data['keys']);
 
-        $chart->dataset('HRBP', $type, $data[0])
+        $chart->dataset('Zarząd', $type, $data[0])
             ->backgroundcolor('#00b0f0');
 
-        $chart->dataset('Business', $type, $data[1])
+        $chart->dataset('Kadra Zarządzająca raportująca do Zarządu', $type, $data[1])
             ->backgroundcolor('#2c31ef');
 
-        $chart->dataset('All', $type, $data[2])
+        $chart->dataset('Kadra Kierownicza', $type, $data[2])
             ->backgroundcolor('#98a0a9');
 
         $chart->displayAxes(true);

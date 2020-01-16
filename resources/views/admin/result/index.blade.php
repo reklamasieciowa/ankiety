@@ -34,8 +34,32 @@
                 </p>
                 <hr>
                 <p>
-                    <strong>Średnia wszystkich kategorii:</strong>
+                    <strong>Średnia wszystkich kategorii - wszyscy:</strong>
                     <a href="{{ route('admin.result.categories') }}" target="_blank">Zobacz</a>
+                  </p>
+                <p>
+                    <strong>Średnia wszystkich kategorii - tylko business:</strong>
+                    <a href="{{ route('admin.result.categories.business') }}" target="_blank">Zobacz</a>
+                  </p>
+                <p>
+                    <strong>Średnia wszystkich kategorii - HRBP vs business:</strong>
+                    <a href="{{ route('admin.result.categories.hrbpbusiness') }}" target="_blank">Zobacz</a>
+                  </p>
+                  <p>
+                    <strong>Średnia wszystkich kategorii - stanowiska <i class="fas fa-chart-line fa-lg"></i>:</strong>
+                    <a href="{{ route('admin.result.categories.posts') }}" target="_blank">Zobacz</a>
+                  </p>
+                  <p>
+                    <strong>Średnia wszystkich kategorii - stanowiska <i class="far fa-file-excel fa-lg"></i></i>:</strong>
+                    <a href="{{ route('admin.export.all.category.post') }}" target="_blank">Pobierz</a>
+                  </p>
+                  <p>
+                    <strong>Średnia wszystkich kategorii - branże <i class="fas fa-chart-line fa-lg"></i>:</strong>
+                    <a href="{{ route('admin.result.categories.industries') }}" target="_blank">Zobacz</a>
+                  </p>
+                  <p>
+                    <strong>Średnia wszystkich kategorii - branże <i class="far fa-file-excel fa-lg"></i></i>:</strong>
+                    <a href="{{ route('admin.export.all.category.industry') }}" target="_blank">Pobierz</a>
                   </p>
                 <hr>
                 @foreach($categories as $category)
@@ -51,13 +75,21 @@
                 @endforeach
 
                 <p>
-                  <strong>Top5 najlepiej ocenianych:</strong>
-                  <a href="{{ route('admin.result.top5', ['order' => 'best']) }}" target="_blank">Zobacz</a>
+                  <strong>Top5 najlepiej ocenianych HRBP:</strong>
+                  <a href="{{ route('admin.result.top5', ['group' => 'hrbp', 'order' => 'best']) }}" target="_blank">Zobacz</a>
+                </p>
+                <p>
+                  <strong>Top5 najgorzej ocenianych HRBP:</strong>
+                  <a href="{{ route('admin.result.top5', ['group' => 'hrbp', 'order' => 'worst']) }}" target="_blank">Zobacz</a>
                 </p>
                 <hr>
                 <p>
-                  <strong>Top5 najgorzej ocenianych:</strong>
-                  <a href="{{ route('admin.result.top5', ['order' => 'worst']) }}" target="_blank">Zobacz</a>
+                  <strong>Top5 najlepiej ocenianych Business:</strong>
+                  <a href="{{ route('admin.result.top5', ['group' => 'business', 'order' => 'best']) }}" target="_blank">Zobacz</a>
+                </p>
+                <p>
+                  <strong>Top5 najgorzej ocenianych Business:</strong>
+                  <a href="{{ route('admin.result.top5', ['group' => 'business', 'order' => 'worst']) }}" target="_blank">Zobacz</a>
                 </p>
                 <hr>
                 <p>

@@ -137,9 +137,16 @@ Route::group([
 	Route::get('/wyniki/branze', 'ResultsController@IndustryListChart')->name('admin.result.industry');
 	Route::get('/wyniki/dzialy', 'ResultsController@DepartmentListChart')->name('admin.result.department');
 	Route::get('/wyniki/kategorie', 'ResultsController@AllCategoriesChart')->name('admin.result.categories');
+	Route::get('/wyniki/kategorie/business', 'ResultsController@AllCategoriesBusinessChart')->name('admin.result.categories.business');
+	Route::get('/wyniki/kategorie/hrbpbusiness', 'ResultsController@AllCategoriesHrbpBusinessChart')->name('admin.result.categories.hrbpbusiness');
+	
+	Route::get('/wyniki/kategorie/stanowiska/wykres', 'ResultsController@AllCategoriesPosts')->name('admin.result.categories.posts');
+	Route::get('/wyniki/kategorie/branze/wykres', 'ResultsController@AllCategoriesIndustries')->name('admin.result.categories.industries');
+
+
 	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.result.category');
 	Route::get('/wyniki/kategoria/rozklad/{category_id}', 'ResultsController@CategoryValuesChart')->name('admin.result.category.values');
-	Route::get('/wyniki/top5/{order}', 'ResultsController@topFive')->name('admin.result.top5');
+	Route::get('/wyniki/top5/{group}/{order}', 'ResultsController@topFive')->name('admin.result.top5');
 	Route::get('/wyniki/otwarte', 'ResultsController@openQuestions')->name('admin.result.openQuestions');
 
 	Route::get('/porownanie/', 'ResultsCompareController@select')->name('admin.compare.select');
@@ -170,9 +177,13 @@ Route::group([
 	Route::get('/wynikidzialow/{survey}/{department}/top5/{order}', 'ResultsByDepartmentController@topFive')->name('admin.resultbydepartment.top5');
 
 	Route::get('/export/all', 'ResultsExportController@exportAll')->name('admin.export.all');
+	Route::get('/export/all/kategorie/stanowiska/', 'ResultsExportController@exportAllCategoriesByPost')->name('admin.export.all.category.post');
+	Route::get('/export/all/kategorie/branze/', 'ResultsExportController@exportAllCategoriesByIndustry')->name('admin.export.all.category.industry');
 	
 	Route::get('/export/ankieta', 'ResultsExportController@SelectSurvey')->name('admin.export.survey.select');
 	Route::get('/export/ankieta{survey}', 'ResultsExportController@exportSurveyView')->name('admin.export.survey');
+
+
 
 });
 

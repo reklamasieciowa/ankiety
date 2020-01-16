@@ -51,7 +51,7 @@
                   <hr>
                 @endforeach
 
-                <p>
+<!--                 <p>
                   <strong>Top5 najlepiej ocenianych:</strong>
                   <a href="{{ route('admin.result.compare.top5', ['survey' => $survey->id, 'order' => 'best']) }}" target="_blank">Zobacz</a>
                 </p>
@@ -60,7 +60,7 @@
                   <strong>Top5 najgorzej ocenianych:</strong>
                   <a href="{{ route('admin.result.compare.top5', ['survey' => $survey->id, 'order' => 'worst']) }}" target="_blank">Zobacz</a>
                 </p>
-                <hr>
+                <hr> -->
 
                 <p>
                   <strong>Porównanie po branżach:</strong>

@@ -16,7 +16,7 @@
     <div class="row mt-5">
       
       @forelse($departments as $department => $value)
-          <div class="col-lg-6 my-2">
+          <div class="col-lg-6 my-3">
               <div class="card">
                 <div class="card-body">
                   <h3 class="h5-responsive">{{ $value[0] }} (<i class="fas fa-user-alt"></i> {{$value[1]}})</h3>

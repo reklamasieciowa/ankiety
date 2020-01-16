@@ -4,7 +4,7 @@ namespace App\Charts;
 
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
-class NumberHrbp extends Chart
+class NumberHrbpBusiness extends Chart
 {
     /**
      * Initializes the chart.
@@ -38,13 +38,14 @@ class NumberHrbp extends Chart
         $chart->labels($data['keys']);
 
         $chart->dataset('HRBP', $type, $data[0])
-            ->backgroundcolor('#00b0f0');
+            ->backgroundcolor('#00b0f0')
+            ->color('#00b0f0')
+            ->fill(false);
 
         $chart->dataset('Business', $type, $data[1])
-            ->backgroundcolor('#2c31ef');
-
-        $chart->dataset('All', $type, $data[2])
-            ->backgroundcolor('#98a0a9');
+            ->backgroundcolor('#1768AC')
+            ->color('#1768AC')
+            ->fill(false);
 
         $chart->displayAxes(true);
         $chart->options([
@@ -57,12 +58,27 @@ class NumberHrbp extends Chart
                 'position' => 'top',
                 'align' => 'center',
                 'labels' => [
-                    'fontSize' => 18,
+                    'fontSize' => 22,
                     'fontFamily' => "Merriweather",
+                ],
+            ],
+            'scale' => [
+                'angleLines' => [
+                    'display' => true,
+                ],
+                'pointLabels' => [
+                    'display' => true,
+                    'fontSize' => 20,
+                ],
+                'ticks' => [
+                    'beginAtZero' => true,
+                    'max' => 5,
+                    'stepSize' => 1,
                 ],
             ],
             'scales' => [
                 'xAxes' => [
+                    'display' => false,
                     [
                         'ticks' => [
                             'beginAtZero' => true,
@@ -76,6 +92,7 @@ class NumberHrbp extends Chart
                     ],
                 ],
                 'yAxes' => [
+                    'display' => false,
                     [
                         'ticks' => [
                             'beginAtZero' => true,
@@ -91,7 +108,7 @@ class NumberHrbp extends Chart
             ],
             'plugins' => "{
                 'datalabels': {
-                    'color': '#ffffff',
+                    'color': '#ff0000',
                     'font' : {
                         'weight': 'bold',
                         'size' : '22',

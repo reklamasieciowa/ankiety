@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Charts\Percent;
 use App\Charts\PercentMultiple;
 use App\Charts\Number;
+use App\Charts\NumberCompare;
+use App\Charts\NumberBusiness;
+use App\Charts\NumberHrbp;
+use App\Charts\NumberHrbpBusiness;
+use App\Charts\Line;
 use App\Person;
 use App\Answer;
 use App\Category;
@@ -19,7 +24,7 @@ class ResultsController extends Controller
     {
         $peopleCount = Person::count();
 
-        $peopleByPost = Person::all()->load(['post.translations', 'answers'])->sortBy('post_id')->groupBy(function($item, $key)
+        $peopleByPost = Person::all()->load(['post.translations'])->sortBy('post_id')->groupBy(function($item, $key)
         {
             return $item['post']->{'name:pl'};
         })->map(function ($item) use($peopleCount) {
@@ -38,16 +43,20 @@ class ResultsController extends Controller
     {
         $peopleCount = Person::count();
 
-        $peopleByIndustry = Person::all()->load(['industry.translations', 'answers'])->sortBy('industry_id')->groupBy(function($item, $key)
+        $peopleByIndustry = Person::all()->load(['industry.translations'])->sortBy('industry_id')->groupBy(function($item, $key)
         {
             return $item['industry']->{'name:pl'};
         })->map(function ($item) use($peopleCount) {
             return count($item)/$peopleCount;
         });
 
+        $peopleByIndustryFiltered = FilterHigherThan($peopleByIndustry, 0.03);
+
+        $peopleByIndustryFiltered->put('Pozostałe <3%', FilterLowerThan($peopleByIndustry, 0.03)->sum());
+
         $title = 'Branże';
 
-        $chart = Percent::generateChart($peopleByIndustry, 'pie', '%');
+        $chart = Percent::generateChart($peopleByIndustryFiltered, 'pie', '%');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
@@ -63,9 +72,13 @@ class ResultsController extends Controller
             return count($item)/$peopleCount;
         });
 
+        $peopleByDepartmentFiltered = FilterHigherThan($peopleByDepartment, 0.03);
+
+        $peopleByDepartmentFiltered->put('Pozostałe <3%', FilterLowerThan($peopleByDepartment, 0.03)->sum());
+
         $title = 'Działy';
 
-        $chart = Percent::generateChart($peopleByDepartment, 'pie', '%');
+        $chart = Percent::generateChart($peopleByDepartmentFiltered, 'pie', '%');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
@@ -84,45 +97,158 @@ class ResultsController extends Controller
 
         $title = 'Kategorie';
 
-        $chart = Number::generateChart($answersgrouped, 'horizontalBar', '');
+        $chart = Number::generateChart($answersgrouped, 'bar', '');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
 
-    // public function AllCategoriesChart()
-    // {
+    public function AllCategoriesBusinessChart()
+    {
+        $people = getPoepleBusinessIds();
 
-    //     $answers = Answer::all()->load('question.category.translations')->groupBy(function($item, $key)
-    //     {
-    //         return $item['question']['category']->{'name:pl'};
-    //     })->map(function ($item) {
-    //         return $item->avg('value');
-    //     });
+        $answersValues = collect();
 
-    //     //cut 2 categories IT and additional
-    //     $answers = $answers->slice(0,6);
+        foreach($people as $group) {
+            $answers = Answer::where('question_id', '<', 32)
+            ->whereIn('person_id', $group)
+            ->with('question.category.translations')
+            ->get()
+            ->groupBy(function ($item) {
+                return $item['question']['category']->{'name:pl'};
+            })
+            ->map(function ($item) {
+                return  $item->avg('value');
+            });
 
-    //    // dd($answers);
+            $answersValues->push($answers->values());
 
-    //     $title = 'Kategorie';
+            if(empty($answersValues['keys'])) {
+                $answersValues['keys'] = $answers->keys();
+            }
+        }
 
-    //     $chart = Number::generateChart($answers, 'horizontalBar', '');
+        $title = 'Kategorie Business';
 
-    //     return view('admin.result.chart', compact('chart', 'title'));
-    // }
+        $chart = NumberBusiness::generateChart($answersValues, 'bar', '');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function AllCategoriesHrbpBusinessChart()
+    {
+        $people = getPoepleHrbpBusinessIds();
+
+        $answersValues = collect();
+
+        foreach($people as $group) {
+            $answers = Answer::where('question_id', '<', 32)
+            ->whereIn('person_id', $group)
+            ->with('question.category.translations')
+            ->get()
+            ->groupBy(function ($item) {
+                return $item['question']['category']->{'name:pl'};
+            })
+            ->map(function ($item) {
+                return  $item->avg('value');
+            });
+
+            $answersValues->push($answers->values());
+
+            if(empty($answersValues['keys'])) {
+                $answersValues['keys'] = $answers->keys();
+            }
+        }
+
+        //dd($answersValues);
+
+        $title = 'Kategorie HRBP vs Business';
+
+        $chart = NumberHrbpBusiness::generateChart($answersValues, 'radar', '');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function AllCategoriesIndustries()
+    {
+        
+        $answersByIndustry = Answer::where('question_id', '<', 32)
+        ->with('person.industry.translations','question.category.translations')
+        ->get()
+        ->groupBy(
+             ['person.industry.name', 'question.category.name']
+        )
+        ->map(function ($item) {   
+            return $item->map(function ($nesteditem) {
+                return $nesteditem->avg('value');
+            })->sortKeys();
+        })
+        ->sortKeys();
+
+        //dd($answersByIndustry);
+
+        $title = 'Średnie kategorii wg branż';
+
+        $chart = Line::generateChart($answersByIndustry, 'line', '');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function AllCategoriesPosts()
+    {
+        
+        $answersByPost = Answer::where('question_id', '<', 32)      
+        ->with('person.post.translations','question.category.translations')
+        ->get()
+        ->groupBy(
+             ['person.post.name', 'question.category.name']
+        )->map(function ($item) {   
+            return $item->map(function ($nesteditem) {
+                return $nesteditem->avg('value');
+            });
+        });
+
+        $title = 'Średnie kategorii wg stanowisk';
+
+        $chart = Line::generateChart($answersByPost, 'line', '');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+
 
     public function CategoryChart($category_id)
     {
         $category = Category::findOrFail($category_id);
+        $category_questions = $category->questions->pluck('id');
 
-        $answers = $category->questions->load('answers')->mapWithKeys(function ($item) {
-            // Return the avg for answers
-            return [$item->{'name:pl'} => $item->answers->avg('value')];
-        });
+        $people = getPoepleGroupsIds();
+
+        $answersValues = collect();
+
+        foreach($people as $group) {
+            $answers = Answer::whereIn('question_id', $category_questions)
+            ->whereIn('person_id', $group)
+            ->with('question.category.translations')
+            ->get()
+            ->groupBy(function ($item) {
+                return $item['question']->{'name:pl'};
+            })
+            ->map(function ($item) {
+                return  $item->avg('value');
+            });
+
+            $answersValues->push($answers->values());
+
+            if(empty($answersValues['keys'])) {
+                $answersValues['keys'] = $answers->keys();
+            }
+        }
+
+        //dd($answersValues);
 
         $title = 'Kategoria '.$category->{'name:pl'};
 
-        $chart = Number::generateChart($answers, 'bar', '');
+        $chart = NumberHrbp::generateChart($answersValues, 'bar', '');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
@@ -197,22 +323,21 @@ class ResultsController extends Controller
         return view('admin.result.chart', compact('chart', 'title', 'questions'));
     }
 
-    public function topFive($order = "worst")
+    public function topFive($group, $order = "worst")
     {
+        $people = getPoepleHrbpBusinessIds();
 
-        $answers = Question::where('id', '<', 32)
-                    ->with('answers')
-                    ->get()
-                    ->mapWithKeys(function ($item) {
-                        return [ $item->{'name:pl'} => $item->answers->avg('value')];
-                    });
-
-        //remove null
-        $answers = $answers->filter(function ($value, $key) {
-            return !is_null($value);
-        });
-
-        $answers = $answers->sort();
+        $answers = Answer::where('question_id', '<', 32)
+            ->whereIn('person_id', $people[$group])
+            ->with('question')
+            ->get()
+            ->groupBy(function ($item) {
+                return  $item->question->{'name:pl'};
+            })
+            ->map(function ($item) {
+                return  $item->avg('value');
+            })
+            ->sort();
 
         if($order == "best") {
             $answers = $answers->reverse();
@@ -220,7 +345,7 @@ class ResultsController extends Controller
         
         $answers = $answers->take(5);
 
-        $title = 'Top 5 '.$order;
+        $title = 'Top 5 '.$order.' '.$group;
 
         $chart = Number::generateChart($answers, 'bar', '');
 

@@ -20,52 +20,31 @@ class HrbpBusinessCompareController extends Controller
     public function AllCategoriesChart(Survey $survey)
     {
         $people = $survey->poepleHrbpBusinessIds();
-        //Questions with numeric values
-        $questions_ids = $survey->questionsNumericIds();
 
-        $answersHrbp = $survey->answers
-                        ->whereIn('question_id', $questions_ids)
-                        ->whereIn('person_id', $people['hrbp']);
-                        
-        $answersHrbpGrouped = $answersHrbp->load('question.category.translations')->groupBy(function($item, $key)
-        {
-            return $item['question']['category']->{'name:pl'};
-        })->map(function ($item) {
-            return $item->avg('value');
-        });
+        $answersValues = collect();
 
-        $answersBusiness = $survey->answers
-                ->whereIn('question_id', $questions_ids)
-                ->whereIn('person_id', $people['business']);
-                        
-        $answersBusinessGrouped = $answersBusiness->load('question.category.translations')->groupBy(function($item, $key)
-        {
-            return $item['question']['category']->{'name:pl'};
-        })->map(function ($item) {
-            return $item->avg('value');
-        });
+        foreach($people as $group) {
+            $answers = $survey->answers->where('question_id', '<', 32)
+            ->whereIn('person_id', $group)
+            ->load('question.category.translations')
+            //->get()
+            ->groupBy(function ($item) {
+                return $item['question']['category']->{'name:pl'};
+            })
+            ->map(function ($item) {
+                return  $item->avg('value');
+            });
 
-        $answersAll = $survey->answers
-                ->whereIn('question_id', $questions_ids);
+            $answersValues->push($answers->values());
 
-        $answersAllGrouped = $answersAll->load('question.category.translations')->groupBy(function($item, $key)
-        {
-            return $item['question']['category']->{'name:pl'};
-        })->map(function ($item) {
-            return $item->avg('value');
-        });
-        
-        $answersValues = [];
-
-        $answersValues['keys'] = $answersHrbpGrouped->keys();
-
-        array_push($answersValues, $answersHrbpGrouped->values());
-        array_push($answersValues, $answersBusinessGrouped->values());
-        array_push($answersValues, $answersAllGrouped->values());
+            if(empty($answersValues['keys'])) {
+                $answersValues['keys'] = $answers->keys();
+            }
+        }
 
         $title = 'Kategorie';
 
-        $chart = NumberHrbp::generateChart($answersValues, 'horizontalBar', '');
+        $chart = NumberHrbp::generateChart($answersValues, 'bar', '');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }
@@ -77,45 +56,26 @@ class HrbpBusinessCompareController extends Controller
 
         $people = $survey->poepleHrbpBusinessIds();
 
-        $answersHrbp = $survey->answers
-                        ->whereIn('question_id', $category_questions)
-                        ->whereIn('person_id', $people['hrbp']);
+        $answersValues = collect();
 
-        $answersHrbpGrouped = $answersHrbp->load('question.category.translations')->groupBy(function($item, $key)
-        {
-            return $item['question']['category']->{'name:pl'};
-        })->map(function ($item) {
-            return $item->avg('value');
-        });
+        foreach($people as $group) {
+            $answers = $survey->answers->whereIn('question_id', $category_questions)
+            ->whereIn('person_id', $group)
+            ->load('question.category.translations')
+            //->get()
+            ->groupBy(function ($item) {
+                return $item['question']->{'name:pl'};
+            })
+            ->map(function ($item) {
+                return  $item->avg('value');
+            });
 
-        $answersBusiness = $survey->answers
-                ->whereIn('question_id', $category_questions)
-                ->whereIn('person_id', $people['business']);
-                        
-        $answersBusinessGrouped = $answersBusiness->load('question.category.translations')->groupBy(function($item, $key)
-        {
-            return $item['question']['category']->{'name:pl'};
-        })->map(function ($item) {
-            return $item->avg('value');
-        });
+            $answersValues->push($answers->values());
 
-        $answersAll = $survey->answers
-                        ->whereIn('question_id', $category_questions);
-
-        $answersAllGrouped = $answersAll->load('question.category.translations')->groupBy(function($item, $key)
-        {
-            return $item['question']['category']->{'name:pl'};
-        })->map(function ($item) {
-            return $item->avg('value');
-        });
-
-        $answersValues = [];
-
-        $answersValues['keys'] = $answersHrbpGrouped->keys();
-
-        array_push($answersValues, $answersHrbpGrouped->values());
-        array_push($answersValues, $answersBusinessGrouped->values());
-        array_push($answersValues, $answersAllGrouped->values());
+            if(empty($answersValues['keys'])) {
+                $answersValues['keys'] = $answers->keys();
+            }
+        }
 
         $title = 'Kategoria '.$category->{'name:pl'};
 
@@ -289,7 +249,7 @@ class HrbpBusinessCompareController extends Controller
         
         $answers = $answers->take(5);
 
-        $title = 'Top 5 '.$order.' w firmie '.$survey->company->name;
+        $title = 'Top 5 '.$order.' '.$group.' w firmie '.$survey->company->name;
 
         $chart = Number::generateChart($answers, 'bar', '');
 
