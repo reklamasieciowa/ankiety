@@ -142,6 +142,23 @@ class Survey extends Model implements TranslatableContract
         return $people;
     }
 
+    public function poepleOnlyHrbpBusinessIds()
+    {
+        $people = [];
+        $people['hrbp'] = $this->people->whereIn('post_id', [1,2,3])->pluck('id');
+        $people['business'] = $this->people->whereIn('post_id', [4,5,6])->pluck('id');
+        return $people;
+    }
+
+    function PoepleBusinessIds()
+    {
+        $people = [];
+        $people['Zarząd'] = $this->people->where('post_id', 1)->pluck('id');
+        $people['Kadra Zarządzająca raportująca do Zarządu'] = $this->people->where('post_id', 2)->pluck('id');
+        $people['Kadra Kierownicza'] = $this->people->where('post_id', 3)->pluck('id');
+        return $people;
+    }
+
     //Questions with numeric values
     public function questionsNumericIds()
     {

@@ -50,7 +50,7 @@
                     <a href="{{ route('admin.result.categories.posts') }}" target="_blank">Zobacz</a>
                   </p>
                   <p>
-                    <strong>Średnia wszystkich kategorii - stanowiska <i class="far fa-file-excel fa-lg"></i></i>:</strong>
+                    <strong>Średnia wszystkich kategorii - stanowiska <i class="far fa-file-excel fa-lg"></i>:</strong>
                     <a href="{{ route('admin.export.all.category.post') }}" target="_blank">Pobierz</a>
                   </p>
                   <p>

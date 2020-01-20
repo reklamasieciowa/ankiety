@@ -139,11 +139,8 @@ Route::group([
 	Route::get('/wyniki/kategorie', 'ResultsController@AllCategoriesChart')->name('admin.result.categories');
 	Route::get('/wyniki/kategorie/business', 'ResultsController@AllCategoriesBusinessChart')->name('admin.result.categories.business');
 	Route::get('/wyniki/kategorie/hrbpbusiness', 'ResultsController@AllCategoriesHrbpBusinessChart')->name('admin.result.categories.hrbpbusiness');
-	
 	Route::get('/wyniki/kategorie/stanowiska/wykres', 'ResultsController@AllCategoriesPosts')->name('admin.result.categories.posts');
 	Route::get('/wyniki/kategorie/branze/wykres', 'ResultsController@AllCategoriesIndustries')->name('admin.result.categories.industries');
-
-
 	Route::get('/wyniki/kategoria/{category_id}', 'ResultsController@CategoryChart')->name('admin.result.category');
 	Route::get('/wyniki/kategoria/rozklad/{category_id}', 'ResultsController@CategoryValuesChart')->name('admin.result.category.values');
 	Route::get('/wyniki/top5/{group}/{order}', 'ResultsController@topFive')->name('admin.result.top5');
@@ -151,12 +148,17 @@ Route::group([
 
 	Route::get('/porownanie/', 'ResultsCompareController@select')->name('admin.compare.select');
 	Route::get('/porownanie/{survey}', 'ResultsCompareController@index')->name('admin.compare');
+	Route::get('/porownanie/{survey}/stanowiska', 'ResultsCompareController@PostListChart')->name('admin.result.compare.posts');
+	Route::get('/porownanie/{survey}/działy', 'ResultsCompareController@DepartmentListChart')->name('admin.result.compare.department');
+	Route::get('/porownanie/{survey}/hrbpbusiness', 'ResultsCompareController@HrbpBusiinessListChart')->name('admin.result.compare.hrbpbusiness');
+	Route::get('/porownanie/{survey}/business/', 'ResultsCompareController@AllCategoriesBusinessChart')->name('admin.result.compare.business');
+
+	Route::get('/porownanie/{survey}/hrbpvsbusiness', 'ResultsCompareController@AllCategoriesHrbpVsBusinessChart')->name('admin.result.compare.hrbpvsbusiness');
+
 	Route::get('/porownanie/{survey}/kategorie', 'ResultsCompareController@AllCategoriesChart')->name('admin.result.compare.categories');
 	Route::get('/porownanie/{survey}/kategoria/{category_id}', 'ResultsCompareController@CategoryChart')->name('admin.result.compare.category');
 	Route::get('/porownanie/{survey}/kategoria/rozklad/{category_id}', 'ResultsCompareController@CategoryValuesChart')->name('admin.result.compare.category.values');
-
 	Route::get('/porownanie/{survey}/branze/', 'ResultsCompareController@CompareIndustries')->name('admin.result.compare.industries.values');
-
 	Route::get('/porownanie/{survey}/top5/{order}', 'ResultsCompareController@topFive')->name('admin.result.compare.top5');
 	Route::get('/porownanie/{survey}/otwarte', 'ResultsCompareController@openQuestions')->name('admin.result.compare.openQuestions');
 
@@ -179,10 +181,12 @@ Route::group([
 	Route::get('/export/all', 'ResultsExportController@exportAll')->name('admin.export.all');
 	Route::get('/export/all/kategorie/stanowiska/', 'ResultsExportController@exportAllCategoriesByPost')->name('admin.export.all.category.post');
 	Route::get('/export/all/kategorie/branze/', 'ResultsExportController@exportAllCategoriesByIndustry')->name('admin.export.all.category.industry');
-	
 	Route::get('/export/ankieta', 'ResultsExportController@SelectSurvey')->name('admin.export.survey.select');
-	Route::get('/export/ankieta{survey}', 'ResultsExportController@exportSurveyView')->name('admin.export.survey');
+	Route::get('/export/ankieta/{survey}', 'ResultsExportController@exportSurveyView')->name('admin.export.survey');
+	Route::get('/export/ankieta/{survey}/kategoria/{category_id}', 'ResultsExportController@ExportCategoryHrbpBusinessView')->name('admin.export.survey.categoryhrbpbusiness');
+	Route::get('/export/ankieta/{survey}/kategorie/branze/', 'ResultsExportController@exportSurveyCategoriesByIndustry')->name('admin.export.survey.category.industry');
 
+	Route::get('/export/ankieta/{survey}/kategorie/stanowiska/', 'ResultsExportController@exportSurveyCategoriesByPosts')->name('admin.export.survey.category.posts');
 
 
 });

@@ -24,20 +24,45 @@
       <div class="col-lg-12">
           <div class="card">
               <div class="card-body">
-                <!-- <p>
+                <p>
                   <strong>Ankietowani wg stanowisk:</strong>
-                  <a href="{{ route('admin.result.post') }}" target="_blank">Zobacz</a>
+                  <a href="{{ route('admin.result.compare.posts', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
+                </p>
+
+                <p>
+                  <strong>Ankietowani wg działów:</strong>
+                  <a href="{{ route('admin.result.compare.department', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
+                </p>
+                <p>
+                  <strong>Ankietowani wg HRBP i Business:</strong>
+                  <a href="{{ route('admin.result.compare.hrbpbusiness', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
                 </p>
                 <hr>
                 <p>
-                  <strong>Ankietowani wg branż:</strong>
-                  <a href="{{ route('admin.result.industry') }}" target="_blank">Zobacz</a>
-                </p>
-                <hr> -->
-                <p>
                     <strong>Średnia wszystkich kategorii:</strong>
                     <a href="{{ route('admin.result.compare.categories', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
+                </p>
+                <p>
+                    <strong>Średnia wszystkich kategorii - Business:</strong>
+                    <a href="{{ route('admin.result.compare.business', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
                   </p>
+                  <p>
+                    <strong>Średnia wszystkich kategorii - HRBP vs Business:</strong>
+                    <a href="{{ route('admin.result.compare.hrbpvsbusiness', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
+                  </p>
+                  <p>
+                    <strong>Średnia wszystkich kategorii - Porównanie po branżach <i class="fas fa-chart-line fa-lg"></i>:</strong>
+                    <a href="{{ route('admin.result.compare.industries.values', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
+                  </p>
+                  <p>
+                    <strong>Średnia wszystkich kategorii - Porównanie po branżach <i class="far fa-file-excel fa-lg"></i>:</strong>
+                    <a href="{{ route('admin.export.survey.category.industry', ['survey' => $survey->id]) }}" target="_blank">pobierz</a>
+                  </p>
+                  <p>
+                    <strong>Średnia wszystkich kategorii - Porównanie po stanowiskach <i class="far fa-file-excel fa-lg"></i>:</strong>
+                    <a href="{{ route('admin.export.survey.category.posts', ['survey' => $survey->id]) }}" target="_blank">Pobierz</a>
+                  </p>
+                
                 <hr>
                 @foreach($categories as $category)
                   <p>
@@ -62,10 +87,7 @@
                 </p>
                 <hr> -->
 
-                <p>
-                  <strong>Porównanie po branżach:</strong>
-                  <a href="{{ route('admin.result.compare.industries.values', ['survey' => $survey->id]) }}" target="_blank">Zobacz</a>
-                </p>
+                
                 <hr>
 
                 <p>

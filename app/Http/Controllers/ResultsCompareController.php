@@ -7,6 +7,9 @@ use App\Charts\Percent;
 use App\Charts\PercentMultiple;
 use App\Charts\PercentMultipleCompare;
 use App\Charts\Number;
+use App\Charts\NumberBusinessMultiple;
+use App\Charts\NumberHrbpBusiness;
+use App\Charts\NumberHrbpBusinessMultiple;
 use App\Charts\NumberCompare;
 use App\Charts\Line;
 use App\Person;
@@ -17,6 +20,57 @@ use App\Survey;
 
 class ResultsCompareController extends Controller
 {
+    public function PostListChart(Survey $survey)
+    {
+        $peopleCount = $survey->people->count();
+
+        $peopleByPost = $survey->people->load(['post.translations'])->sortBy('post_id')->groupBy(function($item, $key)
+        {
+            return $item['post']->{'name:pl'};
+        })->map(function ($item) use($peopleCount) {
+            return count($item)/$peopleCount;
+        });
+
+        $title = 'Stanowiska w '.$survey->company->name;
+
+        $chart = Percent::generateChart($peopleByPost, 'pie', '%');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function DepartmentListChart(Survey $survey)
+    {
+        $peopleCount = $survey->people->count();
+
+        $peopleByDepartment = $survey->people->load(['department.translations', 'answers'])->sortBy('department_id')->groupBy(function($item, $key)
+        {
+            return $item['department']->{'name:pl'};
+        })->map(function ($item) use($peopleCount) {
+            return count($item)/$peopleCount;
+        });
+
+        $title = 'Działy w '.$survey->company->name;
+
+        $chart = Percent::generateChart($peopleByDepartment, 'pie', '%');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function HrbpBusiinessListChart(Survey $survey)
+    {
+        $peopleCount = $survey->poepleHrbpBusinessIds();
+
+        $peopleByPost = collect();
+
+        $peopleByPost->put('hrbp', $peopleCount['hrbp']->count()/$peopleCount['all']->count());
+        $peopleByPost->put('business', $peopleCount['business']->count()/$peopleCount['all']->count());
+
+        $title = 'Stanowiska w '.$survey->company->name;
+
+        $chart = Percent::generateChart($peopleByPost, 'pie', '%');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
 
     public function AllCategoriesChart(Survey $survey)
     {
@@ -50,6 +104,91 @@ class ResultsCompareController extends Controller
         $title = 'Kategorie';
 
         $chart = NumberCompare::generateChart($answersValues, 'horizontalBar', '');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function AllCategoriesBusinessChart(Survey $survey)
+    {
+        $people = [];
+
+        $people[$survey->company->name] = $survey->PoepleBusinessIds();
+
+        $people['All'] = getPoepleBusinessIds();
+
+        $answersValues = [
+            $survey->company->name => [],
+            'All' => []
+        ];
+
+        foreach($people as $name=>$groups) {
+            foreach($groups as $group) {
+                $answers = Answer::where('question_id', '<', 32)
+                ->whereIn('person_id', $group)
+                ->with('question.category.translations')
+                ->get()
+                ->groupBy(function ($item) {
+                    return $item['question']['category']->{'name:pl'};
+                })
+                ->map(function ($item) {
+                    return  $item->avg('value');
+                });
+
+                array_push($answersValues[$name],$answers->values());
+
+                if(empty($answersValues['keys'])) {
+                    $answersValues['keys'] = $answers->keys();
+                }
+            }
+        }
+
+        //dd($answersValues);
+
+        $title = 'Kategorie Business '.$survey->company->name.' vs Business All';
+
+        $chart = NumberBusinessMultiple::generateChart($answersValues, 'bar', '');
+
+        return view('admin.result.chart', compact('chart', 'title'));
+    }
+
+    public function AllCategoriesHrbpVsBusinessChart(Survey $survey)
+    {
+        $people = [];
+
+        $people[$survey->company->name] = $survey->poepleOnlyHrbpBusinessIds();
+        $people['All'] = getPoepleHrbpBusinessIds();
+
+        $answersValues = [
+            $survey->company->name => [],
+            'All' => []
+        ];
+
+        foreach($people as $name=>$groups) {
+            foreach($groups as $group) {
+                $answers = Answer::where('question_id', '<', 32)
+                ->whereIn('person_id', $group)
+                ->with('question.category.translations')
+                ->get()
+                ->groupBy(function ($item) {
+                    return $item['question']['category']->{'name:pl'};
+                })
+                ->map(function ($item) {
+                    return  $item->avg('value');
+                });
+
+                array_push($answersValues[$name],$answers->values());
+
+                if(empty($answersValues['keys'])) {
+                    $answersValues['keys'] = $answers->keys();
+                }
+            }
+        }
+
+        //dd($answersValues);
+
+        $title = 'Kategorie HRBP vs Business';
+
+        $chart = NumberHrbpBusinessMultiple::generateChart($answersValues, 'radar', '');
 
         return view('admin.result.chart', compact('chart', 'title'));
     }

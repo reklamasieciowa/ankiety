@@ -34,6 +34,12 @@
                     <strong>Średnia kategorii {{ $category->name }}:</strong>
                     <a href="{{ route('admin.hrbp.category', ['category_id' => $category->id, 'survey' => $survey->id]) }}" target="_blank">Zobacz</a>
                   </p>
+
+                  <p>
+                    <strong>Średnia kategorii {{ $category->name }} HRBP vs Business vs All  <i class="far fa-file-excel fa-lg"></i>:</strong>
+                    <a href="{{ route('admin.export.survey.categoryhrbpbusiness', ['survey' => $survey->id, 'category_id' => $category->id]) }}" target="_blank">Pobierz</a>
+                  </p>
+
                   <p>
                     <strong>Rozkład wyników kategorii {{ $category->name }}:</strong>
                     <a href="{{ route('admin.hrbp.category.values', ['category_id' => $category->id, 'survey' => $survey->id]) }}" target="_blank">Zobacz</a>
