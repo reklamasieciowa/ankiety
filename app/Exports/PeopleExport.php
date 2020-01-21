@@ -22,7 +22,7 @@ class PeopleExport implements FromCollection, WithMapping, WithHeadings
     	$headings[3] = 'Branża';
     	$headings[4] = 'Firma';
 
-    	$questions = Question::where('id', '<', 32)->with('translations')->get();
+    	$questions = Question::where('id', '<', 39)->with('translations')->get();
 
     	foreach($questions as $question) {
         	array_push($headings, $question->{'name:pl'});
@@ -59,7 +59,7 @@ class PeopleExport implements FromCollection, WithMapping, WithHeadings
     public function collection()
     {
     	$people = Person::with(['answers' => function ($query) {
-		    $query->where('question_id', '<', 32);
+		    $query->where('question_id', '<', 39);
 		}])->get();
 
     	$peopleWithAnswers = $people->filter(function ($item) {
