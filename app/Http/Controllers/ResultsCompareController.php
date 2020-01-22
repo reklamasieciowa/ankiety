@@ -190,7 +190,7 @@ class ResultsCompareController extends Controller
 
         $chart = NumberHrbpBusinessMultiple::generateChart($answersValues, 'radar', '');
 
-        return view('admin.result.chart', compact('chart', 'title'));
+        return view('admin.result.chartWithData', compact('chart', 'title', 'answersValues'));
     }
 
     public function CompareIndustries(Survey $survey)

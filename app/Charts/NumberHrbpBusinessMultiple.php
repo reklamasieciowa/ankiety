@@ -137,6 +137,7 @@ class NumberHrbpBusinessMultiple extends Chart
                 'datalabels': {
                     'color': '#ff0000',
                     'display': false,
+                    'align': 'left',
                     'font' : {
                         'weight': 'bold',
                         'size' : '22',

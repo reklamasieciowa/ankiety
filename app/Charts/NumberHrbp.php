@@ -94,7 +94,7 @@ class NumberHrbp extends Chart
                     'color': '#ffffff',
                     'font' : {
                         'weight': 'bold',
-                        'size' : '22',
+                        'size' : '16',
                         'family' : 'Merriweather',
                     },
                     formatter: function(value, context) {
