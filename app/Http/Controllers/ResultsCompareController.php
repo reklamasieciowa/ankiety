@@ -184,7 +184,7 @@ class ResultsCompareController extends Controller
             }
         }
 
-        dd($answersValues);
+        //dd($answersValues);
 
         $title = 'Kategorie HRBP vs Business';
 
