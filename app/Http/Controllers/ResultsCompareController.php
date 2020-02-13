@@ -121,8 +121,12 @@ class ResultsCompareController extends Controller
             'All' => []
         ];
 
+        $filler = collect([0,0,0,0,0,0]);
+
         foreach($people as $name=>$groups) {
             foreach($groups as $group) {
+                if($group->count()) {
+
                 $answers = Answer::where('question_id', '<', 32)
                 ->whereIn('person_id', $group)
                 ->with('question.category.translations')
@@ -136,9 +140,15 @@ class ResultsCompareController extends Controller
 
                 array_push($answersValues[$name],$answers->values());
 
+
                 if(empty($answersValues['keys'])) {
                     $answersValues['keys'] = $answers->keys();
                 }
+
+            } else {
+                array_push($answersValues[$name],$filler);
+            }
+
             }
         }
 
