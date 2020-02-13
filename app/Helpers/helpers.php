@@ -19,8 +19,8 @@ function FilterHigherThan($collection, $max)
 function getPoepleGroupsIds()
     {
         $people = [];
-        $people['hrbp'] = Person::whereIn('post_id', [1,2,3])->pluck('id');
-        $people['business'] = Person::whereIn('post_id', [4,5,6])->pluck('id');
+        $people['hrbp'] = Person::whereIn('post_id', [4,5,6])->pluck('id');
+        $people['business'] = Person::whereIn('post_id', [1,2,3])->pluck('id');
         $people['all'] = Person::all()->pluck('id');
         return $people;
     }
@@ -28,8 +28,8 @@ function getPoepleGroupsIds()
 function getPoepleHrbpBusinessIds()
     {
         $people = [];
-        $people['hrbp'] = Person::whereIn('post_id', [1,2,3])->pluck('id');
-        $people['business'] = Person::whereIn('post_id', [4,5,6])->pluck('id');
+        $people['hrbp'] = Person::whereIn('post_id', [4,5,6])->pluck('id');
+        $people['business'] = Person::whereIn('post_id', [1,2,3])->pluck('id');
         return $people;
     }
 
