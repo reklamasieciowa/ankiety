@@ -163,6 +163,8 @@ class ResultsCompareController extends Controller
             'All' => []
         ];
 
+        $filler = collect([0,0,0,0,0,0]);
+
         foreach($people as $name=>$groups) {
             foreach($groups as $group) {
                 $answers = Answer::where('question_id', '<', 32)
@@ -176,12 +178,20 @@ class ResultsCompareController extends Controller
                     return  $item->avg('value');
                 });
 
-                array_push($answersValues[$name],$answers->values());
+                //array_push($answersValues[$name],$answers->values());
 
-                if(empty($answersValues['keys'])) {
+                if($answers->values()->count())
+                    array_push($answersValues[$name],$answers->values());
+                else {
+                    array_push($answersValues[$name], $filler);
+                }
+
+                
+            }
+
+            if(empty($answersValues['keys'])) {
                     $answersValues['keys'] = $answers->keys();
                 }
-            }
         }
 
         //dd($answersValues);
