@@ -35,12 +35,20 @@ class HrbpBusinessCompareController extends Controller
                 return  $item->avg('value');
             });
 
-            $answersValues->push($answers->values());
+             //$answersValues->push($answers->values());
 
-            if(empty($answersValues['keys'])) {
-                $answersValues['keys'] = $answers->keys();
+            if(count($answers->values())) {
+                $answersValues->push($answers->values());
+                if(empty($answersValues['keys'])) {
+                    $answersValues['keys'] = $answers->keys();
+                }
+            } else {
+                $answersValues->push(collect([0,0,0,0,0,0]));
             }
+            
         }
+
+        //dd($answersValues);
 
         $title = 'Kategorie';
 
@@ -70,10 +78,13 @@ class HrbpBusinessCompareController extends Controller
                 return  $item->avg('value');
             });
 
-            $answersValues->push($answers->values());
-
-            if(empty($answersValues['keys'])) {
-                $answersValues['keys'] = $answers->keys();
+            if(count($answers->values())) {
+                $answersValues->push($answers->values());
+                if(empty($answersValues['keys'])) {
+                    $answersValues['keys'] = $answers->keys();
+                }
+            } else {
+                $answersValues->push(collect([0,0,0,0,0,0]));
             }
         }
 
@@ -135,6 +146,8 @@ class HrbpBusinessCompareController extends Controller
         $category_keys = $category_keys->concat($all_category_keys);
 
         $answers = array();
+
+ 
         array_push($answers, $answersHrbp);
         array_push($answers, $answersBusiness);
         array_push($answers, $answersAll);
