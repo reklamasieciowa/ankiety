@@ -239,7 +239,8 @@ class HrbpBusinessCompareController extends Controller
 
     public function topFive(Survey $survey, $group, $order = "worst")
     {
-        $numericQuestionsIds = $survey->questionsNumericIds();
+        //$numericQuestionsIds = $survey->questionsNumericIds();
+        $numericQuestionsIds = $survey->answers->where('question_id', '<', 32);
 
         $people = $survey->poepleHrbpBusinessIds();
 
